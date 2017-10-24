@@ -1,0 +1,4 @@
+1   alex    alexpassw    Alex   Boiko   m   Moderator
+2   tim     timpassw     Tim    Lee     m   User
+3   jacky   jackypassw  Jacky   Tompson m   Edigor
+...

@@ -1,0 +1,3 @@
+2000    "Design Patterns: Elements of Reusable Object-Oriented Software"    https://www.amazon.com/Design-Patterns-Elements-Reusable-Object-Oriented/dp/0201633612/     1994    "Addison-Wesley Professional"   "Erich Gamma, Richard Helm, Ralph Johnson, John Vlissides"  "Design patterns"   English   4.5
+2001    "Refactoring: Improving the Design of Existing Code"    https://www.amazon.com/Refactoring-Improving-Design-Existing-Code/dp/0201485672/    1999    "Addison-Wesley Professional"   "Martin Fowler, Kent Beck"  "Object-Oriented Design"    English     4.5
+....

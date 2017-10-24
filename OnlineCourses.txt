@@ -1,0 +1,3 @@
+1000   "Algorithms, Part I"   Coursera    Intermediate    "Kevin Wayne,  Robert Sedgewick"     6   English "Computer Science"    4.9
+1001   "Functional programming principles on Scala"    Coursera    Intermadiate    "Martin Odersky"    6   English     "Software Development"  4.8
+...
