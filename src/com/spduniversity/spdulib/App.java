@@ -9,7 +9,7 @@ public class App {
 
     public static void main(String[] args) {
 
-        if (args.length >= 2 && args[0].equals("-p") && args[1].equals("Items")) {
+        if (args.length > 1 && args[0].equals("-p") && args[1].equals("Items")) {
             if (args.length == 2) {
                 printLibrary();
             } else if (args.length == 3 && args[2].equals("--sortByItem")) {
@@ -29,7 +29,7 @@ public class App {
 
     }
 
-    static void printLibrary() {
+    private static void printLibrary() {
         for (int i = 0; i < dataStore.getItems().length; i++) {
             for (int j = 0; j < 5; j++) {
                 System.out.println(dataStore.getItems()[i][j].toString());
@@ -37,7 +37,7 @@ public class App {
         }
     }
 
-    static void printLibraryByItem() {
+    private static void printLibraryByItem() {
         for (int i = 0; i < dataStore.getItems().length; i++) {
             if (i == 0) {
                 System.out.println("Books");
@@ -50,7 +50,7 @@ public class App {
         }
     }
 
-    static void printByGenre(String genre) {
+    private static void printByGenre(String genre) {
         int numberOfFoundItems = 0;
         for (int i = 0; i < dataStore.getItems().length; i++) {
             for (int j = 0; j < 5; j++) {
@@ -76,11 +76,26 @@ public class App {
 
     }
 
-    static void printByUser(String login) {
+    private static void printByUser(String login) {
         int numberOfFoundUsers = 0;
+        int numberOfUsers = 0;
         int i = 0;
-        while (dataStore.getUserItems()[i] instanceof UserItem) {
+        while (dataStore.getUserItems()[i] != null) {
+
+            int j = 0;
+            for (; j < dataStore.getUsers().length && dataStore.getUsers()[j] != null; j++) {
+                if (!dataStore.getUsers()[j].getLogin().equals(login)) {
+                    numberOfUsers++;
+                }
+            }
+
+            if (numberOfUsers == j) {
+                System.out.println("User doesn't exist.");
+                return;
+            }
+
             UserItem userItem = dataStore.getUserItems()[i];
+
             if (userItem.getUser().getLogin().equals(login)) {
                 System.out.println(userItem.getItem().toString());
                 numberOfFoundUsers++;
@@ -88,8 +103,8 @@ public class App {
             i++;
         }
 
-        if (numberOfFoundUsers == 0) {
-            System.out.println("This user doesn't have any items or doesn't exist.");
+     if (numberOfFoundUsers == 0) {
+            System.out.println("This user doesn't have any items.");
         }
     }
 }
