@@ -75,4 +75,19 @@ public class OnlineCourse extends Item {
     public void setRating(double rating) {
         this.rating = rating;
     }
+
+    public String toString() {
+        String str = "";
+        str += "Id: " + getId() + "\n";
+        str += "Title: " + getTitle() + "\n";
+        str += "Link: " + getUrl() + "\n";
+        str += "Source: " + getSource() + "\n";
+        str += "Level: " + getLevel() + "\n";
+        str += "Authors: " + String.join(", ", getAuthors()) + "\n";
+        str += "Duration In Weeks: " + getDurationInWeeks() + "\n";
+        str += "Genre: " + getGenre() + "\n";
+        str += "Language: " + getLanguage() + "\n";
+        str += "Rating: " + getRating() + "\n";
+        return str;
+    }
 }
