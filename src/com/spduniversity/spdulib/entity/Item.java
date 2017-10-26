@@ -8,12 +8,6 @@ public class Item {
     private String title;
     private String url;
 
-    public Item(long id, String title, String url) {
-        this.id = id;
-        this.title = title;
-        this.url = url;
-    }
-
     public long getId() {
         return id;
     }
