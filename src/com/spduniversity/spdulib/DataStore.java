@@ -14,6 +14,11 @@ public class DataStore {
     private Item[][] items = new Item[ITEM_TYPES_COUNT][TOTAL_USER_COUNT];  // Our library
     private UserItem[] userItems = new UserItem[ITEM_TYPES_COUNT*TOTAL_USER_COUNT]; // User has some items
 
+    /* TODO: If you see that code can be splitted into different parts according to its logical
+    functionality it's better to move them into different methods. Good names of such methods allows to read code
+    more quickly. I see 3 or 4 different methods inside this one for initialization of each data list.
+    * */
+
     public DataStore() {
         users[0] = new User.Builder()
                 .id(1)

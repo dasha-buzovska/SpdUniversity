@@ -1,5 +1,9 @@
 package com.spduniversity.spdulib.entity;
 
+
+/* TODO: Authors, language and genre looks like common fields for
+OnlineCourse and Book, so why not to move them into Item class?
+* */
 public class OnlineCourse extends Item {
     private String source;  // Coursera, udemy, edx, Prometheus, etc.
     private String level;   // Basic, Intermediate, Advanced, Hard

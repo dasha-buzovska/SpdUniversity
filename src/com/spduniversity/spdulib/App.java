@@ -31,7 +31,7 @@ public class App {
 
     private static void printLibrary() {
         for (int i = 0; i < dataStore.getItems().length; i++) {
-            for (int j = 0; j < 5; j++) {
+            for (int j = 0; j < dataStore.getUsers().length && dataStore.getUsers()[j] != null; j++) {
                 System.out.println(dataStore.getItems()[i][j].toString());
             }
         }
@@ -62,6 +62,10 @@ public class App {
                     }
                 } else {
                     OnlineCourse onlineCourse = (OnlineCourse) dataStore.getItems()[i][j];
+
+                    /* TODO: What if some other type will be added in the datastore items array for i>1?
+                   It's better to check object type with instanceof first before doing such type of casting.*/
+
                     if (onlineCourse.getGenre().equals(genre)) {
                         System.out.println("Online Course: \n" + onlineCourse.toString());
                         numberOfFoundItems ++;
@@ -89,6 +93,11 @@ public class App {
                 }
             }
 
+/* TODO: numberOfUsers == j looks like a little bit complicated. Why not to invert condition of this IF statement
+and just to set some boolean that user exists instead of counting of how many of them are not good?
+Also this part can be moved to some method that checks that user can login to get next information.
+There can be more than one place in code that will need this check.
+* */
             if (numberOfUsers == j) {
                 System.out.println("User doesn't exist.");
                 return;
