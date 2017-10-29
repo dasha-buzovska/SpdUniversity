@@ -7,6 +7,9 @@ public class Item {
     private long id;
     private String title;
     private String url;
+    private String[] authors;
+    private String language;
+    private String genre;
 
     public long getId() {
         return id;
@@ -31,5 +34,30 @@ public class Item {
     public void setUrl(String url) {
         this.url = url;
     }
+
+    public String[] getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(String[] authors) {
+        this.authors = authors;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
 
 }

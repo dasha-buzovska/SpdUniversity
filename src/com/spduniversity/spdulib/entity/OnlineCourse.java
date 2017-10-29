@@ -1,16 +1,11 @@
 package com.spduniversity.spdulib.entity;
 
 
-/* TODO: Authors, language and genre looks like common fields for
-OnlineCourse and Book, so why not to move them into Item class?
-* */
+
 public class OnlineCourse extends Item {
     private String source;  // Coursera, udemy, edx, Prometheus, etc.
     private String level;   // Basic, Intermediate, Advanced, Hard
-    private String[] authors; // Course authors
     private int durationInWeeks; // 6 weeks
-    private String language;    // English, Russian, Ukrainian, etc.
-    private String genre;       // Programming, Business, Computer Science
     private double rating;
 
     public static class Builder {
@@ -85,10 +80,10 @@ public class OnlineCourse extends Item {
         setUrl(builder.url);
         source = builder.source;
         level = builder.level;
-        authors = builder.authors;
+        setAuthors(builder.authors);
         durationInWeeks = builder.durationInWeeks;
-        language = builder.language;
-        genre = builder.genre;
+        setLanguage(builder.language);
+        setGenre(builder.genre);
         rating = builder.rating;
     }
 
@@ -108,36 +103,12 @@ public class OnlineCourse extends Item {
         this.level = level;
     }
 
-    public String[] getAuthors() {
-        return authors;
-    }
-
-    public void setAuthors(String[] authors) {
-        this.authors = authors;
-    }
-
     public int getDurationInWeeks() {
         return durationInWeeks;
     }
 
     public void setDurationInWeeks(int durationInWeeks) {
         this.durationInWeeks = durationInWeeks;
-    }
-
-    public String getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(String language) {
-        this.language = language;
-    }
-
-    public String getGenre() {
-        return genre;
-    }
-
-    public void setGenre(String genre) {
-        this.genre = genre;
     }
 
     public double getRating() {

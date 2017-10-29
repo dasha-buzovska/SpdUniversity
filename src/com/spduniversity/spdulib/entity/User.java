@@ -73,55 +73,111 @@ public class User {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public User setId(long id) {
+        return new Builder()
+                .id(id)
+                .login(login)
+                .password(password)
+                .firstName(firstName)
+                .lastName(lastName)
+                .gender(gender)
+                .role(role)
+                .build();
     }
 
     public String getLogin() {
         return login;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public User setLogin(String login) {
+        return new Builder()
+                .id(id)
+                .login(login)
+                .password(password)
+                .firstName(firstName)
+                .lastName(lastName)
+                .gender(gender)
+                .role(role)
+                .build();
     }
 
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public User setPassword(String password) {
+        return new Builder()
+                .id(id)
+                .login(login)
+                .password(password)
+                .firstName(firstName)
+                .lastName(lastName)
+                .gender(gender)
+                .role(role)
+                .build();
     }
 
     public String getFirstName() {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public User setFirstName(String firstName) {
+        return new Builder()
+                .id(id)
+                .login(login)
+                .password(password)
+                .firstName(firstName)
+                .lastName(lastName)
+                .gender(gender)
+                .role(role)
+                .build();
     }
 
     public String getLastName() {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public User setLastName(String lastName) {
+        return new Builder()
+                .id(id)
+                .login(login)
+                .password(password)
+                .firstName(firstName)
+                .lastName(lastName)
+                .gender(gender)
+                .role(role)
+                .build();
     }
 
     public int getGender() {
         return gender;
     }
 
-    public void setGender(int gender) {
-        this.gender = gender;
+    public User setGender(int gender) {
+        return new Builder()
+                .id(id)
+                .login(login)
+                .password(password)
+                .firstName(firstName)
+                .lastName(lastName)
+                .gender(gender)
+                .role(role)
+                .build();
     }
 
     public String getRole() {
         return role;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public User setRole(String role) {
+        return new Builder()
+                .id(id)
+                .login(login)
+                .password(password)
+                .firstName(firstName)
+                .lastName(lastName)
+                .gender(gender)
+                .role(role)
+                .build();
     }
 }

@@ -3,9 +3,6 @@ package com.spduniversity.spdulib.entity;
 public class Book extends Item {
     private int publicationYear;    // 2017
     private String publisher;   // O'Relly
-    private String[] authors;
-    private String genre;   // Engineering, Business, Programming
-    private String language;    // English, Russian, etc
     private double amazonRating;
 
     public static class Builder {
@@ -75,9 +72,9 @@ public class Book extends Item {
         setUrl(builder.url);
         publicationYear = builder.publicationYear;
         publisher = builder.publisher;
-        authors = builder.authors;
-        genre = builder.genre;
-        language = builder.language;
+        setAuthors(builder.authors);
+        setGenre(builder.genre);
+        setLanguage(builder.language);
         amazonRating = builder.amazonRating;
     }
 
@@ -95,30 +92,6 @@ public class Book extends Item {
 
     public void setPublisher(String publisher) {
         this.publisher = publisher;
-    }
-
-    public String[] getAuthors() {
-        return authors;
-    }
-
-    public void setAuthors(String[] authors) {
-        this.authors = authors;
-    }
-
-    public String getGenre() {
-        return genre;
-    }
-
-    public void setGenre(String genre) {
-        this.genre = genre;
-    }
-
-    public String getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(String language) {
-        this.language = language;
     }
 
     public double getAmazonRating() {
