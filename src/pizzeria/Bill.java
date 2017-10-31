@@ -13,7 +13,7 @@ import pizzeria.goods.pizza.Pizza;
 public class Bill {
 
     private static final int MAX_NUMBER_OF_ORDER = 50;
-    Item[] order = new Item[MAX_NUMBER_OF_ORDER];
+    public Item[] order = new Item[MAX_NUMBER_OF_ORDER];
     private int counter = 0;
 
     public void add(int type, int id) {

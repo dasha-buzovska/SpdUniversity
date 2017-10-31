@@ -1,55 +1,66 @@
 package pizzeria;
 
+import pizzeria.goods.Desserts;
+import pizzeria.goods.Drinks;
+import pizzeria.goods.Item;
+import pizzeria.goods.Salads;
+import pizzeria.goods.constants.GoodsTypes;
+import pizzeria.goods.pizza.Pizza;
+import pizzeria.print.PrintBills;
 import pizzeria.print.PrintConsole;
 
 import java.util.Scanner;
 
 public class PizzaHouse {
+    static Scanner scanner = new Scanner(System.in);
+    static PrintConsole printConsole = new PrintConsole();
+    static Bill bill = new Bill();
+    static PrintBills bills = new PrintBills();
+
     public static void main(String[] args) {
-        PrintConsole printConsole = new PrintConsole();
-        Scanner scanner = new Scanner(System.in);
-
-        while (true) {
-
-            printConsole.printSalads();
-            System.out.print("Type index: ");
-            String input = scanner.nextLine();
-
-            if ("q".equals(input)) {
-                System.out.println("Exit!");
-                break;
-            }
-
-            System.out.println("input : " + input);
-            System.out.println("-----------\n");
-        }
-
-        scanner.close();
+        makeOrder();
     }
 
     static void makeOrder() {
-        PrintConsole printConsole = new PrintConsole();
-        Scanner scanner = new Scanner(System.in);
-
         while (true) {
 
-            printConsole.printSalads();
+            printConsole.printMenu();
             System.out.print("Type index: ");
             String input = scanner.nextLine();
+            System.out.println("-----------\n");
 
-            if ("q".equals(input)) {
-                System.out.println("Exit!");
+
+            chooseGood(input, "0", Salads.salads, "salad");
+            chooseGood(input, "1", Drinks.drinks, "drink");
+            chooseGood(input, "2", Desserts.desserts, "dessert");
+
+            if ("10".equals(input)) {
+                bills.printShortBill(bill);
                 break;
             }
 
-            System.out.println("input : " + input);
-            System.out.println("-----------\n");
+            if ("11".equals(input)) {
+                bills.printFullBill(bill);
+                break;
+            }
         }
 
         scanner.close();
     }
 
-    static void printBill() {
-
+    private static void chooseGood(String input, String index, Item[] good, String goodName) {
+        if (index.equals(input)) {
+            printConsole.print(good, goodName);
+            System.out.print("Type index: ");
+            String inputIndex = scanner.nextLine();
+            for (int j = 0; j < good.length; j++) {
+                String stringIndex = "" + j;
+                if (stringIndex.equals(inputIndex)) {
+                    bill.add(GoodsTypes.MENU[Integer.parseInt(index)], j);
+                }
+            }
+            System.out.println("-----------\n");
+        }
     }
+
 }

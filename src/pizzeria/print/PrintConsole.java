@@ -1,6 +1,7 @@
 package pizzeria.print;
 
 import pizzeria.goods.Drinks;
+import pizzeria.goods.Item;
 import pizzeria.goods.Salads;
 import pizzeria.goods.constants.GoodsTypes;
 
@@ -10,23 +11,18 @@ public class PrintConsole {
     public void printMenu() {
         System.out.println("What do you want?");
         for (int i = 0; i < GoodsTypes.MENU_NAMES.length; i++) {
-            System.out.println(i + 1 + " " + GoodsTypes.MENU_NAMES[i]);
+            System.out.println(i + " " + GoodsTypes.MENU_NAMES[i]);
+        }
+        System.out.println("10 Print short bill");
+        System.out.println("11 Print full bill");
+    }
+
+    public void print(Item[] array, String name) {
+        System.out.println("Choose your " + name);
+        System.out.println("index " + name + " price");
+        for (int i = 0; i < array.length; i++) {
+            System.out.println("  " + i + "  | " + array[i].getName() + "  " + array[i].getPrice());
         }
     }
 
-    public void printSalads() {
-        System.out.println("Choose your salad");
-        System.out.println("index  salad  price");
-        for (int i = 0; i < Salads.salads.length; i++) {
-            System.out.println("  " + (i + 1) + "  | " + Salads.salads[i].getName() + "  " + Salads.salads[i].getPrice());
-        }
-    }
-
-    public void printDrinks() {
-        System.out.println("Choose your drink");
-        System.out.println("index  drink  price");
-        for (int i = 0; i < Drinks.drinks.length; i++) {
-            System.out.println("  " + (i + 1) + "  | " + Drinks.drinks[i].getName() + "  " + Drinks.drinks[i].getPrice());
-        }
-    }
 }
