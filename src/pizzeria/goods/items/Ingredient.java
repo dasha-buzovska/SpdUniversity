@@ -1,6 +1,4 @@
-package pizzeria.goods.pizza;
-
-import pizzeria.goods.Item;
+package pizzeria.goods.items;
 
 public class Ingredient extends Item {
 

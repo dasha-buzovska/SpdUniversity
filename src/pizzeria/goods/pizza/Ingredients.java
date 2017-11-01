@@ -1,6 +1,6 @@
 package pizzeria.goods.pizza;
 
-import pizzeria.goods.Item;
+import pizzeria.goods.items.Ingredient;
 
 public class Ingredients {
 

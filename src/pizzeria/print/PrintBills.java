@@ -1,7 +1,7 @@
 package pizzeria.print;
 
 import pizzeria.Bill;
-import pizzeria.goods.pizza.Ingredient;
+import pizzeria.goods.items.Ingredient;
 
 public class PrintBills {
 
@@ -10,8 +10,7 @@ public class PrintBills {
         for (int i = 0; i < bill.order.length && bill.order[i] != null; i++) {
             System.out.println(bill.order[i].getName() + "\t\t" + bill.order[i].getPrice());
         }
-        System.out.println("\nTo pay:\t\t\t" + bill.calculate());
-        System.out.println("See you next time!");
+        printSum(bill);
     }
 
     public void printShortBill(Bill bill) {
@@ -31,7 +30,10 @@ public class PrintBills {
         if (ingredientsSum != 0) {
             System.out.println("Additions\t\t" + ingredientsSum);
         }
+        printSum(bill);
+    }
 
+    private static void printSum(Bill bill) {
         System.out.println("\nTo pay:\t\t\t" + bill.calculate());
         System.out.println("See you next time!");
     }

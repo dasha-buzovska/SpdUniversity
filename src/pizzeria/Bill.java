@@ -2,13 +2,12 @@ package pizzeria;
 
 import pizzeria.goods.Desserts;
 import pizzeria.goods.Drinks;
-import pizzeria.goods.Item;
+import pizzeria.goods.items.Item;
 import pizzeria.goods.Salads;
 import pizzeria.goods.constants.GoodsTypes;
 import pizzeria.goods.constants.PizzaSize;
 import pizzeria.goods.pizza.Ingredients;
 import pizzeria.goods.pizza.Pizza;
-import pizzeria.goods.pizza.PizzaItem;
 
 
 public class Bill {
@@ -43,16 +42,19 @@ public class Bill {
         counter++;
     }
 
-    void addPizza(int id, String size) {
+    boolean addPizza(int id, String size) {
         if (size.equals("n")) {
             order[counter] = new Item(PizzaSize.NORMAL + " " + Pizza.pizzas[id].getName(), Pizza.pizzas[id].getPrice());
         } else if (size.equals("b")) {
             order[counter] = new Item(PizzaSize.BIG + " " + Pizza.pizzas[id].getName(), Pizza.pizzas[id].getBigPrice());
         } else if (size.equals("m")) {
             order[counter] = new Item(PizzaSize.MAXI + " " + Pizza.pizzas[id].getName(), Pizza.pizzas[id].getMaxiPrice());
+        } else {
+            return false;
         }
         counter++;
         pizzaCounter++;
+        return true;
     }
 
     public void addPizzaIngredients(String name, int sum) {

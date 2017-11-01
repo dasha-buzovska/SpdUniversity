@@ -1,5 +1,7 @@
 package pizzeria.goods;
 
+import pizzeria.goods.items.Item;
+
 public class Desserts {
 
     public static final Item[] desserts = new Item[]{

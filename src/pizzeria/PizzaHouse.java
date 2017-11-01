@@ -2,11 +2,10 @@ package pizzeria;
 
 import pizzeria.goods.Desserts;
 import pizzeria.goods.Drinks;
-import pizzeria.goods.Item;
+import pizzeria.goods.items.Item;
 import pizzeria.goods.Salads;
 import pizzeria.goods.constants.GoodsTypes;
 import pizzeria.goods.pizza.Ingredients;
-import pizzeria.goods.pizza.Pizza;
 import pizzeria.print.PrintBills;
 import pizzeria.print.PrintConsole;
 
@@ -25,19 +24,17 @@ public class PizzaHouse {
     private static void makeOrder() {
         while (true) {
             printConsole.printMenu();
-            String input = typeIndex();
+            String index = typeIndex();
             System.out.println("\n");
-            chooseGood(input, "0", Salads.salads, "salad");
-            chooseGood(input, "1", Drinks.drinks, "drink");
-            chooseGood(input, "2", Desserts.desserts, "dessert");
-            choosePizza(input);
+            chooseGood(index, "0", Salads.salads, "salad");
+            chooseGood(index, "1", Drinks.drinks, "drink");
+            chooseGood(index, "2", Desserts.desserts, "dessert");
+            choosePizza(index);
 
-            if ("10".equals(input)) {
+            if ("s".equals(index)) {
                 bills.printShortBill(bill);
                 break;
-            }
-
-            if ("11".equals(input)) {
+            } else if ("f".equals(index)) {
                 bills.printFullBill(bill);
                 break;
             }
@@ -47,29 +44,30 @@ public class PizzaHouse {
 
     private static void chooseGood(String input, String index, Item[] good, String goodName) {
         if (index.equals(input)) {
-            printConsole.print(good, goodName);
+            printConsole.printGood(good, goodName);
+            System.out.println("  -  | back to menu");
             String inputIndex = typeIndex();
-            for (int j = 0; j < good.length; j++) {
-                String stringIndex = "" + j;
-                if (stringIndex.equals(inputIndex)) {
-                    bill.add(GoodsTypes.MENU[Integer.parseInt(index)], j);
-                }
+            if ("-".equals(inputIndex)) {
+                return;
+            }
+            try {
+                bill.add(GoodsTypes.MENU[Integer.parseInt(index)], Integer.parseInt(inputIndex));
+            } catch (Exception e) {
+                System.out.println("Wrong sign was typed. Try again.");
             }
             System.out.println("\n");
         }
     }
 
-    private static void choosePizza(String input) {
-        if ("3".equals(input)) {
+    private static void choosePizza(String index) {
+        if ("3".equals(index)) {
             printConsole.printPizza();
             String inputIndex = typeIndex();
             System.out.println("Choose size (n, b, m): ");
             String sizeIndex = typeIndex();
-            for (int i = 0; i < Pizza.pizzas.length; i++) {
-                String stringIndex = i + "";
-                if (inputIndex.equals(stringIndex)) {
-                    bill.addPizza(i, sizeIndex);
-                }
+            boolean success = bill.addPizza(Integer.parseInt(inputIndex), sizeIndex);
+            if (!success) {
+                return;
             }
             System.out.println("Do you want some additions? \n Type here (yes/no): ");
             String wantAdditional = scanner.nextLine();
@@ -79,31 +77,29 @@ public class PizzaHouse {
         }
     }
 
-    private static String typeIndex() {
-        System.out.print("Type index: ");
-        return scanner.nextLine();
-    }
-
     private static void chooseIngredients(String sizeIndex) {
         String ingredientIndex = "";
         while (true) {
-            printConsole.print(Ingredients.ingredients, "ingredient");
+            printConsole.printGood(Ingredients.ingredients, "ingredient");
             System.out.println("  -  | back to menu");
             ingredientIndex = typeIndex();
-            for (int j = 0; j < Ingredients.ingredients.length; j++) {
-                String stringIndex = "" + j;
-                if (stringIndex.equals(ingredientIndex)) {
-                    bill.add(GoodsTypes.INGREDIENT, j);
-                    if (sizeIndex.equals("m")) {
-                        bill.add(GoodsTypes.INGREDIENT, j);
-                    }
-                }
+            if ("-".equals(ingredientIndex)) {
+                return;
             }
-            if (ingredientIndex.equals("-")) {
-                printConsole.printMenu();
-                break;
+            try {
+                bill.add(GoodsTypes.INGREDIENT, Integer.parseInt(ingredientIndex));
+                if (sizeIndex.equals("m")) {
+                    bill.add(GoodsTypes.INGREDIENT, Integer.parseInt(ingredientIndex));
+                }
+            } catch (Exception e) {
+                System.out.println("Wrong sign was typed. Try again.");
             }
         }
+    }
+
+    private static String typeIndex() {
+        System.out.print("Type index: ");
+        return scanner.nextLine();
     }
 
 }

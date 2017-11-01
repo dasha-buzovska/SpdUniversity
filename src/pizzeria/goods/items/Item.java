@@ -1,4 +1,4 @@
-package pizzeria.goods;
+package pizzeria.goods.items;
 
 public class Item {
     private String name;
