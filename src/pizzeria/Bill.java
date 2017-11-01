@@ -15,8 +15,9 @@ public class Bill {
 
     private static final int MAX_NUMBER_OF_ORDER = 50;
     public Item[] order = new Item[MAX_NUMBER_OF_ORDER];
-    private int counter = 0;
+    private int counter = 0, pizzaCounter = 0;
     private int sum = 0;
+    private Item[] pizzaIngredients = new Item[MAX_NUMBER_OF_ORDER];
 
     public void add(int type, int id) {
         switch (type) {
@@ -44,26 +45,18 @@ public class Bill {
 
     void addPizza(int id, String size) {
         if (size.equals("n")) {
-            order[counter] = new Item(Pizza.pizzas[id].getName(), Pizza.pizzas[id].getPrice());
+            order[counter] = new Item(PizzaSize.NORMAL + " " + Pizza.pizzas[id].getName(), Pizza.pizzas[id].getPrice());
         } else if (size.equals("b")) {
-            order[counter] = new Item(Pizza.pizzas[id].getName(), Pizza.pizzas[id].getBigPrice());
+            order[counter] = new Item(PizzaSize.BIG + " " + Pizza.pizzas[id].getName(), Pizza.pizzas[id].getBigPrice());
         } else if (size.equals("m")) {
-            order[counter] = new Item(Pizza.pizzas[id].getName(), Pizza.pizzas[id].getMaxiPrice());
+            order[counter] = new Item(PizzaSize.MAXI + " " + Pizza.pizzas[id].getName(), Pizza.pizzas[id].getMaxiPrice());
         }
         counter++;
+        pizzaCounter++;
     }
 
-    public void calculatePizza(String size) {
-        for (int i = 0; i < order.length && order[i] != null; i++) {
-            PizzaItem pizzaItem = (PizzaItem) order[i];
-            if (size.equals(PizzaSize.NORMAL)) {
-                sum += pizzaItem.getPrice();
-            } else if (size.equals(PizzaSize.BIG)) {
-                sum += pizzaItem.getBigPrice();
-            } else if (size.equals(PizzaSize.MAXI)) {
-                sum += pizzaItem.getMaxiPrice();
-            }
-        }
+    public void addPizzaIngredients(String name, int sum) {
+        pizzaIngredients[pizzaCounter] = new Item(name, sum);
     }
 
     public int calculate() {

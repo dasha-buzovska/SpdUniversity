@@ -9,6 +9,7 @@ import pizzeria.goods.pizza.Pizza;
 import java.util.Scanner;
 
 public class PrintConsole {
+
     public void printMenu() {
         System.out.println("What do you want?");
         for (int i = 0; i < GoodsTypes.MENU_NAMES.length; i++) {
