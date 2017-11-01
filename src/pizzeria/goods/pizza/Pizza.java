@@ -4,10 +4,11 @@ import pizzeria.goods.Item;
 
 public class Pizza {
 
-    public static final Item[] pizzas = new Item[]{
-            new Item("Margarita", 35),
-            new Item("Peperoni", 45),
-            new Item("4 Cheeses", 50),
-            new Item("Seafood", 70)
+    public static final PizzaItem[] pizzas = new PizzaItem[]{
+            new PizzaItem("Your pizza", 15, 20, 25),
+            new PizzaItem("Margarita", 35, 40, 45),
+            new PizzaItem("Peperoni", 45, 50, 55),
+            new PizzaItem("4 Cheeses", 50, 60, 70),
+            new PizzaItem("Seafood", 70, 85, 100)
     };
 }
