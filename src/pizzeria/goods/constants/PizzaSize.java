@@ -1,7 +1,13 @@
 package pizzeria.goods.constants;
 
-public class PizzaSize {
-    public static final String NORMAL = "Normal";
-    public static final String BIG = "Big";
-    public static final String MAXI = "Maxi";
+public enum PizzaSize {
+    NORMAL("Normal"), BIG("Big"), MAXI("Maxi");
+    private String name;
+    PizzaSize(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
 }

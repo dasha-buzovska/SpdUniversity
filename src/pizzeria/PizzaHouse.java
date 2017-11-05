@@ -9,7 +9,10 @@ import pizzeria.goods.pizza.Ingredients;
 import pizzeria.print.PrintBills;
 import pizzeria.print.PrintConsole;
 
+import java.util.ArrayList;
 import java.util.Scanner;
+
+import static pizzeria.goods.constants.GoodsTypes.INGREDIENT;
 
 public class PizzaHouse {
     private static Scanner scanner = new Scanner(System.in);
@@ -42,7 +45,7 @@ public class PizzaHouse {
         scanner.close();
     }
 
-    private static void chooseGood(String input, String index, Item[] good, String goodName) {
+    private static void chooseGood(String input, String index, ArrayList<? extends Item> good, String goodName) {
         if (index.equals(input)) {
             printConsole.printGood(good, goodName);
             System.out.println("  -  | back to menu");
@@ -51,7 +54,7 @@ public class PizzaHouse {
                 return;
             }
             try {
-                bill.add(GoodsTypes.MENU[Integer.parseInt(index)], Integer.parseInt(inputIndex));
+                bill.add(GoodsTypes.values()[Integer.parseInt(index)], Integer.parseInt(inputIndex));
             } catch (Exception e) {
                 System.out.println("Wrong sign was typed. Try again.");
             }
@@ -87,9 +90,9 @@ public class PizzaHouse {
                 return;
             }
             try {
-                bill.add(GoodsTypes.INGREDIENT, Integer.parseInt(ingredientIndex));
+                bill.add(INGREDIENT, Integer.parseInt(ingredientIndex));
                 if (sizeIndex.equals("m")) {
-                    bill.add(GoodsTypes.INGREDIENT, Integer.parseInt(ingredientIndex));
+                    bill.add(INGREDIENT, Integer.parseInt(ingredientIndex));
                 }
             } catch (Exception e) {
                 System.out.println("Wrong sign was typed. Try again.");

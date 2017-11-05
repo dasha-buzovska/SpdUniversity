@@ -4,44 +4,38 @@ import pizzeria.goods.items.Item;
 import pizzeria.goods.constants.GoodsTypes;
 import pizzeria.goods.pizza.Pizza;
 
+import java.util.ArrayList;
+
 public class PrintConsole {
+    WhiteSpace whiteSpace = new WhiteSpace();
 
     public void printMenu() {
         System.out.println("What do you want?");
-        for (int i = 0; i < GoodsTypes.MENU_NAMES.length; i++) {
-            System.out.println(i + " " + GoodsTypes.MENU_NAMES[i]);
+        for (int i = 0; i < GoodsTypes.values().length - 1; i++) {
+            System.out.println(i + " " + GoodsTypes.values()[i].getName());
         }
         System.out.println("s Print short bill");
         System.out.println("f Print full bill");
     }
 
-    public void printGood(Item[] array, String name) {
+    public void printGood(ArrayList<? extends Item> array, String name) {
         System.out.println("Choose your " + name);
-        System.out.println("index  " + whiteSpaceCounter(name) + "price");
-        for (int i = 0; i < array.length; i++) {
-            System.out.println("  " + i + "  | " + whiteSpaceCounter(array[i].getName()) + array[i].getPrice());
+        System.out.println("index  " + whiteSpace.print(name) + "price");
+        for (int i = 0; i < array.size(); i++) {
+            System.out.println("  " + i + "  | " + whiteSpace.print(array.get(i).getName()) + array.get(i).getPrice());
         }
     }
 
     public void printPizza() {
         System.out.println("Choose your pizza");
-        System.out.println("index    " + whiteSpaceCounter("pizza") + "Normal Big Maxi");
-        for (int i = 0; i < Pizza.pizzas.length; i++) {
+        System.out.println("index    " + whiteSpace.print("pizza") + "Normal Big Maxi");
+        for (int i = 0; i < Pizza.pizzas.size(); i++) {
             System.out.println("  " + i + "  | "
-                    + whiteSpaceCounter(Pizza.pizzas[i].getName())
-                    + "  " + Pizza.pizzas[i].getPrice() + "   "
-                    + Pizza.pizzas[i].getBigPrice() + "   "
-                    + Pizza.pizzas[i].getMaxiPrice());
+                    + whiteSpace.print(Pizza.pizzas.get(i).getName())
+                    + "  " + Pizza.pizzas.get(i).getPrice() + "   "
+                    + Pizza.pizzas.get(i).getBigPrice() + "   "
+                    + Pizza.pizzas.get(i).getMaxiPrice());
         }
-    }
-
-    private static StringBuffer whiteSpaceCounter(String name) {
-        StringBuffer space = new StringBuffer(name);
-        int spacesDistance = 20;
-        for (int i = 0; i < spacesDistance - name.length(); i++) {
-            space = space.append(" ");
-        }
-        return space;
     }
 
 }

@@ -1,16 +1,19 @@
 package pizzeria.goods;
-//можна зробити, щоб був тільки метод ед, який би приймвав назву салату
 
 import pizzeria.goods.items.Item;
 
+import java.util.ArrayList;
+
 public class Salads {
 
-    public static final Item[] salads = new Item[]{
-            new Item("Greek", 30),
-            new Item("Spring", 40),
-            new Item("Happy", 24),
-            new Item("Healthy", 18),
-            new Item("Tsezar", 34)
-    };
+    public static final ArrayList<Item> salads = new ArrayList<>();
+
+    static {
+        salads.add(new Item("Greek", 30));
+        salads.add(new Item("Spring", 40));
+        salads.add(new Item("Happy", 24));
+        salads.add(new Item("Healthy", 18));
+        salads.add(new Item("Tsezar", 34));
+    }
 
 }

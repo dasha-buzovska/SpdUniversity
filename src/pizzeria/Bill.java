@@ -9,70 +9,58 @@ import pizzeria.goods.constants.PizzaSize;
 import pizzeria.goods.pizza.Ingredients;
 import pizzeria.goods.pizza.Pizza;
 
+import java.util.ArrayList;
+
 
 public class Bill {
 
-    private static final int MAX_NUMBER_OF_ORDER = 50;
-    public Item[] order = new Item[MAX_NUMBER_OF_ORDER];
-    private int counter = 0, pizzaCounter = 0;
+    public ArrayList<Item> order = new ArrayList<>();
     private int sum = 0;
-    private Item[] pizzaIngredients = new Item[MAX_NUMBER_OF_ORDER];
 
-    public void add(int type, int id) {
+    public void add(GoodsTypes type, int id) {
         switch (type) {
-            case GoodsTypes.SALAD:
-                order[counter] = Salads.salads[id];
+            case SALAD:
+                order.add(Salads.salads.get(id));
                 break;
-            case GoodsTypes.DRINK:
-                order[counter] = Drinks.drinks[id];
+            case DRINK:
+                order.add(Drinks.drinks.get(id));
                 break;
-            case GoodsTypes.DESSERT:
-                order[counter] = Desserts.desserts[id];
+            case DESSERT:
+                order.add(Desserts.desserts.get(id));
                 break;
-            case GoodsTypes.PIZZA:
-                order[counter] = Pizza.pizzas[id];
+            case PIZZA:
+                order.add(Pizza.pizzas.get(id));
                 break;
-            case GoodsTypes.INGREDIENT:
-                order[counter] = Ingredients.ingredients[id];
+            case INGREDIENT:
+                order.add(Ingredients.ingredients.get(id));
                 break;
             default:
                 System.out.println("error");
                 return;
         }
-        counter++;
     }
 
     boolean addPizza(int id, String size) {
         if (size.equals("n")) {
-            order[counter] = new Item(PizzaSize.NORMAL + " " + Pizza.pizzas[id].getName(), Pizza.pizzas[id].getPrice());
+            order.add(new Item(PizzaSize.NORMAL.getName() + " " + Pizza.pizzas.get(id).getName(),
+                    Pizza.pizzas.get(id).getPrice()));
         } else if (size.equals("b")) {
-            order[counter] = new Item(PizzaSize.BIG + " " + Pizza.pizzas[id].getName(), Pizza.pizzas[id].getBigPrice());
+            order.add(new Item(PizzaSize.BIG.getName() + " " + Pizza.pizzas.get(id).getName(),
+                    Pizza.pizzas.get(id).getBigPrice()));
         } else if (size.equals("m")) {
-            order[counter] = new Item(PizzaSize.MAXI + " " + Pizza.pizzas[id].getName(), Pizza.pizzas[id].getMaxiPrice());
+            order.add(new Item(PizzaSize.MAXI.getName() + " " + Pizza.pizzas.get(id).getName(),
+                    Pizza.pizzas.get(id).getMaxiPrice()));
         } else {
             return false;
         }
-        counter++;
-        pizzaCounter++;
         return true;
     }
 
-    public void addPizzaIngredients(String name, int sum) {
-        pizzaIngredients[pizzaCounter] = new Item(name, sum);
-    }
-
     public int calculate() {
-        for (int i = 0; i < order.length && order[i] != null; i++) {
-            sum += order[i].getPrice();
+        for (int i = 0; i < order.size(); i++) {
+            sum += order.get(i).getPrice();
         }
         return sum;
     }
 
-
-
-    private static void validate(Item[] array, int id) {
-        if (id >= array.length) {
-            System.out.println("No item with this id.");
-        }
-    }
 }
