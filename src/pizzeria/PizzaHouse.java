@@ -11,7 +11,7 @@ import pizzeria.print.PrintConsole;
 
 import java.util.Scanner;
 
-import static pizzeria.goods.constants.GoodsTypes.INGREDIENT;
+import static pizzeria.goods.constants.GoodsTypes.*;
 
 public class PizzaHouse {
     private static Scanner scanner = new Scanner(System.in);
@@ -28,9 +28,9 @@ public class PizzaHouse {
             printConsole.printMenu();
             String index = typeIndex();
             System.out.println("\n");
-            chooseGood(index, "0", Salads.values(), "salad");
-            chooseGood(index, "1", Drinks.values(), "drink");
-            chooseGood(index, "2", Desserts.values(), "dessert");
+            chooseGood(index, "0", Salads.values(), SALAD.getName().toLowerCase());
+            chooseGood(index, "1", Drinks.values(), DRINK.getName().toLowerCase());
+            chooseGood(index, "2", Desserts.values(), DESSERT.getName().toLowerCase());
             choosePizza(index);
 
             if ("s".equals(index)) {
@@ -38,6 +38,9 @@ public class PizzaHouse {
                 break;
             } else if ("f".equals(index)) {
                 bills.printFullBill(bill);
+                break;
+            } else if ("v".equals(index)) {
+                bills.printVegetarianBill(bill);
                 break;
             }
         }

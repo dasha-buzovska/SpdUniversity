@@ -14,6 +14,7 @@ public class PrintConsole {
         }
         System.out.println("s Print short bill");
         System.out.println("f Print full bill");
+        System.out.println("v Print veggie-non/alcohol bill");
     }
 
     public void printGood(Good[] array, String name) {
@@ -33,6 +34,7 @@ public class PrintConsole {
                     + "  " + Pizza.values()[i].getPrice() + "   "
                     + Pizza.values()[i].getBigPrice() + "   "
                     + Pizza.values()[i].getMaxiPrice());
+            Pizza.values()[i].printElements();
         }
     }
 
