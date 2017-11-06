@@ -1,19 +1,30 @@
 package pizzeria.goods;
 
-import pizzeria.goods.items.Item;
+import pizzeria.interfaces.Drinkable;
 
-import java.util.ArrayList;
-import java.util.List;
+public enum Drinks implements Drinkable {
+    TEA("Tea", 10, false), COFFEE("Coffee", 20, false), WATER("Water", 11, false),
+    JUICE("Juice", 15, false), BEER("Beer", 24, true), VODKA("Vodka", 20, true);
 
-public class Drinks {
+    private String name;
+    private int price;
+    private boolean isAlcoholic;
 
-    public static final ArrayList<Item> drinks = new ArrayList<>();
+    Drinks(String name, int price, boolean isAlcoholic){
+        this.name = name;
+        this.price = price;
+        this.isAlcoholic = isAlcoholic;
+    }
 
-    static {
-        drinks.add(new Item("Tea", 10));
-        drinks.add(new Item("Coffee", 20));
-        drinks.add(new Item("Beer", 24));
-        drinks.add(new Item("Water", 11));
-        drinks.add(new Item("Juice", 15));
+    public String getName() {
+        return name;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public boolean isAlcoholic() {
+        return isAlcoholic;
     }
 }

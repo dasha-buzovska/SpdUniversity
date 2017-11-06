@@ -1,18 +1,29 @@
 package pizzeria.goods;
 
-import pizzeria.goods.items.Item;
+import pizzeria.interfaces.Eatable;
+import pizzeria.interfaces.Good;
 
-import java.util.ArrayList;
-import java.util.List;
+public enum Desserts implements Good, Eatable {
+    PUN_CAKE("Pun-cake", 20), FONDANT("Fondant", 40), COOKIES("Cookies", 12), ICE_CREAM("Ice-cream", 10);
 
-public class Desserts {
+    private String name;
+    private int price;
 
-    public static final ArrayList<Item> desserts = new ArrayList<>();
-
-    static {
-        desserts.add(new Item("Pun-cake", 20));
-        desserts.add(new Item("Fondant", 40));
-        desserts.add(new Item("Cookies", 12));
-        desserts.add(new Item("Ice-cream", 10));
+    public String getName() {
+        return name;
     }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public boolean isVegetarian() {
+        return true;
+    }
+
+    Desserts(String name, int price) {
+        this.name = name;
+        this.price = price;
+    }
+
 }

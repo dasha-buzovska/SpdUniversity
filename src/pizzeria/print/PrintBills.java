@@ -1,7 +1,8 @@
 package pizzeria.print;
 
 import pizzeria.Bill;
-import pizzeria.goods.items.Ingredient;
+import pizzeria.interfaces.Good;
+import pizzeria.goods.pizza.Ingredients;
 
 public class PrintBills {
 
@@ -10,7 +11,8 @@ public class PrintBills {
     public void printFullBill(Bill bill) {
         System.out.println("Pizza House.");
         for (int i = 0; i < bill.order.size(); i++) {
-            System.out.println("" + whiteSpace.print(bill.order.get(i).getName()) + bill.order.get(i).getPrice());
+            Good good = (Good) bill.order.get(i);
+            System.out.println("" + whiteSpace.print(good.getName()) + good.getPrice());
         }
         printSum(bill);
     }
@@ -19,14 +21,15 @@ public class PrintBills {
         int ingredientsSum = 0;
         System.out.println("Pizza House.");
         for (int i = 0; i < bill.order.size(); i++) {
-            if (bill.order.get(i) instanceof Ingredient) {
-                ingredientsSum += bill.order.get(i).getPrice();
+            Good good = (Good) bill.order.get(i);
+            if (bill.order.get(i) instanceof Ingredients) {
+                ingredientsSum += good.getPrice();
             } else {
                 if (ingredientsSum != 0) {
                     System.out.println("" + whiteSpace.print("Additions") + ingredientsSum);
                     ingredientsSum = 0;
                 }
-                System.out.println("" + whiteSpace.print(bill.order.get(i).getName()) + bill.order.get(i).getPrice());
+                System.out.println("" + whiteSpace.print(good.getName()) + good.getPrice());
             }
         }
         if (ingredientsSum != 0) {

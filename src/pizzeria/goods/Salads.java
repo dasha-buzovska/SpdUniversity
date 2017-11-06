@@ -1,19 +1,31 @@
 package pizzeria.goods;
 
-import pizzeria.goods.items.Item;
+import pizzeria.interfaces.Eatable;
+import pizzeria.interfaces.Good;
 
-import java.util.ArrayList;
+public enum Salads implements Good, Eatable {
+    GREEK("Greek", 30, true), SPRING("Spring", 40, false), HAPPY("Happy", 24, false),
+    HEALTHY("Healthy", 18, true), CARROT_SALAD("Carrot salad", 15, true), INSALATA("Insalata", 25, true);
 
-public class Salads {
+    private String name;
+    private int price;
+    private boolean isVegetarian;
 
-    public static final ArrayList<Item> salads = new ArrayList<>();
-
-    static {
-        salads.add(new Item("Greek", 30));
-        salads.add(new Item("Spring", 40));
-        salads.add(new Item("Happy", 24));
-        salads.add(new Item("Healthy", 18));
-        salads.add(new Item("Tsezar", 34));
+    Salads(String name, int price, boolean isVegetarian) {
+        this.name = name;
+        this.price = price;
+        this.isVegetarian = isVegetarian;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public boolean isVegetarian() {
+        return isVegetarian;
+    }
 }

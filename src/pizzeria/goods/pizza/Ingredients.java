@@ -1,21 +1,32 @@
 package pizzeria.goods.pizza;
 
-import pizzeria.goods.items.Ingredient;
+import pizzeria.interfaces.Eatable;
+import pizzeria.interfaces.Good;
 
-import java.util.ArrayList;
-import java.util.List;
+public enum Ingredients implements Good, Eatable {
+    CHEESE("Cheese", 5, true), SAUSAGE("Sausage", 8, false), PINEAPPLE("Pineapple", 7, true),
+    CORN("Corn", 6, true), TOMATO("Tomato", 5, true), SALMON("Salmon", 12, true),
+    CHICKEN("Chicken", 10, false), ONION("Onion", 4, true);
+    private String name;
+    private int price;
+    private boolean isVegetarian;
 
-public class Ingredients {
-
-    public static final ArrayList<Ingredient> ingredients = new ArrayList<>();
-
-    static {
-        ingredients.add(new Ingredient("Cheese", 5));
-        ingredients.add(new Ingredient("Sausage", 8));
-        ingredients.add(new Ingredient("Pineapple", 7));
-        ingredients.add(new Ingredient("Corn", 4));
-        ingredients.add(new Ingredient("Tomato", 6));
-        ingredients.add(new Ingredient("Salmon", 15));
+    Ingredients(String name, int price, boolean isVegetarian) {
+        this.name = name;
+        this.price = price;
+        this.isVegetarian = isVegetarian;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public boolean isVegetarian() {
+        return isVegetarian;
+    }
 }
+

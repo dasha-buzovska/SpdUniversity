@@ -1,19 +1,51 @@
 package pizzeria.goods.pizza;
 
-import pizzeria.goods.items.PizzaItem;
+import pizzeria.interfaces.Eatable;
+import pizzeria.interfaces.Good;
+import pizzeria.interfaces.PizzaItem;
 
-import java.util.ArrayList;
-import java.util.List;
+public enum Pizza implements Good, Eatable, PizzaItem {
 
-public class Pizza {
+    YOUR_PIZZA("Your pizza", 15, 20, 25, true), MARGARITA("Margarita", 35, 40, 45, true),
+    PEPERONI("Peperoni", 45, 50, 55, false), FOUR_CHEESES("4 Cheeses", 50, 60, 70, true),
+    SEAFOOD("Seafood", 70, 85, 100, true), HAWAIIAN("Hawaiian", 65, 70, 80, false);
 
-    public static final ArrayList<PizzaItem> pizzas = new ArrayList<>();
+    private String name;
+    private int price;
+    private int bigPrice;
+    private int maxiPrice;
+    private boolean isVegetarian;
 
-    static {
-        pizzas.add(new PizzaItem("Your pizza", 15, 20, 25));
-        pizzas.add(new PizzaItem("Margarita", 35, 40, 45));
-        pizzas.add(new PizzaItem("Peperoni", 45, 50, 55));
-        pizzas.add(new PizzaItem("4 Cheeses", 50, 60, 70));
-        pizzas.add(new PizzaItem("Seafood", 70, 85, 100));
+    Pizza(String name, int price, int bigPrice, int maxiPrice, boolean isVegetarian) {
+        this.name = name;
+        this.price = price;
+        this.bigPrice = bigPrice;
+        this.maxiPrice = maxiPrice;
+        this.isVegetarian = isVegetarian;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public int getPrice() {
+        return price;
+    }
+
+    @Override
+    public int getBigPrice() {
+        return bigPrice;
+    }
+
+    @Override
+    public int getMaxiPrice() {
+        return maxiPrice;
+    }
+
+    @Override
+    public boolean isVegetarian() {
+        return isVegetarian;
     }
 }

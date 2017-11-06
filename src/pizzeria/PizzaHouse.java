@@ -2,14 +2,13 @@ package pizzeria;
 
 import pizzeria.goods.Desserts;
 import pizzeria.goods.Drinks;
-import pizzeria.goods.items.Item;
+import pizzeria.interfaces.Good;
 import pizzeria.goods.Salads;
 import pizzeria.goods.constants.GoodsTypes;
 import pizzeria.goods.pizza.Ingredients;
 import pizzeria.print.PrintBills;
 import pizzeria.print.PrintConsole;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import static pizzeria.goods.constants.GoodsTypes.INGREDIENT;
@@ -29,9 +28,9 @@ public class PizzaHouse {
             printConsole.printMenu();
             String index = typeIndex();
             System.out.println("\n");
-            chooseGood(index, "0", Salads.salads, "salad");
-            chooseGood(index, "1", Drinks.drinks, "drink");
-            chooseGood(index, "2", Desserts.desserts, "dessert");
+            chooseGood(index, "0", Salads.values(), "salad");
+            chooseGood(index, "1", Drinks.values(), "drink");
+            chooseGood(index, "2", Desserts.values(), "dessert");
             choosePizza(index);
 
             if ("s".equals(index)) {
@@ -45,7 +44,7 @@ public class PizzaHouse {
         scanner.close();
     }
 
-    private static void chooseGood(String input, String index, ArrayList<? extends Item> good, String goodName) {
+    private static void chooseGood(String input, String index, Good[] good, String goodName) {
         if (index.equals(input)) {
             printConsole.printGood(good, goodName);
             System.out.println("  -  | back to menu");
@@ -54,7 +53,7 @@ public class PizzaHouse {
                 return;
             }
             try {
-                bill.add(GoodsTypes.values()[Integer.parseInt(index)], Integer.parseInt(inputIndex));
+                bill.addGood(GoodsTypes.values()[Integer.parseInt(index)], Integer.parseInt(inputIndex));
             } catch (Exception e) {
                 System.out.println("Wrong sign was typed. Try again.");
             }
@@ -83,16 +82,16 @@ public class PizzaHouse {
     private static void chooseIngredients(String sizeIndex) {
         String ingredientIndex = "";
         while (true) {
-            printConsole.printGood(Ingredients.ingredients, "ingredient");
+            printConsole.printGood(Ingredients.values(), "ingredient");
             System.out.println("  -  | back to menu");
             ingredientIndex = typeIndex();
             if ("-".equals(ingredientIndex)) {
                 return;
             }
             try {
-                bill.add(INGREDIENT, Integer.parseInt(ingredientIndex));
+                bill.addGood(INGREDIENT, Integer.parseInt(ingredientIndex));
                 if (sizeIndex.equals("m")) {
-                    bill.add(INGREDIENT, Integer.parseInt(ingredientIndex));
+                    bill.addGood(INGREDIENT, Integer.parseInt(ingredientIndex));
                 }
             } catch (Exception e) {
                 System.out.println("Wrong sign was typed. Try again.");
