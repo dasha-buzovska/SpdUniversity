@@ -1,10 +1,9 @@
 package pizzeria.goods.pizza;
 
-import pizzeria.interfaces.Eatable;
-import pizzeria.interfaces.Good;
-import pizzeria.interfaces.PizzaItem;
+import pizzeria.goods.food.Eatable;
+import pizzeria.goods.food.Good;
 
-public enum Pizza implements Good, Eatable, PizzaItem {
+public enum Pizza implements Good, Eatable {
 
     YOUR_PIZZA("Your pizza", 15, 20, 25, true, new String[]{"Base", "Sauce"}),
     MARGARITA("Margarita", 35, 40, 45, true, new String[]{"Tomato", "Cheese"}),
@@ -40,12 +39,10 @@ public enum Pizza implements Good, Eatable, PizzaItem {
         return price;
     }
 
-    @Override
     public int getBigPrice() {
         return bigPrice;
     }
 
-    @Override
     public int getMaxiPrice() {
         return maxiPrice;
     }

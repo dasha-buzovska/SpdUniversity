@@ -1,7 +1,4 @@
-package pizzeria.goods.items;
-
-import pizzeria.interfaces.Eatable;
-import pizzeria.interfaces.Good;
+package pizzeria.goods.food;
 
 public class Item implements Good, Eatable {
     private String name;

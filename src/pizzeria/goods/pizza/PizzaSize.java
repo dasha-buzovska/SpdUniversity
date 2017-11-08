@@ -1,4 +1,4 @@
-package pizzeria.goods.constants;
+package pizzeria.goods.pizza;
 
 public enum PizzaSize {
     NORMAL("Normal"), BIG("Big"), MAXI("Maxi");

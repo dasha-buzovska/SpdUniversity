@@ -2,39 +2,34 @@ package pizzeria;
 
 import pizzeria.goods.Desserts;
 import pizzeria.goods.Drinks;
-import pizzeria.goods.constants.PizzaSize;
-import pizzeria.interfaces.Good;
+import pizzeria.goods.pizza.PizzaSize;
+import pizzeria.goods.food.Good;
 import pizzeria.goods.Salads;
-import pizzeria.goods.constants.GoodsTypes;
-import pizzeria.goods.items.Item;
+import pizzeria.goods.GoodsTypes;
+import pizzeria.goods.food.Item;
 import pizzeria.goods.pizza.Ingredients;
 import pizzeria.goods.pizza.Pizza;
 
 import java.util.ArrayList;
 
 
-public class Bill {
+public class Order {
 
-    public ArrayList<? super Good> order = new ArrayList<>();
-    private int sum = 0;
+    public ArrayList<Good> orderList = new ArrayList<>();
 
     public void addGood(GoodsTypes type, int id) {
         switch (type) {
             case SALAD:
-                order.add(Salads.values()[id]);
-                sum += Salads.values()[id].getPrice();
+                orderList.add(Salads.values()[id]);
                 break;
             case DRINK:
-                order.add(Drinks.values()[id]);
-                sum += Drinks.values()[id].getPrice();
+                orderList.add(Drinks.values()[id]);
                 break;
             case DESSERT:
-                order.add(Desserts.values()[id]);
-                sum += Desserts.values()[id].getPrice();
+                orderList.add(Desserts.values()[id]);
                 break;
             case INGREDIENT:
-                order.add(Ingredients.values()[id]);
-                sum += Ingredients.values()[id].getPrice();
+                orderList.add(Ingredients.values()[id]);
                 break;
             default:
                 System.out.println("error");
@@ -44,20 +39,17 @@ public class Bill {
 
     boolean addPizza(int id, String size) {
         if (size.equals("n")) {
-            order.add(new Item(PizzaSize.NORMAL.getName() + " " + Pizza.values()[id].getName(),
+            orderList.add(new Item(PizzaSize.NORMAL.getName() + " " + Pizza.values()[id].getName(),
                     Pizza.values()[id].getPrice(),
                     Pizza.values()[id].isVegetarian()));
-            sum += Pizza.values()[id].getPrice();
         } else if (size.equals("b")) {
-            order.add(new Item(PizzaSize.BIG.getName() + " " + Pizza.values()[id].getName(),
+            orderList.add(new Item(PizzaSize.BIG.getName() + " " + Pizza.values()[id].getName(),
                     Pizza.values()[id].getBigPrice(),
                     Pizza.values()[id].isVegetarian()));
-            sum += Pizza.values()[id].getBigPrice();
         } else if (size.equals("m")) {
-            order.add(new Item(PizzaSize.MAXI.getName() + " " + Pizza.values()[id].getName(),
+            orderList.add(new Item(PizzaSize.MAXI.getName() + " " + Pizza.values()[id].getName(),
                     Pizza.values()[id].getMaxiPrice(),
                     Pizza.values()[id].isVegetarian()));
-            sum += Pizza.values()[id].getMaxiPrice();
         } else {
             return false;
         }
@@ -65,8 +57,11 @@ public class Bill {
     }
 
     public int calculate() {
+        int sum = 0;
+        for (int i = 0; i < orderList.size(); i++) {
+            sum += orderList.get(i).getPrice();
+        }
         return sum;
     }
-
 
 }

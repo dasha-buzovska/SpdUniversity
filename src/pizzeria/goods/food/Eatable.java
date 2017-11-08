@@ -1,6 +1,4 @@
-package pizzeria.interfaces;
-
-import pizzeria.interfaces.Good;
+package pizzeria.goods.food;
 
 public interface Eatable extends Good {
     boolean isVegetarian();

@@ -1,7 +1,7 @@
 package pizzeria.goods.pizza;
 
-import pizzeria.interfaces.Eatable;
-import pizzeria.interfaces.Good;
+import pizzeria.goods.food.Eatable;
+import pizzeria.goods.food.Good;
 
 public enum Ingredients implements Good, Eatable {
     CHEESE("Cheese", 5, true), SAUSAGE("Sausage", 8, false), PINEAPPLE("Pineapple", 7, true),

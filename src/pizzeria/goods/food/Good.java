@@ -1,4 +1,4 @@
-package pizzeria.interfaces;
+package pizzeria.goods.food;
 
 public interface Good {
     String getName();

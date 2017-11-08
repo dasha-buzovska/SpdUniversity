@@ -1,6 +1,6 @@
 package pizzeria.goods;
 
-import pizzeria.interfaces.Drinkable;
+import pizzeria.goods.food.Drinkable;
 
 public enum Drinks implements Drinkable {
     TEA("Tea", 10, false), COFFEE("Coffee", 20, false), WATER("Water", 11, false),

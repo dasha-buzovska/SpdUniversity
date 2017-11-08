@@ -1,7 +1,7 @@
 package pizzeria.goods;
 
-import pizzeria.interfaces.Eatable;
-import pizzeria.interfaces.Good;
+import pizzeria.goods.food.Eatable;
+import pizzeria.goods.food.Good;
 
 public enum Salads implements Good, Eatable {
     GREEK("Greek", 30, true), SPRING("Spring", 40, false), HAPPY("Happy", 24, false),

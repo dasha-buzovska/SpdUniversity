@@ -1,4 +1,4 @@
-package pizzeria.goods.constants;
+package pizzeria.goods;
 
 public enum GoodsTypes {
     SALAD("Salads"), DRINK("Drinks"), DESSERT("Desserts"), PIZZA("Pizza"), INGREDIENT("Ingredients");

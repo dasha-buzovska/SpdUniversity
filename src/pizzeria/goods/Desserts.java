@@ -1,7 +1,7 @@
 package pizzeria.goods;
 
-import pizzeria.interfaces.Eatable;
-import pizzeria.interfaces.Good;
+import pizzeria.goods.food.Eatable;
+import pizzeria.goods.food.Good;
 
 public enum Desserts implements Good, Eatable {
     PUN_CAKE("Pun-cake", 20), FONDANT("Fondant", 40), COOKIES("Cookies", 12), ICE_CREAM("Ice-cream", 10);

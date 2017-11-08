@@ -1,11 +1,10 @@
-package pizzeria.print;
+package pizzeria.printer;
 
-import pizzeria.interfaces.Good;
-import pizzeria.goods.constants.GoodsTypes;
+import pizzeria.goods.food.Good;
+import pizzeria.goods.GoodsTypes;
 import pizzeria.goods.pizza.Pizza;
 
-public class PrintConsole {
-    WhiteSpace whiteSpace = new WhiteSpace();
+public class MenuPrinter {
 
     public void printMenu() {
         System.out.println("What do you want?");
@@ -19,18 +18,18 @@ public class PrintConsole {
 
     public void printGood(Good[] array, String name) {
         System.out.println("Choose your " + name);
-        System.out.println("index  " + whiteSpace.print(name) + "price");
+        System.out.println("index  " + Helper.appendSpaces(name) + "price");
         for (int i = 0; i < array.length; i++) {
-            System.out.println("  " + i + "  | " + whiteSpace.print(array[i].getName()) + array[i].getPrice());
+            System.out.println("  " + i + "  | " + Helper.appendSpaces(array[i].getName()) + array[i].getPrice());
         }
     }
 
     public void printPizza() {
         System.out.println("Choose your pizza");
-        System.out.println("index    " + whiteSpace.print("pizza") + "Normal Big Maxi");
+        System.out.println("index    " + Helper.appendSpaces("pizza") + "Normal Big Maxi");
         for (int i = 0; i < Pizza.values().length; i++) {
             System.out.println("  " + i + "  | "
-                    + whiteSpace.print(Pizza.values()[i].getName())
+                    + Helper.appendSpaces(Pizza.values()[i].getName())
                     + "  " + Pizza.values()[i].getPrice() + "   "
                     + Pizza.values()[i].getBigPrice() + "   "
                     + Pizza.values()[i].getMaxiPrice());
