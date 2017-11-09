@@ -3,7 +3,7 @@ package com.spduniversity.spdulib.entity;
 /**
  * Library Item;
  */
-public class Item {
+public abstract class Item {
     private long id;
     private String title;
     private String url;
@@ -59,5 +59,10 @@ public class Item {
         this.genre = genre;
     }
 
+    public String toString(){
+        return getDisplayInfo().displayInfo();
+    }
+
+    public abstract AbstractDisplayInfo getDisplayInfo();
 
 }

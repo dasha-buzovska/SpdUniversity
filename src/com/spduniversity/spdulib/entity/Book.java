@@ -102,17 +102,9 @@ public class Book extends Item {
         this.amazonRating = amazonRating;
     }
 
-    public String toString() {
-        String str = "";
-        str += "Id: " + getId() + "\n";
-        str += "Title: " + getTitle() + "\n";
-        str += "Link: " + getUrl() + "\n";
-        str += "Publication Year: " + getPublicationYear() + "\n";
-        str += "Publisher: " + getPublisher() + "\n";
-        str += "Authors: " + String.join(", ", getAuthors()) + "\n";
-        str += "Genre: " + getGenre() + "\n";
-        str += "Language: " + getLanguage() + "\n";
-        str += "Amazon rating: " + getAmazonRating() + "\n";
-        return str;
+    public AbstractDisplayInfo getDisplayInfo() {
+        return new ConcreteBookInfo(this);
     }
+
+
 }
