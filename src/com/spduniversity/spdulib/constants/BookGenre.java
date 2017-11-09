@@ -7,4 +7,5 @@ public class BookGenre {
     public static final String ENGINEERING = "Engineering";
     public static final String DESIGN_PATTERN = "Design patterns";
     public static final String OBJECT_ORIENTED_DESIGN = "Object-Oriented Design";
+    public static final String OTHER = "Other";
 }
