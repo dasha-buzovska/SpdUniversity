@@ -3,16 +3,13 @@ package com.spduniversity.spdulib.entity;
 /**
  * Library Item;
  */
-public class Item {
+public abstract class Item {
     private long id;
     private String title;
     private String url;
-
-    public Item(long id, String title, String url) {
-        this.id = id;
-        this.title = title;
-        this.url = url;
-    }
+    private String[] authors;
+    private String language;
+    private String genre;
 
     public long getId() {
         return id;
@@ -37,4 +34,35 @@ public class Item {
     public void setUrl(String url) {
         this.url = url;
     }
+
+    public String[] getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(String[] authors) {
+        this.authors = authors;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    public String toString(){
+        return getDisplayInfo().displayInfo();
+    }
+
+    public abstract AbstractDisplayInfo getDisplayInfo();
+
 }

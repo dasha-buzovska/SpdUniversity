@@ -1,0 +1,56 @@
+Singleton
+
+1) java.lang.Runtime # getRuntime();
+    Singleton without lazy initialization. They realise it with private constructor.
+
+2) java.awt.Desktop #getDesktop();
+    This is public static synchronized method that is classic example of Singleton.
+
+3) java.awt.Toolkit #getDefaultToolkit();
+    This is example also classic example, but with additional operation after main verification.
+
+Builder
+
+1) java.lang.StringBuilder #append()
+    This method has constructor. The method which plays role "build()" method is toString(), that return all changes in the end.
+
+2) java.lang.StringBuffer #append()
+    The same logic as in previous example.
+
+3) java.nio.ByteBuffer #put()
+    This is abstract method.
+
+4) javax.swing.GroupLayout.Group#addComponent()
+    This is overloading method. The most important logic of Builder pattern in method addSpring;
+
+Immutable object
+
+1) java.lang.String;
+
+2) java.lang.Integer;
+
+3) java.lang.Byte;
+
+4) java.lang.Short;
+
+5) java.lang.Float;
+
+    There is no methods that can change your object. If you need some changes, class creates the new one.
+
+Factory method
+
+1) java.util.Calendar #getInstance()
+    LocaleServiceProvider - Product, CalendarProvider - Concrete Product, Calendar - Concrete Creator, our class - creator. So
+    it's canon example of factory method.
+
+2) java.util.ResourceBundle #getBundle()
+
+3) java.text.NumberFormat #getInstance()
+    The situation like in a 1) case.
+
+4) java.nio.charset.Charset #forName()
+
+5) java.util.EnumSet #of()
+
+    The goal is to set method in abstract class and after delegate it to your concrete examples.
+    It allows to manipulate in high level.
