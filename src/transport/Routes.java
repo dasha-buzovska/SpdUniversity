@@ -34,6 +34,7 @@ public enum Routes {
     ELEVEN(11, new String[]{
             Stop.AVRORA.getDirection1(),
             Stop.SEVEN_YEARS_SQUARE.getDirection1(),
+            Stop.SEDOVA_MARKET.getDirection1(),
             Stop.MYTNUTSA.getDirection1(),
             Stop.UNIVERSITY.getDirection1(),
             Stop.DNIPRO.getDirection1(),
