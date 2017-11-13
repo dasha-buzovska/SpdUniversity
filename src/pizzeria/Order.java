@@ -20,7 +20,9 @@ public class Order {
     public void addGood(GoodsTypes type, int id) {
         switch (type) {
             case SALAD:
-                orderList.add(Salads.values()[id]);
+                if (Salads.getByIndex(id).isPresent()) {
+                    orderList.add(Salads.getByIndex(id).get());
+                }
                 break;
             case DRINK:
                 orderList.add(Drinks.values()[id]);

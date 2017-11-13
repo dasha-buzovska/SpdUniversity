@@ -3,6 +3,8 @@ package pizzeria.goods;
 import pizzeria.goods.food.Eatable;
 import pizzeria.goods.food.Good;
 
+import java.util.Optional;
+
 public enum Salads implements Good, Eatable {
     GREEK("Greek", 30, true), SPRING("Spring", 40, false), HAPPY("Happy", 24, false),
     HEALTHY("Healthy", 18, true), CARROT_SALAD("Carrot salad", 15, true), INSALATA("Insalata", 25, true);
@@ -27,5 +29,12 @@ public enum Salads implements Good, Eatable {
 
     public boolean isVegetarian() {
         return isVegetarian;
+    }
+
+    public static Optional<Salads> getByIndex(int index) {
+        if (values().length < index) {
+            return Optional.empty();
+        }
+        return Optional.of(values()[index]);
     }
 }

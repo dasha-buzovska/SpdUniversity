@@ -43,7 +43,11 @@ public class BillPrinter {
             Good good = order.orderList.get(i);
             if (good instanceof Eatable && ((Eatable) good).isVegetarian() ||
                     good instanceof Drinkable && !((Drinkable) good).isAlcoholic()) {
-                Helper.sort(order.orderList, parameter);
+                if (parameter.startsWith("p")) {
+                    Helper.sortByPrice(order.orderList, parameter);
+                } else {
+                    Helper.sortByName(order.orderList, parameter);
+                }
             } else {
                 System.out.println("Your order is not vegetarian or contains alcohol");
                 return;
