@@ -20,16 +20,24 @@ public class Order {
     public void addGood(GoodsTypes type, int id) {
         switch (type) {
             case SALAD:
-                orderList.add(Salads.values()[id]);
+                if (Salads.getByIndex(id).isPresent()) {
+                    orderList.add(Salads.getByIndex(id).get());
+                }
                 break;
             case DRINK:
-                orderList.add(Drinks.values()[id]);
+                if (Drinks.getByIndex(id).isPresent()) {
+                    orderList.add(Drinks.values()[id]);
+                }
                 break;
             case DESSERT:
-                orderList.add(Desserts.values()[id]);
+                if (Desserts.getByIndex(id).isPresent()) {
+                    orderList.add(Desserts.values()[id]);
+                }
                 break;
             case INGREDIENT:
-                orderList.add(Ingredients.values()[id]);
+                if (Ingredients.getByIndex(id).isPresent()) {
+                    orderList.add(Ingredients.values()[id]);
+                }
                 break;
             default:
                 System.out.println("error");
@@ -38,20 +46,22 @@ public class Order {
     }
 
     boolean addPizza(int id, String size) {
-        if (size.equals("n")) {
-            orderList.add(new Item(PizzaSize.NORMAL.getName() + " " + Pizza.values()[id].getName(),
-                    Pizza.values()[id].getPrice(),
-                    Pizza.values()[id].isVegetarian()));
-        } else if (size.equals("b")) {
-            orderList.add(new Item(PizzaSize.BIG.getName() + " " + Pizza.values()[id].getName(),
-                    Pizza.values()[id].getBigPrice(),
-                    Pizza.values()[id].isVegetarian()));
-        } else if (size.equals("m")) {
-            orderList.add(new Item(PizzaSize.MAXI.getName() + " " + Pizza.values()[id].getName(),
-                    Pizza.values()[id].getMaxiPrice(),
-                    Pizza.values()[id].isVegetarian()));
-        } else {
-            return false;
+        if (Salads.getByIndex(id).isPresent()) {
+            if (size.equals("n")) {
+                orderList.add(new Item(PizzaSize.NORMAL.getName() + " " + Pizza.values()[id].getName(),
+                        Pizza.values()[id].getPrice(),
+                        Pizza.values()[id].isVegetarian()));
+            } else if (size.equals("b")) {
+                orderList.add(new Item(PizzaSize.BIG.getName() + " " + Pizza.values()[id].getName(),
+                        Pizza.values()[id].getBigPrice(),
+                        Pizza.values()[id].isVegetarian()));
+            } else if (size.equals("m")) {
+                orderList.add(new Item(PizzaSize.MAXI.getName() + " " + Pizza.values()[id].getName(),
+                        Pizza.values()[id].getMaxiPrice(),
+                        Pizza.values()[id].isVegetarian()));
+            } else {
+                return false;
+            }
         }
         return true;
     }

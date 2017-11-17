@@ -1,13 +1,15 @@
 package pizzeria.goods.pizza;
 
+import java.util.Optional;
+
 public enum PizzaSize {
-    NORMAL("Normal"), BIG("Big"), MAXI("Maxi");
-    private String name;
-    PizzaSize(String name) {
+    NORMAL(Optional.of("Normal")), BIG(Optional.of("Big")), MAXI(Optional.of("Maxi"));
+    private Optional<String> name;
+    PizzaSize(Optional<String>  name) {
         this.name = name;
     }
 
-    public String getName() {
+    public Optional<String> getName() {
         return name;
     }
 }
