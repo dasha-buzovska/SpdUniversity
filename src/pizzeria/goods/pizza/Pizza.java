@@ -3,6 +3,8 @@ package pizzeria.goods.pizza;
 import pizzeria.goods.food.Eatable;
 import pizzeria.goods.food.Good;
 
+import java.util.Optional;
+
 public enum Pizza implements Good, Eatable {
 
     YOUR_PIZZA("Your pizza", 15, 20, 25, true, new String[]{"Base", "Sauce"}),
@@ -58,5 +60,12 @@ public enum Pizza implements Good, Eatable {
             System.out.print(pizzaElements[i] + " ");
         }
         System.out.println(")");
+    }
+
+    public static Optional<Pizza> getByIndex(int index) {
+        if (values().length < index) {
+            return Optional.empty();
+        }
+        return Optional.of(values()[index]);
     }
 }

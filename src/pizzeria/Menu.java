@@ -61,11 +61,7 @@ class Menu {
             if ("-".equals(inputIndex)) {
                 return;
             }
-            try {
-                order.addGood(GoodsTypes.values()[Integer.parseInt(index)], Integer.parseInt(inputIndex));
-            } catch (Exception e) {
-                System.out.println("Wrong sign was typed. Try again.");
-            }
+            order.addGood(GoodsTypes.values()[Integer.parseInt(index)], Integer.parseInt(inputIndex));
             System.out.println("\n");
         }
     }
@@ -97,13 +93,9 @@ class Menu {
             if ("-".equals(ingredientIndex)) {
                 return;
             }
-            try {
+            order.addGood(INGREDIENT, Integer.parseInt(ingredientIndex));
+            if (sizeIndex.equals("m")) {
                 order.addGood(INGREDIENT, Integer.parseInt(ingredientIndex));
-                if (sizeIndex.equals("m")) {
-                    order.addGood(INGREDIENT, Integer.parseInt(ingredientIndex));
-                }
-            } catch (Exception e) {
-                System.out.println("Wrong sign was typed. Try again.");
             }
         }
     }
