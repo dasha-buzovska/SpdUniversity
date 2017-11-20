@@ -15,10 +15,10 @@ import java.util.ArrayList;
 
 public class Order {
 
-    public ArrayList<Good> orderList = new ArrayList<>();
+    private ArrayList<Good> orderList = new ArrayList<>();
     public ArrayList<ArrayList<Good>> allOrders = new ArrayList<>();
 
-    public void addGood(GoodsTypes type, int id) {
+    void addGood(GoodsTypes type, int id) {
         switch (type) {
             case SALAD:
                 if (Salads.getByIndex(id).isPresent()) {
@@ -42,7 +42,6 @@ public class Order {
                 break;
             default:
                 System.out.println("error");
-                return;
         }
     }
 
@@ -68,14 +67,10 @@ public class Order {
     }
 
     public int calculate(ArrayList<Good> abstractOrder) {
-        int sum = 0;
-        for (Good anAbstractOrder : abstractOrder) {
-            sum += anAbstractOrder.getPrice();
-        }
-        return sum;
+        return abstractOrder.stream().mapToInt(Good::getPrice).sum();
     }
 
-    public void finishOrder() {
+    void finishOrder() {
         allOrders.add(orderList);
         orderList = new ArrayList<>();
     }

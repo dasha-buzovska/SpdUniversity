@@ -6,14 +6,14 @@ import pizzeria.goods.food.Eatable;
 import pizzeria.goods.food.Good;
 import pizzeria.goods.pizza.Ingredients;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.stream.IntStream;
 
 public class BillPrinter {
 
     public void printFullBill(Order order) {
-        for (int i = 0; i < order.allOrders.size(); i++) {
-            printSingleOrderFullStyle(order.allOrders.get(i), order, i);
-        }
+        IntStream.range(0, order.allOrders.size()).forEach(i -> printSingleOrderFullStyle(order.allOrders.get(i), order, i));
     }
 
     public void printShortBill(Order order) {
@@ -40,33 +40,24 @@ public class BillPrinter {
     }
 
     public void printVegetarianBill(Order order, String parameter) {
-        for (int i = 0; i < order.allOrders.size(); i++) {
-            if (isVegetarianBill(order.allOrders.get(i))) {
-                if (parameter.startsWith("p")) {
-                    Helper.sortByPrice(order.allOrders.get(i), parameter);
-                } else {
-                    Helper.sortByName(order.allOrders.get(i), parameter);
-                }
-                printSingleOrderFullStyle(order.allOrders.get(i), order, i);
+        IntStream.range(0, order.allOrders.size()).filter(i -> isVegetarianBill(order.allOrders.get(i))).forEach(i -> {
+            if (parameter.startsWith("p")) {
+                Helper.sortByPrice(order.allOrders.get(i), parameter);
+            } else {
+                Helper.sortByName(order.allOrders.get(i), parameter);
             }
-        }
+            printSingleOrderFullStyle(order.allOrders.get(i), order, i);
+        });
     }
 
     private boolean isVegetarianBill(ArrayList<Good> order) {
-        for (Good good : order) {
-            if (good instanceof Eatable && !((Eatable) good).isVegetarian() ||
-                    good instanceof Drinkable && ((Drinkable) good).isAlcoholic()) {
-                return false;
-            }
-        }
-        return true;
+        return order.stream().noneMatch(good -> good instanceof Eatable && !((Eatable) good).isVegetarian() ||
+                good instanceof Drinkable && ((Drinkable) good).isAlcoholic());
     }
 
     private static void printSingleOrderFullStyle(ArrayList<Good> singleOrder, Order order, int i) {
         System.out.println("Order #" + (i + 1) + "\nPizza House.");
-        for (Good good : singleOrder) {
-            System.out.println("" + Helper.appendSpaces(good.getName()) + good.getPrice());
-        }
+        singleOrder.stream().map(good -> "" + Helper.appendSpaces(good.getName()) + good.getPrice()).forEach(System.out::println);
         printSum(singleOrder, order);
     }
 
@@ -74,8 +65,5 @@ public class BillPrinter {
         System.out.println("\nTo pay:\t\t\t\t" + order.calculate(list));
         System.out.println("See you next time!\n");
     }
-
-
-
 
 }

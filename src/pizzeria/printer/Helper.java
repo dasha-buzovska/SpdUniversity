@@ -5,8 +5,8 @@ import pizzeria.goods.food.Good;
 import java.util.Comparator;
 import java.util.List;
 
-public class Helper {
-    public static StringBuffer appendSpaces(String name) {
+class Helper {
+    static StringBuffer appendSpaces(String name) {
         StringBuffer space = new StringBuffer(name);
         int spacesDistance = 20;
         for (int i = 0; i < spacesDistance - name.length(); i++) {
