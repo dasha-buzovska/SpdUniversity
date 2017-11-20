@@ -6,7 +6,6 @@ import pizzeria.goods.food.Eatable;
 import pizzeria.goods.food.Good;
 import pizzeria.goods.pizza.Ingredients;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.stream.IntStream;
 
@@ -40,7 +39,9 @@ public class BillPrinter {
     }
 
     public void printVegetarianBill(Order order, String parameter) {
-        IntStream.range(0, order.allOrders.size()).filter(i -> isVegetarianBill(order.allOrders.get(i))).forEach(i -> {
+        IntStream.range(0, order.allOrders.size()).
+                filter(i -> isVegetarianBill(order.allOrders.get(i))).
+                forEach(i -> {
             if (parameter.startsWith("p")) {
                 Helper.sortByPrice(order.allOrders.get(i), parameter);
             } else {
@@ -50,9 +51,23 @@ public class BillPrinter {
         });
     }
 
+    public void printConcretePizzaAndPriceBill(Order order, int measure, String pizza) {
+        IntStream.range(0, order.allOrders.size()).
+                filter(i -> order.calculate(order.allOrders.get(i)) <= measure).
+                forEach(i -> {
+                    if (containsName(order.allOrders.get(i), pizza)) {
+                        printSingleOrderFullStyle(order.allOrders.get(i), order, i);
+                    }
+                });
+    }
+
     private boolean isVegetarianBill(ArrayList<Good> order) {
         return order.stream().noneMatch(good -> good instanceof Eatable && !((Eatable) good).isVegetarian() ||
                 good instanceof Drinkable && ((Drinkable) good).isAlcoholic());
+    }
+
+    private boolean containsName(ArrayList<Good> order, String name) {
+        return IntStream.range(0, order.size()).anyMatch(i -> order.get(i).getName().contains(name));
     }
 
     private static void printSingleOrderFullStyle(ArrayList<Good> singleOrder, Order order, int i) {

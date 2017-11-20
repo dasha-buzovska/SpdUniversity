@@ -11,10 +11,15 @@ public class MenuPrinter {
     public void printMenu() {
         System.out.println("What do you want?");
         IntStream.range(0, GoodsTypes.values().length - 1).mapToObj(i -> i + " " + GoodsTypes.values()[i].getName()).forEach(System.out::println);
+        System.out.println("b Go to bills printing");
+        System.out.println("- Finish order");
+    }
+
+    public void printBills() {
         System.out.println("s Print short bill");
         System.out.println("f Print full bill");
         System.out.println("v Print veggie-non/alcohol bill");
-        System.out.println("- Finish order");
+        System.out.println("p Print bill with special pizza and less then your price");
     }
 
     public void printGood(Good[] array, String name) {

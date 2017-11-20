@@ -6,6 +6,7 @@ import pizzeria.goods.GoodsTypes;
 import pizzeria.goods.Salads;
 import pizzeria.goods.food.Good;
 import pizzeria.goods.pizza.Ingredients;
+import pizzeria.goods.pizza.Pizza;
 import pizzeria.printer.BillPrinter;
 import pizzeria.printer.MenuPrinter;
 
@@ -29,32 +30,42 @@ class Menu {
             chooseGood(index, "2", Desserts.values(), DESSERT.getName().toLowerCase());
             choosePizza(index);
 
-            if ("s".equals(index)) {
+            if (index.equals("-")) {
                 order.finishOrder();
-                bills.printShortBill(order);
+            } else if ("b".equals(index)) {
+                menuPrinter.printBills();
+                chooseBillType(typeIndex());
                 break;
-            } else if ("f".equals(index)) {
-                order.finishOrder();
-                bills.printFullBill(order);
-                break;
-            } else if ("v".equals(index)) {
-                order.finishOrder();
-                System.out.println("Do you want order by titles(t) or by prices(p)?");
-                String orderIndex = typeIndex();
-                if (orderIndex.equals("t")) {
-                    System.out.println("Choose titles order ascending(a)/descending(d)");
-                    bills.printVegetarianBill(order, "t" + typeIndex());
-                    break;
-                } else if (orderIndex.equals("p")) {
-                    System.out.println("Choose prices order ascending(a)/descending(d)");
-                    bills.printVegetarianBill(order, "p" + typeIndex());
-                    break;
-                }
-            } else if (index.equals("-")) {
-                order.finishOrder();
             }
         }
         scanner.close();
+    }
+
+    private void chooseBillType(String index) {
+        order.finishOrder();
+        if ("s".equals(index)) {
+            bills.printShortBill(order);
+        } else if ("f".equals(index)) {
+            bills.printFullBill(order);
+        } else if ("v".equals(index)) {
+            System.out.println("Do you want order by titles(t) or by prices(p)?");
+            String orderIndex = typeIndex();
+            if (orderIndex.equals("t")) {
+                System.out.println("Choose titles order ascending(a)/descending(d)");
+                bills.printVegetarianBill(order, "t" + typeIndex());
+            } else if (orderIndex.equals("p")) {
+                System.out.println("Choose prices order ascending(a)/descending(d)");
+                bills.printVegetarianBill(order, "p" + typeIndex());
+            }
+        } else if ("p".equals(index)) {
+            System.out.println("Choose pizza type:\n" + Pizza.YOUR_PIZZA.getName() + "\n" + Pizza.MARGARITA.getName()
+            + "\n" + Pizza.PEPERONI.getName() + "\n" + Pizza.FOUR_CHEESES.getName() + "\n" + Pizza.HAWAIIAN.getName()
+            + "\n" + Pizza.SEAFOOD.getName());
+            String pizzaName = typeIndex();
+            System.out.println("Type max price, please");
+            String maxPrice = typeIndex();
+            bills.printConcretePizzaAndPriceBill(order, Integer.parseInt(maxPrice), pizzaName);
+        }
     }
 
 
