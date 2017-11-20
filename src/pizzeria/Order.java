@@ -16,6 +16,7 @@ import java.util.ArrayList;
 public class Order {
 
     public ArrayList<Good> orderList = new ArrayList<>();
+    public ArrayList<ArrayList<Good>> allOrders = new ArrayList<>();
 
     public void addGood(GoodsTypes type, int id) {
         switch (type) {
@@ -26,17 +27,17 @@ public class Order {
                 break;
             case DRINK:
                 if (Drinks.getByIndex(id).isPresent()) {
-                    orderList.add(Drinks.values()[id]);
+                    orderList.add(Drinks.getByIndex(id).get());
                 }
                 break;
             case DESSERT:
                 if (Desserts.getByIndex(id).isPresent()) {
-                    orderList.add(Desserts.values()[id]);
+                    orderList.add(Desserts.getByIndex(id).get());
                 }
                 break;
             case INGREDIENT:
                 if (Ingredients.getByIndex(id).isPresent()) {
-                    orderList.add(Ingredients.values()[id]);
+                    orderList.add(Ingredients.getByIndex(id).get());
                 }
                 break;
             default:
@@ -66,12 +67,16 @@ public class Order {
         return true;
     }
 
-    public int calculate() {
+    public int calculate(ArrayList<Good> abstractOrder) {
         int sum = 0;
-        for (int i = 0; i < orderList.size(); i++) {
-            sum += orderList.get(i).getPrice();
+        for (Good anAbstractOrder : abstractOrder) {
+            sum += anAbstractOrder.getPrice();
         }
         return sum;
     }
 
+    public void finishOrder() {
+        allOrders.add(orderList);
+        orderList = new ArrayList<>();
+    }
 }

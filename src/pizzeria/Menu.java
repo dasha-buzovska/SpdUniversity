@@ -30,12 +30,15 @@ class Menu {
             choosePizza(index);
 
             if ("s".equals(index)) {
+                order.finishOrder();
                 bills.printShortBill(order);
                 break;
             } else if ("f".equals(index)) {
+                order.finishOrder();
                 bills.printFullBill(order);
                 break;
             } else if ("v".equals(index)) {
+                order.finishOrder();
                 System.out.println("Do you want order by titles(t) or by prices(p)?");
                 String orderIndex = typeIndex();
                 if (orderIndex.equals("t")) {
@@ -47,6 +50,8 @@ class Menu {
                     bills.printVegetarianBill(order, "p" + typeIndex());
                     break;
                 }
+            } else if (index.equals("-")) {
+                order.finishOrder();
             }
         }
         scanner.close();

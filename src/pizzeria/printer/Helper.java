@@ -21,6 +21,8 @@ public class Helper {
             list.sort(comparator);
         } else if (parameter.equals("pd")) {
             list.sort(comparator.reversed());
+        } else {
+            System.out.println("Wrong sign was typed!");
         }
     }
 
@@ -33,8 +35,9 @@ public class Helper {
                 } else if (parameter.equals("td")) {
                     return b.getName().compareTo(a.getName());
                 } else {
-                    return 0;
+                    System.out.println("Wrong sign was typed!");
                 }
+                return 0;
             }
         });
 

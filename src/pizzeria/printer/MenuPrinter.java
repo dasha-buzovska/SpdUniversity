@@ -14,6 +14,7 @@ public class MenuPrinter {
         System.out.println("s Print short bill");
         System.out.println("f Print full bill");
         System.out.println("v Print veggie-non/alcohol bill");
+        System.out.println("- Finish order");
     }
 
     public void printGood(Good[] array, String name) {
