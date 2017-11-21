@@ -1,5 +1,6 @@
 package pizzeria.goods.pizza;
 
+import pizzeria.goods.GoodsTypes;
 import pizzeria.goods.food.Eatable;
 import pizzeria.goods.food.Good;
 
@@ -20,6 +21,11 @@ public enum Pizza implements Good, Eatable {
     private int maxiPrice;
     private boolean isVegetarian;
     private String[] pizzaElements;
+    private GoodsTypes type;
+
+    public GoodsTypes getType() {
+        return type;
+    }
 
     Pizza(String name, int price, int bigPrice, int maxiPrice,
           boolean isVegetarian, String[] pizzaElements) {
@@ -29,6 +35,8 @@ public enum Pizza implements Good, Eatable {
         this.maxiPrice = maxiPrice;
         this.isVegetarian = isVegetarian;
         this.pizzaElements = pizzaElements;
+        this.type = GoodsTypes.PIZZA;
+
     }
 
     @Override

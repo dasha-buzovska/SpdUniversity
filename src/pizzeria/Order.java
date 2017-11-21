@@ -50,15 +50,15 @@ public class Order {
             if (size.equals("n")) {
                 orderList.add(new Item(PizzaSize.NORMAL.getName() + " " + Pizza.values()[id].getName(),
                         Pizza.values()[id].getPrice(),
-                        Pizza.values()[id].isVegetarian()));
+                        Pizza.values()[id].isVegetarian(), GoodsTypes.PIZZA));
             } else if (size.equals("b")) {
                 orderList.add(new Item(PizzaSize.BIG.getName() + " " + Pizza.values()[id].getName(),
                         Pizza.values()[id].getBigPrice(),
-                        Pizza.values()[id].isVegetarian()));
+                        Pizza.values()[id].isVegetarian(), GoodsTypes.PIZZA));
             } else if (size.equals("m")) {
                 orderList.add(new Item(PizzaSize.MAXI.getName() + " " + Pizza.values()[id].getName(),
                         Pizza.values()[id].getMaxiPrice(),
-                        Pizza.values()[id].isVegetarian()));
+                        Pizza.values()[id].isVegetarian(), GoodsTypes.PIZZA));
             } else {
                 return false;
             }
@@ -71,7 +71,9 @@ public class Order {
     }
 
     void finishOrder() {
-        allOrders.add(orderList);
+        if (!orderList.isEmpty()) {
+            allOrders.add(orderList);
+        }
         orderList = new ArrayList<>();
     }
 }

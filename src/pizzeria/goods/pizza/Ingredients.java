@@ -1,5 +1,6 @@
 package pizzeria.goods.pizza;
 
+import pizzeria.goods.GoodsTypes;
 import pizzeria.goods.food.Eatable;
 import pizzeria.goods.food.Good;
 
@@ -12,11 +13,18 @@ public enum Ingredients implements Good, Eatable {
     private String name;
     private int price;
     private boolean isVegetarian;
+    private GoodsTypes type;
+
+    public GoodsTypes getType() {
+        return type;
+    }
 
     Ingredients(String name, int price, boolean isVegetarian) {
         this.name = name;
         this.price = price;
         this.isVegetarian = isVegetarian;
+        this.type = GoodsTypes.INGREDIENT;
+
     }
 
     public String getName() {

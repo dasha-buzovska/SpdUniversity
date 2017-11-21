@@ -2,122 +2,54 @@ package pizzeria;
 
 import pizzeria.goods.Desserts;
 import pizzeria.goods.Drinks;
-import pizzeria.goods.GoodsTypes;
 import pizzeria.goods.Salads;
-import pizzeria.goods.food.Good;
-import pizzeria.goods.pizza.Ingredients;
-import pizzeria.goods.pizza.Pizza;
-import pizzeria.printer.BillPrinter;
-import pizzeria.printer.MenuPrinter;
-
-import java.util.Scanner;
 
 import static pizzeria.goods.GoodsTypes.*;
 
 class Menu {
-    private Scanner scanner = new Scanner(System.in);
-    private MenuPrinter menuPrinter = new MenuPrinter();
-    private Order order = new Order();
-    private BillPrinter bills = new BillPrinter();
+    private MenuTools tool = new MenuTools();
 
     void makeOrder() {
         while (true) {
-            menuPrinter.printMenu();
-            String index = typeIndex();
+            tool.menuPrinter.printMenu();
+            String index = tool.typeIndex();
             System.out.println("\n");
-            chooseGood(index, "0", Salads.values(), SALAD.getName().toLowerCase());
-            chooseGood(index, "1", Drinks.values(), DRINK.getName().toLowerCase());
-            chooseGood(index, "2", Desserts.values(), DESSERT.getName().toLowerCase());
-            choosePizza(index);
+            tool.chooseGood(index, "0", Salads.values(), SALAD.getName().toLowerCase());
+            tool.chooseGood(index, "1", Drinks.values(), DRINK.getName().toLowerCase());
+            tool.chooseGood(index, "2", Desserts.values(), DESSERT.getName().toLowerCase());
+            tool.choosePizza(index);
 
             if (index.equals("-")) {
-                order.finishOrder();
+                tool.order.finishOrder();
             } else if ("b".equals(index)) {
-                menuPrinter.printBills();
-                chooseBillType(typeIndex());
+                tool.menuPrinter.printBills();
+                chooseBillType(tool.typeIndex());
                 break;
             }
         }
-        scanner.close();
+        tool.scanner.close();
     }
 
     private void chooseBillType(String index) {
-        order.finishOrder();
-        if ("s".equals(index)) {
-            bills.printShortBill(order);
-        } else if ("f".equals(index)) {
-            bills.printFullBill(order);
-        } else if ("v".equals(index)) {
-            System.out.println("Do you want order by titles(t) or by prices(p)?");
-            String orderIndex = typeIndex();
-            if (orderIndex.equals("t")) {
-                System.out.println("Choose titles order ascending(a)/descending(d)");
-                bills.printVegetarianBill(order, "t" + typeIndex());
-            } else if (orderIndex.equals("p")) {
-                System.out.println("Choose prices order ascending(a)/descending(d)");
-                bills.printVegetarianBill(order, "p" + typeIndex());
-            }
-        } else if ("p".equals(index)) {
-            System.out.println("Choose pizza type:\n" + Pizza.YOUR_PIZZA.getName() + "\n" + Pizza.MARGARITA.getName()
-            + "\n" + Pizza.PEPERONI.getName() + "\n" + Pizza.FOUR_CHEESES.getName() + "\n" + Pizza.HAWAIIAN.getName()
-            + "\n" + Pizza.SEAFOOD.getName());
-            String pizzaName = typeIndex();
-            System.out.println("Type max price, please");
-            String maxPrice = typeIndex();
-            bills.printConcretePizzaAndPriceBill(order, Integer.parseInt(maxPrice), pizzaName);
+        tool.order.finishOrder();
+        switch (index) {
+            case "s":
+                tool.bills.printShortBill(tool.order);
+                break;
+            case "f":
+                tool.bills.printFullBill(tool.order);
+                break;
+            case "v":
+                tool.chooseOrderStyle();
+                break;
+            case "p":
+                tool.choosePizzaStyle();
+                break;
+            case "g":
+                tool.chooseBillNumber();
+                break;
+            default:
+                System.out.println("Wrong sign was typed. Try again, please!");
         }
-    }
-
-
-    private void chooseGood(String input, String index, Good[] good, String goodName) {
-        if (index.equals(input)) {
-            menuPrinter.printGood(good, goodName);
-            System.out.println("  -  | back to menu");
-            String inputIndex = typeIndex();
-            if ("-".equals(inputIndex)) {
-                return;
-            }
-            order.addGood(GoodsTypes.values()[Integer.parseInt(index)], Integer.parseInt(inputIndex));
-            System.out.println("\n");
-        }
-    }
-
-    private void choosePizza(String index) {
-        if ("3".equals(index)) {
-            menuPrinter.printPizza();
-            String inputIndex = typeIndex();
-            System.out.println("Choose size (n, b, m): ");
-            String sizeIndex = typeIndex();
-            boolean success = order.addPizza(Integer.parseInt(inputIndex), sizeIndex);
-            if (!success) {
-                return;
-            }
-            System.out.println("Do you want some additions? \n Type here (yes/no): ");
-            String wantAdditional = scanner.nextLine();
-            if (wantAdditional.equals("yes") || wantAdditional.equals("y")) {
-                chooseIngredients(sizeIndex);
-            }
-        }
-    }
-
-    private void chooseIngredients(String sizeIndex) {
-        String ingredientIndex = "";
-        while (true) {
-            menuPrinter.printGood(Ingredients.values(), "ingredient");
-            System.out.println("  -  | back to menu");
-            ingredientIndex = typeIndex();
-            if ("-".equals(ingredientIndex)) {
-                return;
-            }
-            order.addGood(INGREDIENT, Integer.parseInt(ingredientIndex));
-            if (sizeIndex.equals("m")) {
-                order.addGood(INGREDIENT, Integer.parseInt(ingredientIndex));
-            }
-        }
-    }
-
-    private String typeIndex() {
-        System.out.print("Type index: ");
-        return scanner.nextLine();
     }
 }

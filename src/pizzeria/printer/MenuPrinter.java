@@ -20,6 +20,7 @@ public class MenuPrinter {
         System.out.println("f Print full bill");
         System.out.println("v Print veggie-non/alcohol bill");
         System.out.println("p Print bill with special pizza and less then your price");
+        System.out.println("g Print grouped bill");
     }
 
     public void printGood(Good[] array, String name) {
