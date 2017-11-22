@@ -4,13 +4,20 @@ import pizzeria.goods.food.Good;
 import pizzeria.goods.GoodsTypes;
 import pizzeria.goods.pizza.Pizza;
 
-import java.util.stream.IntStream;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Stream;
 
 public class MenuPrinter {
 
     public void printMenu() {
         System.out.println("What do you want?");
-        IntStream.range(0, GoodsTypes.values().length - 1).mapToObj(i -> i + " " + GoodsTypes.values()[i].getName()).forEach(System.out::println);
+        Stream.of(GoodsTypes.values()[0],
+                GoodsTypes.values()[1],
+                GoodsTypes.values()[2],
+                GoodsTypes.values()[3])
+                .map(goodsTypes -> goodsTypes.ordinal() + " " + goodsTypes.getName())
+                .forEach(System.out::println);
         System.out.println("b Go to bills printing");
         System.out.println("- Finish order");
     }
@@ -23,23 +30,24 @@ public class MenuPrinter {
         System.out.println("g Print grouped bill");
     }
 
-    public void printGood(Good[] array, String name) {
+    public void printGood(List<Good> array, String name) {
         System.out.println("Choose your " + name);
         System.out.println("index  " + Helper.appendSpaces(name) + "price");
-        IntStream.range(0, array.length).mapToObj(i -> "  " + i + "  | " + Helper.appendSpaces(array[i].getName()) + array[i].getPrice()).forEach(System.out::println);
+        array.stream().map(item -> "  " + array.indexOf(item) + "  | " + Helper.appendSpaces(item.getName()) + item.getPrice())
+                .forEach(System.out::println);
     }
 
     public void printPizza() {
         System.out.println("Choose your pizza");
         System.out.println("index    " + Helper.appendSpaces("pizza") + "Normal Big Maxi");
-        IntStream.range(0, Pizza.values().length).forEach(i -> {
-            System.out.println("  " + i + "  | "
-                    + Helper.appendSpaces(Pizza.values()[i].getName())
-                    + "  " + Pizza.values()[i].getPrice() + "   "
-                    + Pizza.values()[i].getBigPrice() + "   "
-                    + Pizza.values()[i].getMaxiPrice());
-            Pizza.values()[i].printElements();
-        });
+        Arrays.asList(Pizza.values())
+                .forEach(item -> {
+                    System.out.println("  " + Arrays.asList(Pizza.values()).indexOf(item) + "  | "
+                            + Helper.appendSpaces(item.getName())
+                            + "  " + item.getPrice() + "   "
+                            + item.getBigPrice() + "   "
+                            + item.getMaxiPrice());
+                    item.printElements();
+                });
     }
-
 }

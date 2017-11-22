@@ -7,6 +7,7 @@ import pizzeria.goods.pizza.Pizza;
 import pizzeria.printer.BillPrinter;
 import pizzeria.printer.MenuPrinter;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 import static pizzeria.goods.GoodsTypes.INGREDIENT;
@@ -20,7 +21,7 @@ class MenuTools {
 
     void chooseGood(String input, String index, Good[] good, String goodName) {
         if (index.equals(input)) {
-            menuPrinter.printGood(good, goodName);
+            menuPrinter.printGood(Arrays.asList(good), goodName);
             System.out.println("  -  | back to menu");
             String inputIndex = typeIndex();
             if ("-".equals(inputIndex)) {
@@ -60,7 +61,7 @@ class MenuTools {
     }
 
     void chooseBillNumber() {
-        Integer orderIndex = 0;
+        Integer orderIndex;
         try {
             if (order.allOrders.size() > 1) {
                 System.out.println("Choose bill number from " + 1 + " to " + order.allOrders.size());
@@ -85,9 +86,9 @@ class MenuTools {
     }
 
     private void chooseIngredients(String sizeIndex) {
-        String ingredientIndex = "";
+        String ingredientIndex;
         while (true) {
-            menuPrinter.printGood(Ingredients.values(), "ingredient");
+            menuPrinter.printGood(Arrays.asList(Ingredients.values()), "ingredient");
             System.out.println("  -  | back to menu");
             ingredientIndex = typeIndex();
             if ("-".equals(ingredientIndex)) {

@@ -7,24 +7,21 @@ import pizzeria.goods.food.Eatable;
 import pizzeria.goods.food.Good;
 import pizzeria.goods.pizza.Ingredients;
 import java.util.*;
-import java.util.stream.IntStream;
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toCollection;
 
 public class BillPrinter {
 
     public void printFullBill(Order order) {
-        IntStream
-                .range(0, order.allOrders.size())
-                .forEach(i -> printSingleOrderFullStyle(order.allOrders.get(i), order, i));
+        order.allOrders
+                .forEach(singleOrder -> printSingleOrderFullStyle(singleOrder, order));
     }
 
     public void printShortBill(Order order) {
         int ingredientsSum = 0;
-        for (int i = 0; i < order.allOrders.size(); i++) {
-            System.out.println("Order #" + (i + 1) + "\nPizza House.");
-            for (int j = 0; j < order.allOrders.get(i).size(); j++) {
-                Good good = order.allOrders.get(i).get(j);
+        for (ArrayList<Good> singleOrder: order.allOrders) {
+            System.out.println("Order #" + (order.allOrders.indexOf(singleOrder) + 1) + "\nPizza House.");
+            for (Good good : singleOrder) {
                 if (good instanceof Ingredients) {
                     ingredientsSum += good.getPrice();
                 } else {
@@ -34,29 +31,30 @@ public class BillPrinter {
                 }
             }
             printAdditions(ingredientsSum);
-            printSum(order.allOrders.get(i), order);
+            printSum(singleOrder, order);
         }
     }
 
     public void printVegetarianBill(Order order, String parameter) {
-        IntStream.range(0, order.allOrders.size()).
-                filter(i -> isVegetarianBill(order.allOrders.get(i))).
-                forEach(i -> {
-            if (parameter.startsWith("p")) {
-                Helper.sortByPrice(order.allOrders.get(i), parameter);
-            } else {
-                Helper.sortByName(order.allOrders.get(i), parameter);
-            }
-            printSingleOrderFullStyle(order.allOrders.get(i), order, i);
-        });
+        order.allOrders
+                .stream()
+                .filter(this::isVegetarianBill)
+                .forEach(singleOrder -> {
+                    if (parameter.startsWith("p")) {
+                        Helper.sortByPrice(singleOrder, parameter);
+                    } else {
+                        Helper.sortByName(singleOrder, parameter);
+                    }
+                });
     }
 
     public void printConcretePizzaAndPriceBill(Order order, int measure, String pizza) {
-        IntStream.range(0, order.allOrders.size()).
-                filter(i -> order.calculate(order.allOrders.get(i)) <= measure).
-                forEach(i -> {
-                    if (containsName(order.allOrders.get(i), pizza)) {
-                        printSingleOrderFullStyle(order.allOrders.get(i), order, i);
+        order.allOrders
+                .stream()
+                .filter(singleOrder -> order.calculate(singleOrder) <= measure)
+                .forEach(singleOrder -> {
+                    if (containsName(singleOrder, pizza)) {
+                        printSingleOrderFullStyle(singleOrder, order);
                     }
                 });
     }
@@ -86,11 +84,11 @@ public class BillPrinter {
     }
 
     private boolean containsName(ArrayList<Good> order, String name) {
-        return IntStream.range(0, order.size()).anyMatch(i -> order.get(i).getName().contains(name));
+        return order.stream().anyMatch(good -> good.getName().contains(name));
     }
 
-    private static void printSingleOrderFullStyle(ArrayList<Good> singleOrder, Order order, int i) {
-        System.out.println("Order #" + (i + 1) + "\nPizza House.");
+    private static void printSingleOrderFullStyle(ArrayList<Good> singleOrder, Order order) {
+        System.out.println("Order #" + (order.allOrders.indexOf(singleOrder) + 1) + "\nPizza House.");
         singleOrder
                 .stream()
                 .map(good -> "" + Helper.appendSpaces(good.getName()) + good.getPrice())

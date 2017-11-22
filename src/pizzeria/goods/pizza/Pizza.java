@@ -4,7 +4,8 @@ import pizzeria.goods.GoodsTypes;
 import pizzeria.goods.food.Eatable;
 import pizzeria.goods.food.Good;
 
-import java.util.Optional;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public enum Pizza implements Good, Eatable {
 
@@ -63,17 +64,8 @@ public enum Pizza implements Good, Eatable {
     }
 
     public void printElements() {
-        System.out.print("( ");
-        for (int i = 0; i < pizzaElements.length; i++) {
-            System.out.print(pizzaElements[i] + " ");
-        }
-        System.out.println(")");
+        System.out.println(Arrays.stream(pizzaElements)
+                .collect(Collectors.joining(", ", "(", ")")));
     }
 
-    public static Optional<Pizza> getByIndex(int index) {
-        if (values().length < index) {
-            return Optional.empty();
-        }
-        return Optional.of(values()[index]);
-    }
 }
