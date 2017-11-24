@@ -9,35 +9,32 @@ import java.util.stream.Collectors;
 
 public enum Pizza implements Good, Eatable {
 
-    YOUR_PIZZA("Your pizza", 15, 20, 25, true, new String[]{"Base", "Sauce"}),
-    MARGARITA("Margarita", 35, 40, 45, true, new String[]{"Tomato", "Cheese"}),
-    PEPERONI("Peperoni", 45, 50, 55, false, new String[]{"Tomato", "Cheese", "Salami", "Paprika"}),
-    FOUR_CHEESES("4 Cheeses", 50, 60, 70, true, new String[]{"Mozzarella", "Parmesan", "Gorgonzola", "Cheddar"}),
-    SEAFOOD("Seafood", 70, 85, 100, true, new String[]{"Pineapple", "Cheese", "Smoked salmon", "Squid", "Mussels"}),
-    HAWAIIAN("Hawaiian", 65, 70, 80, false, new String[]{"Pineapple", "Cheese", "Tomato", "Chicken", "Olives", "Mushrooms"});
+    YOUR_PIZZA("Your pizza", true, new Ingredients[]{Ingredients.SAUCE}),
+    MARGARITA("Margarita", true, new Ingredients[]{Ingredients.TOMATO, Ingredients.CHEESE}),
+    PEPERONI("Peperoni", false, new Ingredients[]{Ingredients.TOMATO, Ingredients.CHEESE,
+            Ingredients.SAUSAGE}),
+    SEAFOOD("Seafood", true, new Ingredients[]{Ingredients.PINEAPPLE, Ingredients.CHEESE,
+            Ingredients.SALMON}),
+    HAWAIIAN("Hawaiian", false, new Ingredients[]{Ingredients.PINEAPPLE, Ingredients.CHEESE,
+            Ingredients.TOMATO, Ingredients.CHICKEN, Ingredients.MUSHROOMS});
 
-    private String name;
-    private int price;
-    private int bigPrice;
-    private int maxiPrice;
-    private boolean isVegetarian;
-    private String[] pizzaElements;
-    private GoodsTypes type;
-
-    public GoodsTypes getType() {
-        return type;
+    public Ingredients[] getPizzaElements() {
+        return pizzaElements;
     }
 
-    Pizza(String name, int price, int bigPrice, int maxiPrice,
-          boolean isVegetarian, String[] pizzaElements) {
+    private String name;
+    private boolean isVegetarian;
+    private Ingredients[] pizzaElements;
+
+    public GoodsTypes getType() {
+        return GoodsTypes.PIZZA;
+    }
+
+    Pizza(String name,
+          boolean isVegetarian, Ingredients[] pizzaElements) {
         this.name = name;
-        this.price = price;
-        this.bigPrice = bigPrice;
-        this.maxiPrice = maxiPrice;
         this.isVegetarian = isVegetarian;
         this.pizzaElements = pizzaElements;
-        this.type = GoodsTypes.PIZZA;
-
     }
 
     @Override
@@ -47,15 +44,18 @@ public enum Pizza implements Good, Eatable {
 
     @Override
     public int getPrice() {
-        return price;
+        return Ingredients.BASE.getPrice()
+                + Arrays.stream(pizzaElements).mapToInt(Ingredients::getPrice).sum();
     }
 
     public int getBigPrice() {
-        return bigPrice;
+        return (int)(1.3*Ingredients.BASE.getPrice())
+                + Arrays.stream(pizzaElements).mapToInt(Ingredients::getPrice).sum();
     }
 
     public int getMaxiPrice() {
-        return maxiPrice;
+        return 2*(Ingredients.BASE.getPrice()
+                + Arrays.stream(pizzaElements).mapToInt(Ingredients::getPrice).sum());
     }
 
     @Override
@@ -65,6 +65,7 @@ public enum Pizza implements Good, Eatable {
 
     public void printElements() {
         System.out.println(Arrays.stream(pizzaElements)
+                .map(Ingredients::getName)
                 .collect(Collectors.joining(", ", "(", ")")));
     }
 

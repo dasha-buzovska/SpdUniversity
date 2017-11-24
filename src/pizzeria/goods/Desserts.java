@@ -10,7 +10,6 @@ public enum Desserts implements Good, Eatable {
 
     private String name;
     private int price;
-    private GoodsTypes type;
 
     public String getName() {
         return name;
@@ -25,13 +24,12 @@ public enum Desserts implements Good, Eatable {
     }
 
     public GoodsTypes getType() {
-        return type;
+        return GoodsTypes.DESSERT;
     }
 
     Desserts(String name, int price) {
         this.name = name;
         this.price = price;
-        this.type = GoodsTypes.DESSERT;
     }
 
     public static Optional<Desserts> getByIndex(int index) {

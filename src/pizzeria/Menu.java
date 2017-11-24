@@ -1,30 +1,22 @@
 package pizzeria;
 
-import pizzeria.goods.Desserts;
-import pizzeria.goods.Drinks;
-import pizzeria.goods.Salads;
-
-import static pizzeria.goods.GoodsTypes.*;
-
 class Menu {
     private MenuTools tool = new MenuTools();
 
     void makeOrder() {
         while (true) {
             tool.menuPrinter.printMenu();
-            String index = tool.typeIndex();
-            System.out.println("\n");
-            tool.chooseGood(index, "0", Salads.values(), SALAD.getName().toLowerCase());
-            tool.chooseGood(index, "1", Drinks.values(), DRINK.getName().toLowerCase());
-            tool.chooseGood(index, "2", Desserts.values(), DESSERT.getName().toLowerCase());
-            tool.choosePizza(index);
-
+            String index = tool.readUserOption();
             if (index.equals("-")) {
                 tool.order.finishOrder();
             } else if ("b".equals(index)) {
                 tool.menuPrinter.printBills();
-                chooseBillType(tool.typeIndex());
+                chooseBillType(tool.readUserOption());
                 break;
+            } else {
+                System.out.println("\n");
+                tool.chooseGood(Integer.parseInt(index));
+                tool.choosePizza(index);
             }
         }
         tool.scanner.close();

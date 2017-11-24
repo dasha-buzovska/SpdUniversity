@@ -11,13 +11,11 @@ public enum Drinks implements Drinkable {
     private String name;
     private int price;
     private boolean isAlcoholic;
-    private GoodsTypes type;
 
     Drinks(String name, int price, boolean isAlcoholic){
         this.name = name;
         this.price = price;
         this.isAlcoholic = isAlcoholic;
-        this.type = GoodsTypes.DRINK;
     }
 
     public String getName() {
@@ -33,7 +31,7 @@ public enum Drinks implements Drinkable {
     }
 
     public GoodsTypes getType() {
-        return type;
+        return GoodsTypes.DRINK;
     }
 
     public static Optional<Drinks> getByIndex(int index) {

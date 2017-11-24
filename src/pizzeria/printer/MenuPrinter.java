@@ -12,10 +12,10 @@ public class MenuPrinter {
 
     public void printMenu() {
         System.out.println("What do you want?");
-        Stream.of(GoodsTypes.values()[0],
-                GoodsTypes.values()[1],
-                GoodsTypes.values()[2],
-                GoodsTypes.values()[3])
+        Stream.of(GoodsTypes.SALAD,
+                GoodsTypes.DRINK,
+                GoodsTypes.DESSERT,
+                GoodsTypes.PIZZA)
                 .map(goodsTypes -> goodsTypes.ordinal() + " " + goodsTypes.getName())
                 .forEach(System.out::println);
         System.out.println("b Go to bills printing");
@@ -44,7 +44,7 @@ public class MenuPrinter {
                 .forEach(item -> {
                     System.out.println("  " + Arrays.asList(Pizza.values()).indexOf(item) + "  | "
                             + Helper.appendSpaces(item.getName())
-                            + "  " + item.getPrice() + "   "
+                            + "    " + item.getPrice() + "   "
                             + item.getBigPrice() + "   "
                             + item.getMaxiPrice());
                     item.printElements();
