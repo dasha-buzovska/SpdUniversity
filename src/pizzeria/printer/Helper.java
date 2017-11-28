@@ -1,5 +1,6 @@
 package pizzeria.printer;
 
+import pizzeria.WrongInputException;
 import pizzeria.goods.food.Good;
 
 import java.util.Comparator;
@@ -22,7 +23,7 @@ class Helper {
         } else if (parameter.equals("pd")) {
             list.sort(comparator.reversed());
         } else {
-            System.out.println("Wrong sign was typed!");
+            throw new WrongInputException();
         }
     }
 
@@ -35,9 +36,8 @@ class Helper {
                 } else if (parameter.equals("td")) {
                     return b.getName().compareTo(a.getName());
                 } else {
-                    System.out.println("Wrong sign was typed!");
+                    throw new WrongInputException();
                 }
-                return 0;
             }
         });
 

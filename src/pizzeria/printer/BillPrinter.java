@@ -1,6 +1,7 @@
 package pizzeria.printer;
 
 import pizzeria.Order;
+import pizzeria.WrongInputException;
 import pizzeria.goods.GoodsTypes;
 import pizzeria.goods.food.Drinkable;
 import pizzeria.goods.food.Eatable;
@@ -38,16 +39,20 @@ public class BillPrinter {
     }
 
     public void printVegetarianBill(Order order, String parameter) {
-        order.allOrders
-                .stream()
-                .filter(this::isVegetarianBill)
-                .forEach(singleOrder -> {
-                    if (parameter.startsWith("p")) {
-                        Helper.sortByPrice(singleOrder, parameter);
-                    } else {
-                        Helper.sortByName(singleOrder, parameter);
-                    }
-                });
+        try {
+            order.allOrders
+                    .stream()
+                    .filter(this::isVegetarianBill)
+                    .forEach(singleOrder -> {
+                        if (parameter.startsWith("p")) {
+                            Helper.sortByPrice(singleOrder, parameter);
+                        } else {
+                            Helper.sortByName(singleOrder, parameter);
+                        }
+                    });
+        } catch (WrongInputException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void printConcretePizzaAndPriceBill(Order order, int measure, String pizza) {

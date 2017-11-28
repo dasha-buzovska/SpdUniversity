@@ -14,7 +14,7 @@ import static pizzeria.goods.GoodsTypes.INGREDIENT;
 
 class MenuTools {
 
-    Scanner scanner = new Scanner(System.in);
+    Scanner scanner;
     MenuPrinter menuPrinter = new MenuPrinter();
     Order order = new Order();
     BillPrinter bills = new BillPrinter();
@@ -35,20 +35,24 @@ class MenuTools {
     }
 
     void choosePizza(String index) {
-        if ("3".equals(index)) {
-            menuPrinter.printPizza();
-            String inputIndex = readUserOption();
-            System.out.println("Choose size (n, b, m): ");
-            String sizeIndex = readUserOption();
-            boolean success = orderManager.addPizza(Integer.parseInt(inputIndex), sizeIndex, order);
-            if (!success) {
-                return;
+        try {
+            if ("3".equals(index)) {
+                menuPrinter.printPizza();
+                String inputIndex = readUserOption();
+                System.out.println("Choose size (n, b, m): ");
+                String sizeIndex = readUserOption();
+                boolean success = orderManager.addPizza(Integer.parseInt(inputIndex), sizeIndex, order);
+                if (!success) {
+                    return;
+                }
+                System.out.println("Do you want some additions? \n Type here (yes/no): ");
+                String wantAdditional = scanner.nextLine();
+                if (wantAdditional.equals("yes") || wantAdditional.equals("y")) {
+                    chooseIngredients(sizeIndex);
+                }
             }
-            System.out.println("Do you want some additions? \n Type here (yes/no): ");
-            String wantAdditional = scanner.nextLine();
-            if (wantAdditional.equals("yes") || wantAdditional.equals("y")) {
-                chooseIngredients(sizeIndex);
-            }
+        } catch (NumberFormatException e) {
+            System.out.println("Type appropriate sign, please!");
         }
     }
 
@@ -88,19 +92,22 @@ class MenuTools {
     }
 
     private void chooseIngredients(String sizeIndex) {
-        //TODO: handle invalid - not number index
-        String ingredientIndex;
-        while (true) {
-            menuPrinter.printGood(Arrays.asList(Ingredients.values()), "ingredient");
-            System.out.println("  -  | back to menu");
-            ingredientIndex = readUserOption();
-            if ("-".equals(ingredientIndex)) {
-                return;
-            }
-            orderManager.addGood(INGREDIENT, Integer.parseInt(ingredientIndex), order);
-            if (sizeIndex.equals("m")) {
+        try {
+            String ingredientIndex;
+            while (true) {
+                menuPrinter.printGood(Arrays.asList(Ingredients.values()), "ingredient");
+                System.out.println("  -  | back to menu");
+                ingredientIndex = readUserOption();
+                if ("-".equals(ingredientIndex)) {
+                    return;
+                }
                 orderManager.addGood(INGREDIENT, Integer.parseInt(ingredientIndex), order);
+                if (sizeIndex.equals("m")) {
+                    orderManager.addGood(INGREDIENT, Integer.parseInt(ingredientIndex), order);
+                }
             }
+        } catch (NumberFormatException e) {
+            System.out.println("Bad index was typed, try again!");
         }
     }
 

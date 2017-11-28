@@ -1,9 +1,18 @@
 package pizzeria;
 
+import java.util.Scanner;
+
 class Menu {
     private MenuTools tool = new MenuTools();
 
-    void makeOrder() {
+    void initialize() {
+        try(Scanner scanner = new Scanner(System.in)) {
+            tool.scanner = scanner;
+            makeOrder();
+        }
+    }
+
+    private void makeOrder() {
         while (true) {
             tool.menuPrinter.printMenu();
             String index = tool.readUserOption();
@@ -15,11 +24,15 @@ class Menu {
                 break;
             } else {
                 System.out.println("\n");
-                tool.chooseGood(Integer.parseInt(index));
-                tool.choosePizza(index);
+                try {
+                    tool.chooseGood(Integer.parseInt(index));
+                } catch (NumberFormatException e) {
+                    System.out.println("It must be number or '-'. Try again!");
+                } finally {
+                    tool.choosePizza(index);
+                }
             }
         }
-        tool.scanner.close();
     }
 
     private void chooseBillType(String index) {
