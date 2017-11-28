@@ -4,7 +4,6 @@ import pizzeria.goods.Desserts;
 import pizzeria.goods.Drinks;
 import pizzeria.goods.GoodsTypes;
 import pizzeria.goods.Salads;
-import pizzeria.goods.food.Item;
 import pizzeria.goods.pizza.Ingredients;
 import pizzeria.goods.pizza.Pizza;
 import pizzeria.goods.pizza.PizzaSize;
@@ -39,25 +38,17 @@ public class OrderManager {
     }
 
     boolean addPizza(int id, String size, Order order) {
-        if (Salads.getByIndex(id).isPresent()) {
-            if (size.equals("n")) {
-                order.orderList.add(new Item(PizzaSize.NORMAL.getName() + " " + Pizza.values()[id].getName(),
-                        Pizza.values()[id].getPrice(),
-                        Pizza.values()[id].isVegetarian(), GoodsTypes.PIZZA));
-            } else if (size.equals("b")) {
-                order.orderList.add(new Item(PizzaSize.BIG.getName() + " " + Pizza.values()[id].getName(),
-                        Pizza.values()[id].getBigPrice(),
-                        Pizza.values()[id].isVegetarian(), GoodsTypes.PIZZA));
-            } else if (size.equals("m")) {
-                order.orderList.add(new Item(PizzaSize.MAXI.getName() + " " + Pizza.values()[id].getName(),
-                        Pizza.values()[id].getMaxiPrice(),
-                        Pizza.values()[id].isVegetarian(), GoodsTypes.PIZZA));
-            } else {
-                return false;
-            }
+        if (size.equals("n")) {
+            Pizza.values()[id].setSize(PizzaSize.NORMAL);
+        } else if (size.equals("b")) {
+            Pizza.values()[id].setSize(PizzaSize.BIG);
+            order.orderList.add(Pizza.values()[id]);
+        } else if (size.equals("m")) {
+            Pizza.values()[id].setSize(PizzaSize.MAXI);
+        } else {
+            return false;
         }
+        order.orderList.add(Pizza.values()[id]);
         return true;
     }
-
-
 }

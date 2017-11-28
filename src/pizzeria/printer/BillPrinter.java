@@ -6,6 +6,8 @@ import pizzeria.goods.food.Drinkable;
 import pizzeria.goods.food.Eatable;
 import pizzeria.goods.food.Good;
 import pizzeria.goods.pizza.Ingredients;
+import pizzeria.goods.pizza.Pizza;
+
 import java.util.*;
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toCollection;
@@ -60,7 +62,8 @@ public class BillPrinter {
     }
 
     public void printGroupedBill(Order order, int orderIndex) {
-        Map<GoodsTypes, ArrayList<Good>> goodByItem = order.allOrders.get(orderIndex)
+        ArrayList<Good> orderWithPackedAdditions = packAdditionsToPizza(order.allOrders.get(orderIndex));
+        Map<GoodsTypes, ArrayList<Good>> goodByItem = orderWithPackedAdditions
                 .stream()
                 .collect(groupingBy(Good::getType, toCollection(ArrayList::new)));
         System.out.println("Order #" + (orderIndex + 1) + "\nPizza House.");
@@ -105,6 +108,22 @@ public class BillPrinter {
         if (ingredientsSum != 0) {
             System.out.println("" + Helper.appendSpaces("Additions") + ingredientsSum);
         }
+    }
+
+    private ArrayList<Good> packAdditionsToPizza(ArrayList<Good> goods) {
+        ArrayList<Good> goodsWithoutIngredients = new ArrayList<>();
+        for (int i = 0; i < goods.size(); i++) {
+            if (goods.get(i) instanceof Pizza) {
+                Pizza pizza = (Pizza) goods.get(i);
+                int index = goods.indexOf(pizza) + 1;
+                while (index < goods.size() && goods.get(index) instanceof Ingredients) {
+                    pizza.addIngredients((Ingredients)goods.get(index));
+                    goods.remove(index);
+                }
+            }
+            goodsWithoutIngredients.add(goods.get(i));
+        }
+        return goodsWithoutIngredients;
     }
 
 }
