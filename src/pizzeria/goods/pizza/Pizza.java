@@ -48,18 +48,15 @@ public enum Pizza implements Good, Eatable {
 
     @Override
     public int getPrice() {
-        return Ingredients.BASE.getPrice()
-                + pizzaElements.stream().mapToInt(Ingredients::getPrice).sum();
+        return getSum(1,1);
     }
 
     public int getBigPrice() {
-        return (int)(1.3*Ingredients.BASE.getPrice())
-                + pizzaElements.stream().mapToInt(Ingredients::getPrice).sum();
+        return getSum(1.3, 1);
     }
 
     public int getMaxiPrice() {
-        return 2*(Ingredients.BASE.getPrice()
-                + pizzaElements.stream().mapToInt(Ingredients::getPrice).sum());
+        return getSum(2,2);
     }
 
     @Override
@@ -75,5 +72,13 @@ public enum Pizza implements Good, Eatable {
 
     public void setSize(PizzaSize size) {
         this.size = size;
+    }
+
+    private int getSum(double a, double b){
+        return (int)(a*Ingredients.BASE.getPrice()
+                + b*pizzaElements
+                .stream()
+                .mapToInt(Ingredients::getPrice)
+                .sum());
     }
 }

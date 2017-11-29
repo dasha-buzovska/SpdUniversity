@@ -37,6 +37,7 @@ class Menu {
 
     private void chooseBillType(String index) {
         tool.order.finishOrder();
+        assert tool.order.allOrders.size() != 0: "don't work with no order!";
         switch (index) {
             case "s":
                 tool.bills.printShortBill(tool.order);

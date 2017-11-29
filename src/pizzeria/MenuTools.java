@@ -63,6 +63,7 @@ class MenuTools {
         String pizzaName = readUserOption();
         System.out.println("Type max price, please");
         String maxPrice = readUserOption();
+        assert Integer.parseInt(maxPrice) > 0 : "Price can't be negative number!";
         bills.printConcretePizzaAndPriceBill(order, Integer.parseInt(maxPrice), pizzaName);
     }
 

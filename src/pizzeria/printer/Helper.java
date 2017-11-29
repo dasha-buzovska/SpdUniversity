@@ -8,6 +8,7 @@ import java.util.List;
 
 class Helper {
     static StringBuffer appendSpaces(String name) {
+        assert name.length() < 40: "too long title!";
         StringBuffer space = new StringBuffer(name);
         int spacesDistance = 20;
         for (int i = 0; i < spacesDistance - name.length(); i++) {
@@ -40,6 +41,5 @@ class Helper {
                 }
             }
         });
-
     }
 }
