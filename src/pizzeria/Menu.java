@@ -22,6 +22,8 @@ class Menu {
                 tool.menuPrinter.printBills();
                 chooseBillType(tool.readUserOption());
                 break;
+            } else if ("p".equals(index)) {
+                tool.choosePeriod();
             } else {
                 System.out.println("\n");
                 try {

@@ -19,6 +19,7 @@ public class MenuPrinter {
                 .map(goodsTypes -> goodsTypes.ordinal() + " " + goodsTypes.getName())
                 .forEach(System.out::println);
         System.out.println("b Go to bills printing");
+        System.out.println("p Know sum for some period");
         System.out.println("- Finish order");
     }
 

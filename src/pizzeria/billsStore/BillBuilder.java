@@ -1,5 +1,7 @@
 package pizzeria.billsStore;
 
+import pizzeria.Order;
+import pizzeria.OrderManager;
 import pizzeria.goods.GoodsTypes;
 import pizzeria.goods.food.Good;
 
@@ -28,6 +30,12 @@ public class BillBuilder {
     public Date getDate() {
         return date;
     }
+
+//    public BillBuilder(List<Good> foodStore, int sum, Date date) {
+//        this.foodStore = foodStore;
+//        this.sum = sum;
+//        this.date = date;
+//    }
 
     public BillBuilder() {
         foodStore = new ArrayList<>();
