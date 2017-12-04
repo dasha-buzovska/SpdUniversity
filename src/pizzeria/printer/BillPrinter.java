@@ -38,6 +38,7 @@ public class BillPrinter {
         }
     }
 
+    //TODO: fix empty bill
     public void printVegetarianBill(Order order, String parameter) {
         try {
             order.allOrders
@@ -65,7 +66,7 @@ public class BillPrinter {
                     }
                 });
     }
-
+//tODO: separate into two methods
     public void printGroupedBill(Order order, int orderIndex) {
         ArrayList<Good> orderWithPackedAdditions = packAdditionsToPizza(order.allOrders.get(orderIndex));
         Map<GoodsTypes, ArrayList<Good>> goodByItem = orderWithPackedAdditions
@@ -82,6 +83,7 @@ public class BillPrinter {
             sum += order.calculate(entry.getValue());
         }
         System.out.println("\nTo pay:\t\t\t\t" + sum);
+        System.out.println(new Date());
         System.out.println("See you next time!\n");
     }
 
@@ -106,6 +108,7 @@ public class BillPrinter {
 
     private static void printSum(ArrayList<Good> list, Order order) {
         System.out.println("\nTo pay:\t\t\t\t" + order.calculate(list));
+        System.out.println(new Date());
         System.out.println("See you next time!\n");
     }
 
@@ -114,7 +117,7 @@ public class BillPrinter {
             System.out.println("" + Helper.appendSpaces("Additions") + ingredientsSum);
         }
     }
-
+//TODO: fix situation when there are two same pizzas with different additions
     private ArrayList<Good> packAdditionsToPizza(ArrayList<Good> goods) {
         ArrayList<Good> goodsWithoutIngredients = new ArrayList<>();
         for (int i = 0; i < goods.size(); i++) {
