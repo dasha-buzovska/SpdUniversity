@@ -1,9 +1,10 @@
 package pizzeria.dateTimeTools;
 
-import pizzeria.Order;
-import pizzeria.OrdersList;
+import pizzeria.order.Order;
+import pizzeria.order.OrdersList;
 
-import java.util.Date;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class DatesManager {
     private OrdersList ordersList;
@@ -35,32 +36,30 @@ public class DatesManager {
     }
 
     public int findSumForYear() {
-        Date date = new Date();
-        int yearAgo = date.getYear() - 1;
-        date.setYear(yearAgo);
+        Calendar date = new GregorianCalendar();
+        date.set(Calendar.YEAR, date.get(Calendar.YEAR) - 1);
         return calculateSumAfterDate(date);
     }
 
     public int findSumForMonth() {
-        Date date = new Date();
-        int monthAgo = date.getMonth() - 1;
-        date.setMonth(monthAgo);
+        Calendar date = new GregorianCalendar();
+        date.set(Calendar.MONTH, date.get(Calendar.MONTH) - 1);
         return calculateSumAfterDate(date);
     }
 
     public int findSumForWeek() {
-        Date today = new Date();
-        Date dateWeekAgo = new Date(today.getTime() - (1000 * 60 * 60 * 24 * 7));
-        return calculateSumAfterDate(dateWeekAgo);
+        Calendar date = new GregorianCalendar();
+        date.set(Calendar.DAY_OF_MONTH, date.get(Calendar.DAY_OF_MONTH) - 7);
+        return calculateSumAfterDate(date);
     }
 
     public int findSumForDay() {
-        Date today = new Date();
-        Date dateDayAgo = new Date(today.getTime() - (1000 * 60 * 60 * 24));
-        return calculateSumAfterDate(dateDayAgo);
+        Calendar date = new GregorianCalendar();
+        date.set(Calendar.DAY_OF_MONTH, date.get(Calendar.DAY_OF_MONTH) - 1);
+        return calculateSumAfterDate(date);
     }
 
-    private int calculateSumAfterDate(Date date) {
+    private int calculateSumAfterDate(Calendar date) {
         return ordersList.archivedOrders
                 .stream()
                 .filter(order -> order.getDate().after(date))

@@ -1,11 +1,12 @@
 package pizzeria;
 
-import pizzeria.billsStore.BillStore;
 import pizzeria.dateTimeTools.DatesManager;
 import pizzeria.goods.GoodsTypes;
 import pizzeria.goods.food.Good;
 import pizzeria.goods.pizza.Ingredients;
 import pizzeria.goods.pizza.Pizza;
+import pizzeria.order.OrderManager;
+import pizzeria.order.OrdersList;
 import pizzeria.printer.BillPrinter;
 import pizzeria.printer.MenuPrinter;
 

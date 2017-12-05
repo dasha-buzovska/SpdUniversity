@@ -1,8 +1,10 @@
-package pizzeria;
+package pizzeria.order;
 
 
 import pizzeria.billsStore.BillStore;
 import pizzeria.goods.food.Good;
+import pizzeria.order.Order;
+
 import java.util.ArrayList;
 
 public class OrdersList {
@@ -25,14 +27,14 @@ public class OrdersList {
         return abstractOrder.stream().mapToInt(Good::getPrice).sum();
     }
 
-    void finishOrder() {
+    public void finishOrder() {
         if (!orderList.isEmpty()) {
             allOrders.add(orderList);
         }
         orderList = new Order();
     }
 
-    void addOrdersToArchive() {
+    public void addOrdersToArchive() {
         archivedOrders.addAll(allOrders);
         allOrders = new ArrayList<>();
     }

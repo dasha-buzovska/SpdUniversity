@@ -1,4 +1,4 @@
-package pizzeria;
+package pizzeria.order;
 
 import pizzeria.goods.food.Drinkable;
 import pizzeria.goods.food.Eatable;
@@ -6,22 +6,27 @@ import pizzeria.goods.food.Good;
 import pizzeria.goods.pizza.Ingredients;
 import pizzeria.goods.pizza.Pizza;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 
 public class Order {
     private ArrayList<Good> goodsList = new ArrayList<>();
-    private Date date = new Date();
+    private Calendar date = Calendar.getInstance();
 
     public ArrayList<Good> getGoodsList() {
         return goodsList;
     }
 
-    public Date getDate() {
+    public String getStringDate() {
+        return new SimpleDateFormat("dd/MM/yyyy\nHH:mm:ss").format(date.getTime());
+    }
+
+    public Calendar getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(Calendar date) {
         this.date = date;
     }
 

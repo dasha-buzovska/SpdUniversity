@@ -1,4 +1,4 @@
-package pizzeria;
+package pizzeria.order;
 
 import pizzeria.goods.Desserts;
 import pizzeria.goods.Drinks;
@@ -10,7 +10,7 @@ import pizzeria.goods.pizza.PizzaSize;
 
 public class OrderManager {
 
-    void addGood(GoodsTypes type, int id, OrdersList ordersList) {
+    public void addGood(GoodsTypes type, int id, OrdersList ordersList) {
         switch (type) {
             case SALAD:
                 if (Salads.getByIndex(id).isPresent()) {
@@ -37,7 +37,7 @@ public class OrderManager {
         }
     }
 
-    boolean addPizza(int id, String size, OrdersList ordersList) {
+    public boolean addPizza(int id, String size, OrdersList ordersList) {
         if (size.equals("n")) {
             Pizza.values()[id].setSize(PizzaSize.NORMAL);
         } else if (size.equals("b")) {

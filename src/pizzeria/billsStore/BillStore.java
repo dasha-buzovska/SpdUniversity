@@ -1,11 +1,9 @@
 package pizzeria.billsStore;
 
-import pizzeria.Order;
+import pizzeria.order.Order;
 import pizzeria.goods.GoodsTypes;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.Random;
 
 public class BillStore {
@@ -25,22 +23,13 @@ public class BillStore {
         return order;
     }
 
-    private Date dateGenerator() {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
-        Date date = null;
-
-        try {
-            date = sdf.parse("01-01-2015 10:00:00");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        Long max = new Date().getTime();
-        assert date != null;
-        Long min = date.getTime();
-
-        Long randomLong = min + (long) (Math.random() *(max - min));
-        return new Date(randomLong);
+    private Calendar dateGenerator() {
+        Calendar date = Calendar.getInstance();
+        date.set(Calendar.YEAR, getRandomNumberOfRange(2015, date.get(Calendar.YEAR)));
+        date.set(Calendar.DAY_OF_YEAR, getRandomNumberOfRange(1, date.get(Calendar.DAY_OF_YEAR)));
+        date.set(Calendar.HOUR_OF_DAY, getRandomNumberOfRange(0, 23));
+        date.set(Calendar.MINUTE, getRandomNumberOfRange(0, 59));
+        return date;
     }
 
     private int getRandomNumberOfRange(int min, int max) {

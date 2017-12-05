@@ -1,7 +1,7 @@
 package pizzeria.printer;
 
-import pizzeria.Order;
-import pizzeria.OrdersList;
+import pizzeria.order.Order;
+import pizzeria.order.OrdersList;
 import pizzeria.WrongInputException;
 import pizzeria.goods.GoodsTypes;
 import pizzeria.goods.food.Good;
@@ -81,7 +81,7 @@ public class BillPrinter {
             sum += ordersList.calculate(entry.getValue());
         }
         System.out.println("\nTo pay:\t\t\t\t" + sum);
-        System.out.println(ordersList.allOrders.get(orderIndex).getDate());
+        System.out.println(ordersList.allOrders.get(orderIndex).getStringDate());
         System.out.println("See you next time!\n");
     }
 
@@ -96,7 +96,7 @@ public class BillPrinter {
 
     private static void printSum(Order list) {
         System.out.println("\nTo pay:\t\t\t\t" + list.calculate());
-        System.out.println(list.getDate());
+        System.out.println(list.getStringDate());
         System.out.println("See you next time!\n");
     }
 
