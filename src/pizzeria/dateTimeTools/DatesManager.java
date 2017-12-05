@@ -1,11 +1,16 @@
 package pizzeria.dateTimeTools;
 
-import pizzeria.billsStore.BillBuilder;
-import pizzeria.billsStore.BillStore;
+import pizzeria.Order;
+import pizzeria.OrdersList;
 
 import java.util.Date;
 
 public class DatesManager {
+    private OrdersList ordersList;
+
+    public DatesManager(OrdersList ordersList) {
+        this.ordersList = ordersList;
+    }
 
     public int findSumByConcretePeriod(String period) {
         int sum = 0;
@@ -56,10 +61,10 @@ public class DatesManager {
     }
 
     private int calculateSumAfterDate(Date date) {
-        return BillStore.orderStore
+        return ordersList.archivedOrders
                 .stream()
                 .filter(order -> order.getDate().after(date))
-                .mapToInt(BillBuilder::getSum)
+                .mapToInt(Order::calculate)
                 .sum();
     }
 

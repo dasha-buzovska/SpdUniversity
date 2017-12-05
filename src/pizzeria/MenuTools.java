@@ -18,11 +18,14 @@ class MenuTools {
 
     Scanner scanner;
     MenuPrinter menuPrinter = new MenuPrinter();
-    Order order = new Order();
+    OrdersList ordersList = new OrdersList();
     BillPrinter bills = new BillPrinter();
     private OrderManager orderManager = new OrderManager();
-    BillStore store = new BillStore(100);
-    private DatesManager datesManager = new DatesManager();
+    private DatesManager datesManager = new DatesManager(ordersList);
+
+    void archive() {
+        ordersList.addOrdersToArchive();
+    }
 
     void choosePeriod(){
         System.out.println("Choose period you want to \nknow sum (year, month, week, day):");
@@ -39,7 +42,7 @@ class MenuTools {
             if ("-".equals(inputIndex)) {
                 return;
             }
-            orderManager.addGood(GoodsTypes.values()[index], Integer.parseInt(inputIndex), order);
+            orderManager.addGood(GoodsTypes.values()[index], Integer.parseInt(inputIndex), ordersList);
             System.out.println("\n");
         }
     }
@@ -51,7 +54,7 @@ class MenuTools {
                 String inputIndex = readUserOption();
                 System.out.println("Choose size (n, b, m): ");
                 String sizeIndex = readUserOption();
-                boolean success = orderManager.addPizza(Integer.parseInt(inputIndex), sizeIndex, order);
+                boolean success = orderManager.addPizza(Integer.parseInt(inputIndex), sizeIndex, ordersList);
                 if (!success) {
                     return;
                 }
@@ -74,31 +77,31 @@ class MenuTools {
         System.out.println("Type max price, please");
         String maxPrice = readUserOption();
         assert Integer.parseInt(maxPrice) > 0 : "Price can't be negative number!";
-        bills.printConcretePizzaAndPriceBill(order, Integer.parseInt(maxPrice), pizzaName);
+        bills.printConcretePizzaAndPriceBill(ordersList, Integer.parseInt(maxPrice), pizzaName);
     }
 
     void chooseBillNumber() {
         try {
             Integer orderIndex = 0;
-            if (order.allOrders.size() > 1) {
-                System.out.println("Choose bill number from " + 1 + " to " + order.allOrders.size());
+            if (ordersList.allOrders.size() > 1) {
+                System.out.println("Choose bill number from " + 1 + " to " + ordersList.allOrders.size());
                 orderIndex = Integer.parseInt(readUserOption()) - 1;
             }
-            bills.printGroupedBill(order, orderIndex);
+            bills.printGroupedBill(ordersList, orderIndex);
         } catch (Exception e) {
             System.out.println("Wrong index was typed.");
         }
     }
 
     void chooseOrderStyle() {
-        System.out.println("Do you want order by titles(t) or by prices(p)?");
+        System.out.println("Do you want ordersList by titles(t) or by prices(p)?");
         String orderIndex = readUserOption();
         if (orderIndex.equals("t")) {
-            System.out.println("Choose titles order ascending(a)/descending(d)");
-            bills.printVegetarianBill(order, "t" + readUserOption());
+            System.out.println("Choose titles ordersList ascending(a)/descending(d)");
+            bills.printVegetarianBill(ordersList, "t" + readUserOption());
         } else if (orderIndex.equals("p")) {
-            System.out.println("Choose prices order ascending(a)/descending(d)");
-            bills.printVegetarianBill(order, "p" + readUserOption());
+            System.out.println("Choose prices ordersList ascending(a)/descending(d)");
+            bills.printVegetarianBill(ordersList, "p" + readUserOption());
         }
     }
 
@@ -112,9 +115,9 @@ class MenuTools {
                 if ("-".equals(ingredientIndex)) {
                     return;
                 }
-                orderManager.addGood(INGREDIENT, Integer.parseInt(ingredientIndex), order);
+                orderManager.addGood(INGREDIENT, Integer.parseInt(ingredientIndex), ordersList);
                 if (sizeIndex.equals("m")) {
-                    orderManager.addGood(INGREDIENT, Integer.parseInt(ingredientIndex), order);
+                    orderManager.addGood(INGREDIENT, Integer.parseInt(ingredientIndex), ordersList);
                 }
             }
         } catch (NumberFormatException e) {

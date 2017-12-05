@@ -17,13 +17,16 @@ class Menu {
             tool.menuPrinter.printMenu();
             String index = tool.readUserOption();
             if (index.equals("-")) {
-                tool.order.finishOrder();
+                tool.ordersList.finishOrder();
             } else if ("b".equals(index)) {
                 tool.menuPrinter.printBills();
                 chooseBillType(tool.readUserOption());
                 break;
             } else if ("p".equals(index)) {
                 tool.choosePeriod();
+            } else if ("a".equals(index)) {
+                tool.ordersList.finishOrder();
+                tool.archive();
             } else {
                 System.out.println("\n");
                 try {
@@ -38,14 +41,14 @@ class Menu {
     }
 
     private void chooseBillType(String index) {
-        tool.order.finishOrder();
-        assert tool.order.allOrders.size() != 0: "don't work with no order!";
+        tool.ordersList.finishOrder();
+        assert tool.ordersList.allOrders.size() != 0: "don't work with no ordersList!";
         switch (index) {
             case "s":
-                tool.bills.printShortBill(tool.order);
+                tool.bills.printShortBill(tool.ordersList);
                 break;
             case "f":
-                tool.bills.printFullBill(tool.order);
+                tool.bills.printFullBill(tool.ordersList);
                 break;
             case "v":
                 tool.chooseOrderStyle();

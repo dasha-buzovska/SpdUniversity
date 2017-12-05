@@ -3,6 +3,7 @@ package pizzeria.printer;
 import pizzeria.WrongInputException;
 import pizzeria.goods.food.Good;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -41,5 +42,9 @@ class Helper {
                 }
             }
         });
+    }
+
+    static boolean containsName(ArrayList<Good> order, String name) {
+        return order.stream().anyMatch(good -> good.getName().contains(name));
     }
 }

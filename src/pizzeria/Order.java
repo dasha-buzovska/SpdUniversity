@@ -1,23 +1,62 @@
 package pizzeria;
 
-
+import pizzeria.goods.food.Drinkable;
+import pizzeria.goods.food.Eatable;
 import pizzeria.goods.food.Good;
-import java.util.ArrayList;
+import pizzeria.goods.pizza.Ingredients;
+import pizzeria.goods.pizza.Pizza;
 
+import java.util.ArrayList;
+import java.util.Date;
 
 public class Order {
+    private ArrayList<Good> goodsList = new ArrayList<>();
+    private Date date = new Date();
 
-    public ArrayList<Good> orderList = new ArrayList<>();
-    public ArrayList<ArrayList<Good>> allOrders = new ArrayList<>();
-
-    public int calculate(ArrayList<Good> abstractOrder) {
-        return abstractOrder.stream().mapToInt(Good::getPrice).sum();
+    public ArrayList<Good> getGoodsList() {
+        return goodsList;
     }
 
-    void finishOrder() {
-        if (!orderList.isEmpty()) {
-            allOrders.add(orderList);
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public void add(Good good) {
+        goodsList.add(good);
+    }
+
+    public boolean isEmpty() {
+        return goodsList.isEmpty();
+    }
+
+    //TODO: fix situation when there are two same pizzas with different additions
+    public ArrayList<Good> packAdditionsToPizza() {
+        ArrayList<Good> goodsWithoutIngredients = new ArrayList<>();
+        for (int i = 0; i < goodsList.size(); i++) {
+            if (goodsList.get(i) instanceof Pizza) {
+                Pizza pizza = (Pizza) goodsList.get(i);
+                int index = goodsList.indexOf(pizza) + 1;
+                while (index < goodsList.size() && goodsList.get(index) instanceof Ingredients) {
+                    pizza.addIngredients((Ingredients) goodsList.get(index));
+                    goodsList.remove(index);
+                }
+            }
+            goodsWithoutIngredients.add(goodsList.get(i));
         }
-        orderList = new ArrayList<>();
+        return goodsWithoutIngredients;
+    }
+
+    public int calculate() {
+        return goodsList.stream().mapToInt(Good::getPrice).sum();
+    }
+
+    public boolean isVegetarianBill() {
+        return goodsList.stream().noneMatch(good -> good instanceof Eatable
+                && !((Eatable) good).isVegetarian() ||
+                good instanceof Drinkable && ((Drinkable) good).isAlcoholic());
     }
 }

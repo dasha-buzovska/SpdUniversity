@@ -10,26 +10,26 @@ import pizzeria.goods.pizza.PizzaSize;
 
 public class OrderManager {
 
-    void addGood(GoodsTypes type, int id, Order order) {
+    void addGood(GoodsTypes type, int id, OrdersList ordersList) {
         switch (type) {
             case SALAD:
                 if (Salads.getByIndex(id).isPresent()) {
-                    order.orderList.add(Salads.getByIndex(id).get());
+                    ordersList.orderList.add(Salads.getByIndex(id).get());
                 }
                 break;
             case DRINK:
                 if (Drinks.getByIndex(id).isPresent()) {
-                    order.orderList.add(Drinks.getByIndex(id).get());
+                    ordersList.orderList.add(Drinks.getByIndex(id).get());
                 }
                 break;
             case DESSERT:
                 if (Desserts.getByIndex(id).isPresent()) {
-                    order.orderList.add(Desserts.getByIndex(id).get());
+                    ordersList.orderList.add(Desserts.getByIndex(id).get());
                 }
                 break;
             case INGREDIENT:
                 if (Ingredients.getByIndex(id).isPresent()) {
-                    order.orderList.add(Ingredients.getByIndex(id).get());
+                    ordersList.orderList.add(Ingredients.getByIndex(id).get());
                 }
                 break;
             default:
@@ -37,18 +37,18 @@ public class OrderManager {
         }
     }
 
-    boolean addPizza(int id, String size, Order order) {
+    boolean addPizza(int id, String size, OrdersList ordersList) {
         if (size.equals("n")) {
             Pizza.values()[id].setSize(PizzaSize.NORMAL);
         } else if (size.equals("b")) {
             Pizza.values()[id].setSize(PizzaSize.BIG);
-            order.orderList.add(Pizza.values()[id]);
+            ordersList.orderList.add(Pizza.values()[id]);
         } else if (size.equals("m")) {
             Pizza.values()[id].setSize(PizzaSize.MAXI);
         } else {
             return false;
         }
-        order.orderList.add(Pizza.values()[id]);
+        ordersList.orderList.add(Pizza.values()[id]);
         return true;
     }
 }
