@@ -3,8 +3,11 @@ package pizzeria.billsStore;
 import pizzeria.order.Order;
 import pizzeria.goods.GoodsTypes;
 
-import java.util.Calendar;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class BillStore {
 
@@ -23,13 +26,15 @@ public class BillStore {
         return order;
     }
 
-    private Calendar dateGenerator() {
-        Calendar date = Calendar.getInstance();
-        date.set(Calendar.YEAR, getRandomNumberOfRange(2015, date.get(Calendar.YEAR)));
-        date.set(Calendar.DAY_OF_YEAR, getRandomNumberOfRange(1, date.get(Calendar.DAY_OF_YEAR)));
-        date.set(Calendar.HOUR_OF_DAY, getRandomNumberOfRange(0, 23));
-        date.set(Calendar.MINUTE, getRandomNumberOfRange(0, 59));
-        return date;
+    private LocalDateTime dateGenerator() {
+        long start = LocalDate.of(2015, 1, 1).toEpochDay();
+        long end = LocalDate.now().toEpochDay();
+        long randomEpochDay = ThreadLocalRandom.current().longs(start, end).findAny().getAsLong();
+        Random random = new Random();
+        LocalDateTime dateTime = LocalDateTime.of(LocalDate.ofEpochDay(randomEpochDay),
+                LocalTime.of(random.nextInt(24), random.nextInt(60),
+                        random.nextInt(60)));
+        return dateTime;
     }
 
     private int getRandomNumberOfRange(int min, int max) {

@@ -6,27 +6,27 @@ import pizzeria.goods.food.Good;
 import pizzeria.goods.pizza.Ingredients;
 import pizzeria.goods.pizza.Pizza;
 
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 public class Order {
     private ArrayList<Good> goodsList = new ArrayList<>();
-    private Calendar date = Calendar.getInstance();
+    private LocalDateTime date = LocalDateTime.now();
 
     public ArrayList<Good> getGoodsList() {
         return goodsList;
     }
 
     public String getStringDate() {
-        return new SimpleDateFormat("dd/MM/yyyy\nHH:mm:ss").format(date.getTime());
+        return date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy\nHH:mm:ss"));
     }
 
-    public Calendar getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(Calendar date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 
