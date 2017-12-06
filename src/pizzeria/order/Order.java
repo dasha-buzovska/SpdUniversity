@@ -1,5 +1,6 @@
 package pizzeria.order;
 
+import pizzeria.dateTimeTools.discounts.HolidaySales;
 import pizzeria.goods.food.Drinkable;
 import pizzeria.goods.food.Eatable;
 import pizzeria.goods.food.Good;
@@ -56,7 +57,7 @@ public class Order {
     }
 
     public int calculate() {
-        return goodsList.stream().mapToInt(Good::getPrice).sum();
+        return goodsList.stream().mapToInt(Good::getPrice).sum()*(100 - HolidaySales.isReductionToday())/100;
     }
 
     public boolean isVegetarianBill() {

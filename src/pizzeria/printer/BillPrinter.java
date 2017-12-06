@@ -1,5 +1,6 @@
 package pizzeria.printer;
 
+import pizzeria.dateTimeTools.discounts.HolidaySales;
 import pizzeria.order.Order;
 import pizzeria.order.OrdersList;
 import pizzeria.WrongInputException;
@@ -90,6 +91,10 @@ public class BillPrinter {
     private static void printSum(Order list) {
         System.out.println("\nTo pay:\t\t\t\t" + list.calculate());
         System.out.println(list.getStringDate());
+        //TODO: Make motto for every holiday
+        if (HolidaySales.isReductionToday() != 0) {
+            System.out.println("Happy holidays!");
+        }
         System.out.println("See you next time!\n");
     }
 
