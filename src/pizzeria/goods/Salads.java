@@ -27,7 +27,7 @@ public enum Salads implements Good, Eatable {
 
     DiscountPrices discountPrices = new DiscountPrices();
     public int getPrice() {
-        return price * discountPrices.getReductionToWholeType(getType(), SpecialWeeklyDiscounts.WEDNESDAY_DISCOUNT)/100;
+        return price * discountPrices.getReductionToWholeType(getType(), SpecialWeeklyDiscounts.WEDNESDAY_SALADS_DISCOUNT)/100;
     }
 
     public boolean isVegetarian() {

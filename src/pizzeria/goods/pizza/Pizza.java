@@ -1,5 +1,7 @@
 package pizzeria.goods.pizza;
 
+import pizzeria.dateTimeTools.discounts.DiscountPrices;
+import pizzeria.dateTimeTools.discounts.SpecialWeeklyDiscounts;
 import pizzeria.goods.GoodsTypes;
 import pizzeria.goods.food.Eatable;
 import pizzeria.goods.food.Good;
@@ -55,8 +57,10 @@ public enum Pizza implements Good, Eatable {
         return getSum(1.3, 1);
     }
 
+    DiscountPrices discountPrices = new DiscountPrices();
+
     public int getMaxiPrice() {
-        return getSum(2,2);
+        return getSum(2,2)* discountPrices.getReductionToSomeGoods(SpecialWeeklyDiscounts.THURSDAY_MAXI_PIZZA_DISCOUNT) / 100;
     }
 
     @Override
@@ -81,4 +85,6 @@ public enum Pizza implements Good, Eatable {
                 .mapToInt(Ingredients::getPrice)
                 .sum());
     }
+
+
 }

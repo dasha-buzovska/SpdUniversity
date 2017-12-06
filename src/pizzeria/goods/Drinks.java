@@ -1,5 +1,7 @@
 package pizzeria.goods;
 
+import pizzeria.dateTimeTools.discounts.DiscountPrices;
+import pizzeria.dateTimeTools.discounts.SpecialWeeklyDiscounts;
 import pizzeria.goods.food.Drinkable;
 
 import java.util.Optional;
@@ -22,7 +24,15 @@ public enum Drinks implements Drinkable {
         return name;
     }
 
+    DiscountPrices discountPrices = new DiscountPrices();
+
     public int getPrice() {
+        for (int i = 0; i < values().length; i++) {
+            if (values()[i].isAlcoholic) {
+                return price * discountPrices
+                        .getReductionToSomeGoods(SpecialWeeklyDiscounts.FRIDAY_ALCOHOL_DISCOUNT) / 100;
+            }
+        }
         return price;
     }
 

@@ -39,7 +39,7 @@ public enum Desserts implements Good, Eatable {
 
     DiscountPrices discountPrices = new DiscountPrices();
     public int getPrice() {
-        return price * discountPrices.getReductionToWholeType(getType(), SpecialWeeklyDiscounts.MONDAY_DISCOUNT)/100;
+        return price * discountPrices.getReductionToWholeType(getType(), SpecialWeeklyDiscounts.MONDAY_DESSERTS_DISCOUNT)/100;
     }
 
 }
