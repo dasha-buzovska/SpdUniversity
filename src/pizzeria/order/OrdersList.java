@@ -2,8 +2,6 @@ package pizzeria.order;
 
 
 import pizzeria.billsStore.BillStore;
-import pizzeria.goods.food.Good;
-import pizzeria.order.Order;
 
 import java.util.ArrayList;
 
@@ -21,10 +19,6 @@ public class OrdersList {
             archivedOrders.add(billStore.generate());
         }
         return archivedOrders;
-    }
-
-    public int calculate(ArrayList<Good> abstractOrder) {
-        return abstractOrder.stream().mapToInt(Good::getPrice).sum();
     }
 
     public void finishOrder() {

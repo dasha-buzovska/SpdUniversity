@@ -64,25 +64,18 @@ public class BillPrinter {
                     }
                 });
     }
-//tODO: separate into two methods
-    public void printGroupedBill(OrdersList ordersList, int orderIndex) {
-        ArrayList<Good> orderWithPackedAdditions = ordersList.allOrders.get(orderIndex).packAdditionsToPizza();
-        Map<GoodsTypes, ArrayList<Good>> goodByItem = orderWithPackedAdditions
-                .stream()
-                .collect(groupingBy(Good::getType, toCollection(ArrayList::new)));
-        System.out.println("Order #" + (orderIndex + 1) + "\nPizza House.");
-        int sum = 0;
+
+    public void printGroupedBill(Order order, int index) {
+        Map<GoodsTypes, ArrayList<Good>> goodByItem = groupByType(order);
+        System.out.println("Order #" + (index + 1) + "\nPizza House.");
         for (Map.Entry<GoodsTypes, ArrayList<Good>> entry : goodByItem.entrySet()) {
             System.out.println(entry.getKey() + ":");
             entry.getValue()
                     .forEach(good ->
                         System.out.println("" + Helper.appendSpaces(good.getName()) + good.getPrice())
                     );
-            sum += ordersList.calculate(entry.getValue());
         }
-        System.out.println("\nTo pay:\t\t\t\t" + sum);
-        System.out.println(ordersList.allOrders.get(orderIndex).getStringDate());
-        System.out.println("See you next time!\n");
+        printSum(order);
     }
 
     private static void printSingleOrderFullStyle(Order singleOrder, OrdersList ordersList) {
@@ -104,6 +97,13 @@ public class BillPrinter {
         if (ingredientsSum != 0) {
             System.out.println("" + Helper.appendSpaces("Additions") + ingredientsSum);
         }
+    }
+
+    private Map<GoodsTypes, ArrayList<Good>> groupByType(Order order) {
+        ArrayList<Good> orderWithPackedAdditions = order.packAdditionsToPizza();
+        return orderWithPackedAdditions
+                .stream()
+                .collect(groupingBy(Good::getType, toCollection(ArrayList::new)));
     }
 
 }

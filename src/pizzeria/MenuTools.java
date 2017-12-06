@@ -88,7 +88,7 @@ class MenuTools {
                 System.out.println("Choose bill number from " + 1 + " to " + ordersList.allOrders.size());
                 orderIndex = Integer.parseInt(readUserOption()) - 1;
             }
-            bills.printGroupedBill(ordersList, orderIndex);
+            bills.printGroupedBill(ordersList.allOrders.get(orderIndex), orderIndex);
         } catch (Exception e) {
             System.out.println("Wrong index was typed.");
         }
