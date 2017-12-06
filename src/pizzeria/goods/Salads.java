@@ -1,5 +1,7 @@
 package pizzeria.goods;
 
+import pizzeria.dateTimeTools.discounts.DiscountPrices;
+import pizzeria.dateTimeTools.discounts.SpecialWeeklyDiscounts;
 import pizzeria.goods.food.Eatable;
 import pizzeria.goods.food.Good;
 
@@ -23,8 +25,9 @@ public enum Salads implements Good, Eatable {
         return name;
     }
 
+    DiscountPrices discountPrices = new DiscountPrices();
     public int getPrice() {
-        return price;
+        return price * discountPrices.getReductionToWholeType(getType(), SpecialWeeklyDiscounts.WEDNESDAY_DISCOUNT)/100;
     }
 
     public boolean isVegetarian() {

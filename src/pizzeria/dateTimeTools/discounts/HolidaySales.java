@@ -7,8 +7,7 @@ public enum HolidaySales {
     CHRISTMAS(LocalDate.of(2018, 1, 7), 20),
     NEW_YEAR(LocalDate.of(2018,1,1), 15),
     EASTER(LocalDate.of(2018, 4,8), 25),
-    BLACK_FRIDAY(LocalDate.of(2018, 11, 30), 5),
-    HOLIDAY_EVERY_DAY(LocalDate.now(), 10); //test date
+    BLACK_FRIDAY(LocalDate.of(2018, 11, 30), 5);
 
     private LocalDate date;
     private int reduction;

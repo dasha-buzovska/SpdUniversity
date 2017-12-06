@@ -1,5 +1,7 @@
 package pizzeria.goods;
 
+import pizzeria.dateTimeTools.discounts.DiscountPrices;
+import pizzeria.dateTimeTools.discounts.SpecialWeeklyDiscounts;
 import pizzeria.goods.food.Eatable;
 import pizzeria.goods.food.Good;
 
@@ -13,10 +15,6 @@ public enum Desserts implements Good, Eatable {
 
     public String getName() {
         return name;
-    }
-
-    public int getPrice() {
-        return price;
     }
 
     public boolean isVegetarian() {
@@ -37,6 +35,11 @@ public enum Desserts implements Good, Eatable {
             return Optional.empty();
         }
         return Optional.of(values()[index]);
+    }
+
+    DiscountPrices discountPrices = new DiscountPrices();
+    public int getPrice() {
+        return price * discountPrices.getReductionToWholeType(getType(), SpecialWeeklyDiscounts.MONDAY_DISCOUNT)/100;
     }
 
 }
