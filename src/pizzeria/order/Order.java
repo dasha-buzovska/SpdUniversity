@@ -10,6 +10,7 @@ import pizzeria.goods.pizza.Pizza;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.stream.Stream;
 
 public class Order {
     private ArrayList<Good> goodsList = new ArrayList<>();
@@ -57,7 +58,8 @@ public class Order {
     }
 
     public int calculate() {
-        return goodsList.stream().mapToInt(Good::getPrice).sum()*(100 - HolidaySales.isReductionToday())/100;
+
+        return goodsList.stream().mapToInt(Good::getPrice).sum()*(100 - HolidaySales.getReductionIfSalesToday())/100;
     }
 
     public boolean isVegetarianBill() {

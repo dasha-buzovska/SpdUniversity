@@ -92,7 +92,7 @@ public class BillPrinter {
         System.out.println("\nTo pay:\t\t\t\t" + list.calculate());
         System.out.println(list.getStringDate());
         //TODO: Make motto for every holiday
-        if (HolidaySales.isReductionToday() != 0) {
+        if (HolidaySales.getReductionIfSalesToday() != 0) {
             System.out.println("Happy holidays!");
         }
         System.out.println("See you next time!\n");

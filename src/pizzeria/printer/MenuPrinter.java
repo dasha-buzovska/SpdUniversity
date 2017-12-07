@@ -21,6 +21,7 @@ public class MenuPrinter {
         System.out.println("b Go to bills printing");
         System.out.println("p Know sum for some period");
         System.out.println("a Add orders to archive");
+        System.out.println("d Print calendar with discounts");
         System.out.println("- Finish order");
     }
 

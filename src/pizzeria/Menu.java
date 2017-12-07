@@ -1,5 +1,7 @@
 package pizzeria;
 
+import pizzeria.dateTimeTools.CalendarPrinter;
+
 import java.util.Scanner;
 
 class Menu {
@@ -27,6 +29,8 @@ class Menu {
             } else if ("a".equals(index)) {
                 tool.ordersList.finishOrder();
                 tool.archive();
+            } else if ("d".equals(index)) {
+                CalendarPrinter.printYearCalendar(2018);
             } else {
                 System.out.println("\n");
                 try {

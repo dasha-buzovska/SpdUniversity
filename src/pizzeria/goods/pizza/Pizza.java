@@ -1,10 +1,12 @@
 package pizzeria.goods.pizza;
 
 import pizzeria.dateTimeTools.discounts.DiscountPrices;
+import pizzeria.dateTimeTools.discounts.HolidaySales;
 import pizzeria.dateTimeTools.discounts.SpecialWeeklyDiscounts;
 import pizzeria.goods.GoodsTypes;
 import pizzeria.goods.food.Eatable;
 import pizzeria.goods.food.Good;
+import pizzeria.order.Order;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -85,6 +87,5 @@ public enum Pizza implements Good, Eatable {
                 .mapToInt(Ingredients::getPrice)
                 .sum());
     }
-
 
 }
