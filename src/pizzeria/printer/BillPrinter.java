@@ -37,7 +37,7 @@ public class BillPrinter {
         }
     }
 
-    //TODO: fix empty bill
+    //TODO: not check if only one good in order
     public void printVegetarianBill(OrdersList ordersList, String parameter) {
         try {
             ordersList.allOrders
@@ -49,6 +49,7 @@ public class BillPrinter {
                         } else {
                             Helper.sortByName(singleOrder.getGoodsList(), parameter);
                         }
+                        printSingleOrderFullStyle(singleOrder, ordersList);
                     });
         } catch (WrongInputException e) {
             System.out.println(e.getMessage());
