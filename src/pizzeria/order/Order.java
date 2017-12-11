@@ -10,7 +10,6 @@ import pizzeria.goods.pizza.Pizza;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.stream.Stream;
 
 public class Order {
     private ArrayList<Good> goodsList = new ArrayList<>();
@@ -41,6 +40,7 @@ public class Order {
     }
 
     //TODO: fix situation when there are two same pizzas with different additions
+    //TODO: Everything is bad.You add additions to enum and it changes next pizzas. try to avoid it
     public ArrayList<Good> packAdditionsToPizza() {
         ArrayList<Good> goodsWithoutIngredients = new ArrayList<>();
         for (int i = 0; i < goodsList.size(); i++) {

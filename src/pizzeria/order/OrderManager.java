@@ -42,7 +42,6 @@ public class OrderManager {
             Pizza.values()[id].setSize(PizzaSize.NORMAL);
         } else if (size.equals("b")) {
             Pizza.values()[id].setSize(PizzaSize.BIG);
-            ordersList.orderList.add(Pizza.values()[id]);
         } else if (size.equals("m")) {
             Pizza.values()[id].setSize(PizzaSize.MAXI);
         } else {

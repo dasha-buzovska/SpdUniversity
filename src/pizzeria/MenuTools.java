@@ -8,7 +8,7 @@ import pizzeria.goods.pizza.Pizza;
 import pizzeria.order.OrderManager;
 import pizzeria.order.OrdersList;
 import pizzeria.printer.BillPrinter;
-import pizzeria.printer.MenuPrinter;
+import pizzeria.printer.GoodPrinter;
 
 import java.util.Arrays;
 import java.util.Scanner;
@@ -18,7 +18,6 @@ import static pizzeria.goods.GoodsTypes.INGREDIENT;
 class MenuTools {
 
     Scanner scanner;
-    MenuPrinter menuPrinter = new MenuPrinter();
     OrdersList ordersList = new OrdersList();
     BillPrinter bills = new BillPrinter();
     private OrderManager orderManager = new OrderManager();
@@ -37,7 +36,7 @@ class MenuTools {
     void chooseGood(int index) {
         if (index < GoodsTypes.PIZZA.ordinal()) {
             Good[] good = GoodsTypes.values()[index].getGoodsList();
-            menuPrinter.printGood(Arrays.asList(good), GoodsTypes.values()[index].getName());
+            GoodPrinter.print(Arrays.asList(good), GoodsTypes.values()[index].getName());
             System.out.println("  -  | back to menu");
             String inputIndex = readUserOption();
             if ("-".equals(inputIndex)) {
@@ -48,22 +47,21 @@ class MenuTools {
         }
     }
 
-    void choosePizza(String index) {
+    void choosePizza() {
         try {
-            if ("3".equals(index)) {
-                menuPrinter.printPizza();
-                String inputIndex = readUserOption();
-                System.out.println("Choose size (n, b, m): ");
-                String sizeIndex = readUserOption();
-                boolean success = orderManager.addPizza(Integer.parseInt(inputIndex), sizeIndex, ordersList);
-                if (!success) {
-                    return;
-                }
-                System.out.println("Do you want some additions? \n Type here (yes/no): ");
-                String wantAdditional = scanner.nextLine();
-                if (wantAdditional.equals("yes") || wantAdditional.equals("y")) {
-                    chooseIngredients(sizeIndex);
-                }
+            GoodPrinter.print();
+            String inputIndex = readUserOption();
+            System.out.println("Choose size (n, b, m): ");
+            String sizeIndex = readUserOption();
+            boolean success = orderManager.addPizza(Integer.parseInt(inputIndex), sizeIndex, ordersList);
+            //TODO: create custom exception instead of if
+            if (!success) {
+                return;
+            }
+            System.out.println("Do you want some additions? \n Type here (yes/no): ");
+            String wantAdditional = scanner.nextLine();
+            if (wantAdditional.equals("yes") || wantAdditional.equals("y")) {
+                chooseIngredients(sizeIndex);
             }
         } catch (NumberFormatException e) {
             System.out.println("Type appropriate sign, please!");
@@ -95,13 +93,13 @@ class MenuTools {
     }
 
     void chooseOrderStyle() {
-        System.out.println("Do you want ordersList by titles(t) or by prices(p)?");
+        System.out.println("Do you want order by titles(t) or by prices(p)?");
         String orderIndex = readUserOption();
         if (orderIndex.equals("t")) {
-            System.out.println("Choose titles ordersList ascending(a)/descending(d)");
+            System.out.println("Choose titles order ascending(a)/descending(d)");
             bills.printVegetarianBill(ordersList, "t" + readUserOption());
         } else if (orderIndex.equals("p")) {
-            System.out.println("Choose prices ordersList ascending(a)/descending(d)");
+            System.out.println("Choose prices order ascending(a)/descending(d)");
             bills.printVegetarianBill(ordersList, "p" + readUserOption());
         }
     }
@@ -110,7 +108,7 @@ class MenuTools {
         try {
             String ingredientIndex;
             while (true) {
-                menuPrinter.printGood(Arrays.asList(Ingredients.values()), "ingredient");
+                GoodPrinter.print(Arrays.asList(Ingredients.values()),"ingredient");
                 System.out.println("  -  | back to menu");
                 ingredientIndex = readUserOption();
                 if ("-".equals(ingredientIndex)) {

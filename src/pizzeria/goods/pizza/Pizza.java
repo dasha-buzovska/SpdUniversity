@@ -1,12 +1,10 @@
 package pizzeria.goods.pizza;
 
 import pizzeria.dateTimeTools.discounts.DiscountPrices;
-import pizzeria.dateTimeTools.discounts.HolidaySales;
 import pizzeria.dateTimeTools.discounts.SpecialWeeklyDiscounts;
 import pizzeria.goods.GoodsTypes;
 import pizzeria.goods.food.Eatable;
 import pizzeria.goods.food.Good;
-import pizzeria.order.Order;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,7 +12,7 @@ import java.util.Collections;
 import java.util.stream.Collectors;
 
 public enum Pizza implements Good, Eatable {
-
+    //TODO: create instance of pizza + new item for every good
     YOUR_PIZZA("Your pizza", true, new ArrayList<>(Collections.singletonList(Ingredients.SAUCE))),
     MARGARITA("Margarita", true, new ArrayList<>(Arrays.asList(Ingredients.TOMATO, Ingredients.CHEESE))),
     PEPERONI("Peperoni", false, new ArrayList<>(Arrays.asList(Ingredients.TOMATO, Ingredients.CHEESE,
