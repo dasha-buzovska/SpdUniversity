@@ -1,24 +1,18 @@
 package pizzeria.order;
 
 
-import pizzeria.billsStore.BillStore;
+import pizzeria.store.FileController;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class OrdersList {
 
     public Order orderList = new Order();
     public ArrayList<Order> allOrders = new ArrayList<>();
-    BillStore billStore = new BillStore();
-    public ArrayList<Order> archivedOrders = createArchivedList(1000);
 
-    //TODO: think about title and where to put this method
-    public ArrayList<Order> createArchivedList(int count) {
-        ArrayList<Order> archivedOrders = new ArrayList();
-        for (int i = 0; i < count; i++) {
-            archivedOrders.add(billStore.generate());
-        }
-        return archivedOrders;
+    public List<Order> getArchive() {
+        return FileController.read();
     }
 
     public void finishOrder() {
@@ -29,7 +23,10 @@ public class OrdersList {
     }
 
     public void addOrdersToArchive() {
-        archivedOrders.addAll(allOrders);
+        //TODO: archive
+        //if (!archivedOrders.isEmpty()) {
+        //    archivedOrders.addAll(allOrders);
+        //}
         allOrders = new ArrayList<>();
     }
 }

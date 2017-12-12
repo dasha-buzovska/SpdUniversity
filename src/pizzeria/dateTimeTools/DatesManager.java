@@ -52,7 +52,7 @@ public class DatesManager {
     }
 
     private int calculateSumAfterDate(LocalDateTime date) {
-        return ordersList.archivedOrders
+        return ordersList.getArchive()
                 .stream()
                 .filter(order -> order.getDate().isAfter(date))
                 .mapToInt(Order::calculate)

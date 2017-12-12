@@ -2,11 +2,11 @@ package pizzeria.printer;
 
 import pizzeria.dateTimeTools.discounts.HolidaySales;
 import pizzeria.order.Order;
+import pizzeria.order.OrderEntry;
 import pizzeria.order.OrdersList;
 import pizzeria.WrongInputException;
 import pizzeria.goods.GoodsTypes;
 import pizzeria.goods.food.Good;
-import pizzeria.goods.pizza.Ingredients;
 
 import java.util.*;
 import static java.util.stream.Collectors.groupingBy;
@@ -23,13 +23,13 @@ public class BillPrinter {
         int ingredientsSum = 0;
         for (Order singleOrder: ordersList.allOrders) {
             System.out.println("Order #" + (ordersList.allOrders.indexOf(singleOrder) + 1) + "\nPizza House.");
-            for (Good good : singleOrder.getGoodsList()) {
-                if (good instanceof Ingredients) {
+            for (OrderEntry good : singleOrder.getGoodsList()) {
+                if (good.isIngredient()) {
                     ingredientsSum += good.getPrice();
                 } else {
                     printAdditions(ingredientsSum);
                     ingredientsSum = 0;
-                    System.out.println("" + Helper.appendSpaces(good.getName()) + good.getPrice());
+                    System.out.println(good.displayRow());
                 }
             }
             printAdditions(ingredientsSum);
@@ -84,7 +84,7 @@ public class BillPrinter {
         System.out.println("Order #" + (ordersList.allOrders.indexOf(singleOrder) + 1) + "\nPizza House.");
         singleOrder.getGoodsList()
                 .stream()
-                .map(good -> "" + Helper.appendSpaces(good.getName()) + good.getPrice())
+                .map(OrderEntry::displayRow)
                 .forEach(System.out::println);
         printSum(singleOrder);
     }

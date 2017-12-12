@@ -4,18 +4,16 @@ import pizzeria.dateTimeTools.discounts.HolidaySales;
 import pizzeria.goods.food.Drinkable;
 import pizzeria.goods.food.Eatable;
 import pizzeria.goods.food.Good;
-import pizzeria.goods.pizza.Ingredients;
-import pizzeria.goods.pizza.Pizza;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Order {
-    private ArrayList<Good> goodsList = new ArrayList<>();
+    private ArrayList<OrderEntry> goodsList = new ArrayList<>();
     private LocalDateTime date = LocalDateTime.now();
 
-    public ArrayList<Good> getGoodsList() {
+    public ArrayList<OrderEntry> getGoodsList() {
         return goodsList;
     }
 
@@ -32,7 +30,11 @@ public class Order {
     }
 
     public void add(Good good) {
-        goodsList.add(good);
+        goodsList.add(new OrderEntry(good));
+    }
+
+    public void add(OrderEntry orderEntry) {
+        goodsList.add(orderEntry);
     }
 
     public boolean isEmpty() {
@@ -43,23 +45,22 @@ public class Order {
     //TODO: Everything is bad.You add additions to enum and it changes next pizzas. try to avoid it
     public ArrayList<Good> packAdditionsToPizza() {
         ArrayList<Good> goodsWithoutIngredients = new ArrayList<>();
-        for (int i = 0; i < goodsList.size(); i++) {
-            if (goodsList.get(i) instanceof Pizza) {
-                Pizza pizza = (Pizza) goodsList.get(i);
-                int index = goodsList.indexOf(pizza) + 1;
-                while (index < goodsList.size() && goodsList.get(index) instanceof Ingredients) {
-                    pizza.addIngredients((Ingredients) goodsList.get(index));
-                    goodsList.remove(index);
-                }
-            }
-            goodsWithoutIngredients.add(goodsList.get(i));
-        }
+//        for (int i = 0; i < goodsList.size(); i++) {
+//            if (goodsList.get(i).isPizza()) {
+//                Pizza pizza = (Pizza) goodsList.get(i).type;
+//                int index = goodsList.indexOf(pizza) + 1;
+//                while (index < goodsList.size() && goodsList.get(index).isIngredient()) {
+//                    pizza.addIngredients((Ingredients) goodsList.get(index).type);
+//                    goodsList.remove(index);
+//                }
+//            }
+//            goodsWithoutIngredients.add(goodsList.get(i).type);
+//        }
         return goodsWithoutIngredients;
     }
 
     public int calculate() {
-
-        return goodsList.stream().mapToInt(Good::getPrice).sum()*(100 - HolidaySales.getReductionIfSalesToday())/100;
+        return goodsList.stream().mapToInt(OrderEntry::getPrice).sum()*(100 - HolidaySales.getReductionIfSalesToday())/100;
     }
 
     public boolean isVegetarianBill() {
