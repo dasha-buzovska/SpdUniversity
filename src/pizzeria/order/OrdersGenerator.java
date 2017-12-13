@@ -1,15 +1,23 @@
 package pizzeria.order;
 
-import pizzeria.order.Order;
 import pizzeria.goods.GoodsTypes;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class OrdersGenerator {
+
+    public static ArrayList<Order> createArchivedList(int count) {
+        ArrayList<Order> archivedOrders = new ArrayList();
+        for (int i = 0; i < count; i++) {
+            archivedOrders.add(OrdersGenerator.generate());
+        }
+        return archivedOrders;
+    }
 
     public static Order generate() {
         Order order = new Order();

@@ -23,19 +23,13 @@ public class OrdersList {
     }
 
     public void addOrdersToArchive() {
-        //TODO: archive
-        //if (!archivedOrders.isEmpty()) {
-        //    archivedOrders.addAll(allOrders);
-        //}
-        allOrders = new ArrayList<>();
-    }
-
-    public static ArrayList<Order> createArchivedList(int count) {
-        ArrayList<Order> archivedOrders = new ArrayList();
-        for (int i = 0; i < count; i++) {
-            archivedOrders.add(OrdersGenerator.generate());
+        List<Order> list = Store.read();
+        if (list == null) {
+            list = new ArrayList<>();
         }
-        return archivedOrders;
+        list.addAll(allOrders);
+        Store.write(list);
+        allOrders = new ArrayList<>();
     }
 
 }

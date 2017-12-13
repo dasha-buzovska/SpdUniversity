@@ -16,6 +16,7 @@ import java.util.*;
 import java.io.IOException;
 
 public class Store {
+    public static final String ARCHIVE_FILE = "archivedOrders.json";
 
     public static List<Order> read() {
         Gson gson = new GsonBuilder()
@@ -23,7 +24,7 @@ public class Store {
                 .registerTypeAdapter(OrderEntry.class, new OrderEntryDeserializer())
                 .create();
         try {
-            JsonReader reader = new JsonReader(new FileReader("archivedOrders.json"));
+            JsonReader reader = new JsonReader(new FileReader(ARCHIVE_FILE));
             return gson.fromJson(reader, new TypeToken<java.util.List<Order>>() {}.getType());
         } catch (IOException e) {
             System.out.println("WARNING! HANDLE EXCEPTION!");
@@ -31,11 +32,11 @@ public class Store {
         }
     }
 
-    public static void write(List<Order> list, String filename) {
+    public static void write(List<Order> list) {
         Gson gson = new Gson();
         Type type = new TypeToken<List<Order>>() {}.getType();
 
-        try (FileWriter file = new FileWriter(filename)) {
+        try (FileWriter file = new FileWriter(ARCHIVE_FILE)) {
 
             file.write(gson.toJson(list, type));
             file.flush();
