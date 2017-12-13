@@ -11,7 +11,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class OrdersGenerator {
 
-    public Order generate() {
+    public static Order generate() {
         Order order = new Order();
         int bound = getRandomNumberOfRange(1, 10);
         for (int i = 0; i < bound; i++) {
@@ -24,7 +24,7 @@ public class OrdersGenerator {
         return order;
     }
 
-    private LocalDateTime dateGenerator() {
+    private static LocalDateTime dateGenerator() {
         long start = LocalDate.of(2015, 1, 1).toEpochDay();
         long end = LocalDate.now().toEpochDay();
         long randomEpochDay = ThreadLocalRandom.current().longs(start, end).findAny().getAsLong();
@@ -35,7 +35,7 @@ public class OrdersGenerator {
         return dateTime;
     }
 
-    private int getRandomNumberOfRange(int min, int max) {
+    private static int getRandomNumberOfRange(int min, int max) {
         Random random = new Random();
         return random.nextInt(max - min + 1) + min;
     }

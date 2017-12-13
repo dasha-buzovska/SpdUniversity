@@ -1,7 +1,7 @@
 package pizzeria.order;
 
 
-import pizzeria.fileManager.FileController;
+import pizzeria.fileManager.Store;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ public class OrdersList {
     public ArrayList<Order> allOrders = new ArrayList<>();
 
     public List<Order> getArchive() {
-        return FileController.read();
+        return Store.read();
     }
 
     public void finishOrder() {
@@ -29,4 +29,13 @@ public class OrdersList {
         //}
         allOrders = new ArrayList<>();
     }
+
+    public static ArrayList<Order> createArchivedList(int count) {
+        ArrayList<Order> archivedOrders = new ArrayList();
+        for (int i = 0; i < count; i++) {
+            archivedOrders.add(OrdersGenerator.generate());
+        }
+        return archivedOrders;
+    }
+
 }

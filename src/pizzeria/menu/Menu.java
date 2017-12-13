@@ -63,27 +63,32 @@ public class Menu {
     }
 
     private void chooseBillType(String index) {
-        //todo: improve like in a previous method
         tool.ordersList.finishOrder();
-        assert tool.ordersList.allOrders.size() != 0: "don't work with no ordersList!";
-        switch (index) {
-            case "s":
-                tool.bills.printShortBill(tool.ordersList);
-                break;
-            case "f":
-                tool.bills.printFullBill(tool.ordersList);
-                break;
-            case "v":
-                tool.chooseOrderStyle();
-                break;
-            case "p":
-                tool.choosePizzaStyle();
-                break;
-            case "g":
-                tool.chooseBillNumber();
-                break;
-            default:
-                System.out.println("Wrong sign was typed. Try again, please!");
+        assert tool.ordersList.allOrders.size() != 0: "don't work with no orders!";
+        BillsTypePrinter option;
+        try {
+            option = BillsTypePrinter.createOption(index);
+            switch (option) {
+                case SHORT:
+                    tool.bills.printShortBill(tool.ordersList);
+                    break;
+                case FULL:
+                    tool.bills.printFullBill(tool.ordersList);
+                    break;
+                case VEGGIE:
+                    tool.chooseOrderStyle();
+                    break;
+                case SPECIAL:
+                    tool.choosePizzaStyle();
+                    break;
+                case GROUPED:
+                    tool.chooseBillNumber();
+                    break;
+                default:
+                    System.out.println("Wrong sign was typed. Try again, please!");
+            }
+        } catch (NoSuchElementException e) {
+            System.out.println("Wrong sign was typed. Try again!");
         }
     }
 }

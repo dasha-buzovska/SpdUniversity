@@ -93,7 +93,6 @@ public class BillPrinter {
     private static void printSum(Order list) {
         System.out.println("\nTo pay:\t\t\t\t" + list.calculate());
         System.out.println(list.getStringDate());
-        //TODO: Make motto for every holiday
         if (HolidaySales.getReductionIfSalesToday() != 0) {
             System.out.println("Happy holidays!");
         }

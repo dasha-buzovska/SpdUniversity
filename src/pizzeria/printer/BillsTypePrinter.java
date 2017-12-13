@@ -21,4 +21,8 @@ public enum BillsTypePrinter {
                 .map(bill -> bill.sign + " " + bill.option)
                 .forEach(System.out::println);
     }
+
+    public static BillsTypePrinter createOption(String index) {
+        return Arrays.stream(values()).filter(element -> element.sign.equals(index)).findFirst().get();
+    }
 }

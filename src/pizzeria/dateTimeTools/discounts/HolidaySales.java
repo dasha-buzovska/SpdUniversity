@@ -1,10 +1,8 @@
 package pizzeria.dateTimeTools.discounts;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public enum HolidaySales {
-    //TODO: set year automatic in date
     CHRISTMAS(LocalDate.of(2018, 1, 7), 20),
     NEW_YEAR(LocalDate.of(2018,1,1), 15),
     EASTER(LocalDate.of(2018, 4,8), 25),
