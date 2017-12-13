@@ -1,0 +1,8 @@
+[
+  {"name": "Greek", "price": 30, "isVegetarian": true},
+  {"name": "Spring", "price": 40, "isVegetarian": false},
+  {"name": "Happy", "price": 24, "isVegetarian": false},
+  {"name": "Healthy", "price": 18, "isVegetarian": true},
+  {"name": "Carrot salad", "price": 15, "isVegetarian": true},
+  {"name": "Insalata", "price": 25, "isVegetarian": true}
+]

@@ -17,21 +17,18 @@ public class OrderEntry {
     }
 
     OrderEntry(String type) {
-        try {
-            this.type = Desserts.valueOf(type);
+        this.type = Desserts.valueOf(type);
+        if (this.type != null){
             return;
-        } catch (IllegalArgumentException e) {}
-
-        try {
-            this.type = Salads.valueOf(type);
+        }
+        this.type = Salads.valueOf(type);
+        if (this.type != null){
             return;
-        } catch (IllegalArgumentException e) {}
-
-        try {
-            this.type = Drinks.valueOf(type);
+        }
+        this.type = Drinks.valueOf(type);
+        if (this.type != null){
             return;
-        } catch (IllegalArgumentException e) {}
-
+        }
         try {
             this.type = Pizza.valueOf(type);
             return;

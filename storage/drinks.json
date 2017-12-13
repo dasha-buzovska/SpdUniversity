@@ -1,0 +1,8 @@
+[
+  {"name": "Tea", "price": 10, "isAlcoholic": false},
+  {"name": "Coffee", "price": 20, "isAlcoholic": false},
+  {"name": "Water", "price": 11, "isAlcoholic": false},
+  {"name": "Juice", "price": 15, "isAlcoholic": false},
+  {"name": "Beer", "price": 24, "isAlcoholic": true},
+  {"name": "Vodka", "price": 20, "isAlcoholic": true}
+]

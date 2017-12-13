@@ -1,14 +1,41 @@
 package pizzeria.goods;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import pizzeria.dateTimeTools.discounts.DiscountPrices;
 import pizzeria.dateTimeTools.discounts.SpecialWeeklyDiscounts;
+import pizzeria.fileManager.Store;
 import pizzeria.goods.food.Eatable;
 import pizzeria.goods.food.Good;
 
 import java.util.Optional;
 
-public enum Desserts implements Good, Eatable {
-    PUN_CAKE("Pun-cake", 20), FONDANT("Fondant", 40), COOKIES("Cookies", 12), ICE_CREAM("Ice-cream", 10);
+public class Desserts implements Good, Eatable {
+
+    static JsonArray innerArray = Store.readGoodType("storage/desserts.json");
+
+    public static Desserts get(int id) {
+        return values()[id];
+    }
+
+    public static Desserts[] values() {
+        Desserts[] desserts = new Desserts[innerArray.size()];
+        for (int i = 0; i < desserts.length; i++) {
+            JsonObject data = innerArray.get(i).getAsJsonObject();
+            desserts[i] = new Desserts(data.get("name").getAsString(),
+                    data.get("price").getAsInt());
+        }
+        return desserts;
+    }
+
+    public static Desserts valueOf(String type) {
+        for (Desserts desserts: values()){
+            if (desserts.getName().equals(type)) {
+                return desserts;
+            }
+        }
+        return null;
+    }
 
     private String name;
     private int price;
@@ -37,7 +64,8 @@ public enum Desserts implements Good, Eatable {
         return Optional.of(values()[index]);
     }
 
-    DiscountPrices discountPrices = new DiscountPrices();
+    transient DiscountPrices discountPrices = new DiscountPrices();
+
     public int getPrice() {
         return price * discountPrices.getReductionToWholeType(getType(), SpecialWeeklyDiscounts.MONDAY_DESSERTS_DISCOUNT)/100;
     }

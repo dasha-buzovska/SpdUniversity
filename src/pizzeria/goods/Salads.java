@@ -1,15 +1,16 @@
 package pizzeria.goods;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import pizzeria.dateTimeTools.discounts.DiscountPrices;
 import pizzeria.dateTimeTools.discounts.SpecialWeeklyDiscounts;
+import pizzeria.fileManager.Store;
 import pizzeria.goods.food.Eatable;
 import pizzeria.goods.food.Good;
 
 import java.util.Optional;
 
-public enum Salads implements Good, Eatable {
-    GREEK("Greek", 30, true), SPRING("Spring", 40, false), HAPPY("Happy", 24, false),
-    HEALTHY("Healthy", 18, true), CARROT_SALAD("Carrot salad", 15, true), INSALATA("Insalata", 25, true);
+public class Salads implements Good, Eatable {
 
     private String name;
     private int price;
@@ -21,11 +22,38 @@ public enum Salads implements Good, Eatable {
         this.isVegetarian = isVegetarian;
     }
 
+    static JsonArray innerArray = Store.readGoodType("storage/salads.json");
+
+    public static Salads get(int id) {
+        return values()[id];
+    }
+
+    public static Salads[] values() {
+        Salads[] salads = new Salads[innerArray.size()];
+        for (int i = 0; i < salads.length; i++) {
+            JsonObject data = innerArray.get(i).getAsJsonObject();
+            salads[i] = new Salads(data.get("name").getAsString(),
+                    data.get("price").getAsInt(),
+                    data.get("isVegetarian").getAsBoolean());
+        }
+        return salads;
+    }
+
+    public static Salads valueOf(String type) {
+        for (Salads salads: values()){
+            if (salads.getName().equals(type)) {
+                return salads;
+            }
+        }
+        return null;
+    }
+
+
     public String getName() {
         return name;
     }
 
-    DiscountPrices discountPrices = new DiscountPrices();
+    transient DiscountPrices discountPrices = new DiscountPrices();
     public int getPrice() {
         return price * discountPrices.getReductionToWholeType(getType(), SpecialWeeklyDiscounts.WEDNESDAY_SALADS_DISCOUNT)/100;
     }

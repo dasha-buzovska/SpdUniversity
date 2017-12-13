@@ -2,6 +2,8 @@ package pizzeria.fileManager;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import pizzeria.order.Order;
@@ -16,9 +18,10 @@ import java.util.*;
 import java.io.IOException;
 
 public class Store {
-    public static final String ARCHIVE_FILE = "archivedOrders.json";
+    public static final String DIRECTORY = "storage/";
+    public static final String ARCHIVE_FILE = DIRECTORY + "archivedOrders.json";
 
-    public static List<Order> read() {
+    public static List<Order> readArchive() {
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(Order.class, new OrderDeserializer())
                 .registerTypeAdapter(OrderEntry.class, new OrderEntryDeserializer())
@@ -31,6 +34,21 @@ public class Store {
             return null;
         }
     }
+
+    public static JsonArray readGoodType(String filename) {
+        JsonParser parser = new JsonParser();
+        try {
+            JsonReader reader = new JsonReader(new FileReader(filename));
+            Object object = parser.parse(reader);
+            JsonArray array = (JsonArray)object;
+            return array;
+        } catch (IOException e) {
+            System.out.println("WARNING! HANDLE EXCEPTION!");
+            return null;
+        }
+    }
+
+
 
     public static void write(List<Order> list) {
         Gson gson = new Gson();

@@ -9,6 +9,11 @@ public class OrderEntryDeserializer implements JsonDeserializer<OrderEntry> {
     public OrderEntry deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext)
             throws JsonParseException {
         JsonObject jsonObject = jsonElement.getAsJsonObject();
-        return new OrderEntry(jsonObject.get("type").getAsString());
+        JsonElement jsonType = jsonObject.get("type");
+        if (jsonType.isJsonPrimitive()) {
+            return new OrderEntry(jsonType.getAsString());
+        } else {
+            return new OrderEntry(jsonType.getAsJsonObject().get("name").getAsString());
+        }
     }
 }

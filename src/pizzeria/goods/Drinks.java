@@ -1,14 +1,15 @@
 package pizzeria.goods;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import pizzeria.dateTimeTools.discounts.DiscountPrices;
 import pizzeria.dateTimeTools.discounts.SpecialWeeklyDiscounts;
+import pizzeria.fileManager.Store;
 import pizzeria.goods.food.Drinkable;
 
 import java.util.Optional;
 
-public enum Drinks implements Drinkable {
-    TEA("Tea", 10, false), COFFEE("Coffee", 20, false), WATER("Water", 11, false),
-    JUICE("Juice", 15, false), BEER("Beer", 24, true), VODKA("Vodka", 20, true);
+public class Drinks implements Drinkable {
 
     private String name;
     private int price;
@@ -20,11 +21,37 @@ public enum Drinks implements Drinkable {
         this.isAlcoholic = isAlcoholic;
     }
 
+    static JsonArray innerArray = Store.readGoodType("storage/drinks.json");
+
+    public static Drinks get(int id) {
+        return values()[id];
+    }
+
+    public static Drinks[] values() {
+        Drinks[] drinks = new Drinks[innerArray.size()];
+        for (int i = 0; i < drinks.length; i++) {
+            JsonObject data = innerArray.get(i).getAsJsonObject();
+            drinks[i] = new Drinks(data.get("name").getAsString(),
+                    data.get("price").getAsInt(),
+                    data.get("isAlcoholic").getAsBoolean());
+        }
+        return drinks;
+    }
+
+    public static Drinks valueOf(String type) {
+        for (Drinks drinks: values()){
+            if (drinks.getName().equals(type)) {
+                return drinks;
+            }
+        }
+        return null;
+    }
+
     public String getName() {
         return name;
     }
 
-    DiscountPrices discountPrices = new DiscountPrices();
+    transient DiscountPrices discountPrices = new DiscountPrices();
 
     public int getPrice() {
         for (int i = 0; i < values().length; i++) {

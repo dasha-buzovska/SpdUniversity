@@ -12,7 +12,7 @@ public class OrdersList {
     public ArrayList<Order> allOrders = new ArrayList<>();
 
     public List<Order> getArchive() {
-        return Store.read();
+        return Store.readArchive();
     }
 
     public void finishOrder() {
@@ -23,7 +23,7 @@ public class OrdersList {
     }
 
     public void addOrdersToArchive() {
-        List<Order> list = Store.read();
+        List<Order> list = Store.readArchive();
         if (list == null) {
             list = new ArrayList<>();
         }
