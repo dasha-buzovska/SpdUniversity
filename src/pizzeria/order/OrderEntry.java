@@ -6,7 +6,7 @@ import pizzeria.goods.Salads;
 import pizzeria.goods.food.Good;
 import pizzeria.goods.pizza.Ingredients;
 import pizzeria.goods.pizza.Pizza;
-import pizzeria.printer.Helper;
+import pizzeria.utils.Helper;
 
 public class OrderEntry {
 

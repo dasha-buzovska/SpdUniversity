@@ -1,6 +1,6 @@
-package pizzeria;
+package pizzeria.menu;
 
-import pizzeria.dateTimeTools.DatesManager;
+import pizzeria.dateTimeTools.SumForPeriod;
 import pizzeria.goods.GoodsTypes;
 import pizzeria.goods.food.Good;
 import pizzeria.goods.pizza.Ingredients;
@@ -21,7 +21,7 @@ class MenuTools {
     OrdersList ordersList = new OrdersList();
     BillPrinter bills = new BillPrinter();
     private OrderManager orderManager = new OrderManager();
-    private DatesManager datesManager = new DatesManager(ordersList);
+    private SumForPeriod sumForPeriod = new SumForPeriod(ordersList);
 
     void archive() {
         ordersList.addOrdersToArchive();
@@ -30,7 +30,7 @@ class MenuTools {
     void choosePeriod(){
         System.out.println("Choose period you want to \nknow sum (year, month, week, day):");
         String periodIndex = readUserOption();
-        System.out.println("\n" + datesManager.findSumByConcretePeriod(periodIndex) + "\n");
+        System.out.println("\n" + sumForPeriod.findSumByConcretePeriod(periodIndex) + "\n");
     }
 
     void chooseGood(int index) {

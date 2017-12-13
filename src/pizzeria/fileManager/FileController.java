@@ -1,4 +1,4 @@
-package pizzeria.store;
+package pizzeria.fileManager;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

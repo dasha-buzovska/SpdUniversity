@@ -1,5 +1,6 @@
 package pizzeria;
 
+import pizzeria.menu.Menu;
 
 public class PizzaHouse {
     public static void main(String[] args) {

@@ -2,11 +2,12 @@ package pizzeria.printer;
 
 import pizzeria.goods.food.Good;
 import pizzeria.goods.pizza.Pizza;
+import pizzeria.utils.Helper;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class GoodPrinter implements Printable {
+public class GoodPrinter {
 
     public static void print(List<Good> array, String name) {
         System.out.println("Choose your " + name);

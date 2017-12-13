@@ -1,8 +1,8 @@
-package pizzeria.store;
+package pizzeria;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import pizzeria.billsStore.BillStore;
+import pizzeria.order.OrdersGenerator;
 import pizzeria.order.Order;
 
 import java.io.FileWriter;
@@ -11,8 +11,8 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FileGenerator {
-    static BillStore billStore = new BillStore();
+public class FileController {
+    static OrdersGenerator ordersGenerator = new OrdersGenerator();
 
     public static void main(String[] args) {
         List<Order> list = createArchivedList(1000);
@@ -33,7 +33,7 @@ public class FileGenerator {
     public static ArrayList<Order> createArchivedList(int count) {
         ArrayList<Order> archivedOrders = new ArrayList();
         for (int i = 0; i < count; i++) {
-            archivedOrders.add(billStore.generate());
+            archivedOrders.add(ordersGenerator.generate());
         }
         return archivedOrders;
     }

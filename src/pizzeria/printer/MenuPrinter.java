@@ -2,7 +2,7 @@ package pizzeria.printer;
 
 import java.util.Arrays;
 
-public enum MenuPrinter implements Printable {
+public enum MenuPrinter {
     SALADS("1", "Salads"),
     DRINKS("2", "Drinks"),
     DESSERTS("3", "Deserts"),

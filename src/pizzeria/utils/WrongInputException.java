@@ -1,4 +1,4 @@
-package pizzeria;
+package pizzeria.utils;
 
 public class WrongInputException extends NumberFormatException {
     public String getMessage() {

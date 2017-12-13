@@ -1,4 +1,4 @@
-package pizzeria;
+package pizzeria.menu;
 
 import pizzeria.dateTimeTools.CalendarPrinter;
 import pizzeria.printer.BillsTypePrinter;
@@ -7,10 +7,10 @@ import pizzeria.printer.MenuPrinter;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-class Menu {
+public class Menu {
     private MenuTools tool = new MenuTools();
 
-    void initialize() {
+    public void initialize() {
         try(Scanner scanner = new Scanner(System.in)) {
             tool.scanner = scanner;
             makeOrder();

@@ -1,4 +1,4 @@
-package pizzeria.billsStore;
+package pizzeria.order;
 
 import pizzeria.order.Order;
 import pizzeria.goods.GoodsTypes;
@@ -9,12 +9,10 @@ import java.time.LocalTime;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class BillStore {
-
+public class OrdersGenerator {
 
     public Order generate() {
         Order order = new Order();
-        //TODO(?): add ingredients to pizza
         int bound = getRandomNumberOfRange(1, 10);
         for (int i = 0; i < bound; i++) {
             int typeIndex = getRandomNumberOfRange(0, GoodsTypes.values().length - 2);

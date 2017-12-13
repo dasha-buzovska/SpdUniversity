@@ -36,10 +36,4 @@ public enum HolidaySales {
         return 0;
     }
 
-    public boolean isToday(Date date) {
-        return date.equals(LocalDate.now());
-    }
-
-
-
 }

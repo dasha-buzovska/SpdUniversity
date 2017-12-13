@@ -7,6 +7,7 @@ import java.time.temporal.ChronoField;
 import java.util.Arrays;
 
 public class DiscountPrices {
+
     public int getReductionToWholeType(GoodsTypes type, SpecialWeeklyDiscounts dayDiscount) {
         int fullPrice = 100;
         if (Arrays.equals(type.getGoodsList(), dayDiscount.getAllGoods()) && isAppropriateDayOfWeek(dayDiscount)) {
