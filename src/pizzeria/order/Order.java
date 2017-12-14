@@ -42,8 +42,8 @@ public class Order {
         return goodsList.isEmpty();
     }
 
-    //TODO: fix situation when there are two same pizzas with different additions
-    //TODO: Everything is bad.You add additions to enum and it changes next pizzas. try to avoid it
+    //TODO: Remove this method Ingredients should be added at the moment of ordering pizza. You don't have enough
+    // information at this moment to split ingredients properly here.
     public ArrayList<Good> packAdditionsToPizza() {
         ArrayList<Good> goodsWithoutIngredients = new ArrayList<>();
 //        for (int i = 0; i < goodsList.size(); i++) {
