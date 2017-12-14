@@ -8,12 +8,13 @@ import pizzeria.goods.food.Good;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Order {
-    private ArrayList<OrderEntry> goodsList = new ArrayList<>();
+    private List<OrderEntry> goodsList = new ArrayList<>();
     private LocalDateTime date = LocalDateTime.now();
 
-    public ArrayList<OrderEntry> getGoodsList() {
+    public List<OrderEntry> getGoodsList() {
         return goodsList;
     }
 

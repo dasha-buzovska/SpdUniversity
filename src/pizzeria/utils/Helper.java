@@ -2,7 +2,6 @@ package pizzeria.utils;
 
 import pizzeria.order.OrderEntry;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -28,7 +27,7 @@ public class Helper {
         }
     }
 
-    public static void sortByName(ArrayList<OrderEntry> list, String parameter) {
+    public static void sortByName(List<OrderEntry> list, String parameter) {
         list.sort(new Comparator<OrderEntry>() {
             @Override
             public int compare(OrderEntry a, OrderEntry b) {
@@ -43,7 +42,7 @@ public class Helper {
         });
     }
 
-    public static boolean containsName(ArrayList<OrderEntry> order, String name) {
+    public static boolean containsName(List<OrderEntry> order, String name) {
         return order.stream().anyMatch(good -> good.contains(name));
     }
 }

@@ -9,7 +9,7 @@ import java.util.List;
 public class OrdersList {
 
     public Order orderList = new Order();
-    public ArrayList<Order> allOrders = new ArrayList<>();
+    public List<Order> allOrders = new ArrayList<>();
 
     public List<Order> getArchive() {
         return Store.readArchive();

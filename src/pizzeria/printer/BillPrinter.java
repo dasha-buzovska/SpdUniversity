@@ -69,9 +69,9 @@ public class BillPrinter {
     }
 
     public void printGroupedBill(Order order, int index) {
-        Map<GoodsTypes, ArrayList<Good>> goodByItem = groupByType(order);
+        Map<GoodsTypes, List<Good>> goodByItem = groupByType(order);
         System.out.println("Order #" + (index + 1) + "\nPizza House.");
-        for (Map.Entry<GoodsTypes, ArrayList<Good>> entry : goodByItem.entrySet()) {
+        for (Map.Entry<GoodsTypes, List<Good>> entry : goodByItem.entrySet()) {
             System.out.println(entry.getKey() + ":");
             entry.getValue()
                     .forEach(good ->
@@ -105,7 +105,7 @@ public class BillPrinter {
         }
     }
 
-    private Map<GoodsTypes, ArrayList<Good>> groupByType(Order order) {
+    private Map<GoodsTypes, List<Good>> groupByType(Order order) {
         ArrayList<Good> orderWithPackedAdditions = order.packAdditionsToPizza();
         return orderWithPackedAdditions
                 .stream()

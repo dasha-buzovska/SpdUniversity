@@ -36,7 +36,6 @@ public class OrderEntry {
 
         try {
             this.type = Ingredients.valueOf(type);
-            return;
         } catch (IllegalArgumentException e) {}
     }
 

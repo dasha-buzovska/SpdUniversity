@@ -6,25 +6,24 @@ import pizzeria.goods.GoodsTypes;
 import pizzeria.goods.food.Eatable;
 import pizzeria.goods.food.Good;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public enum Pizza implements Good, Eatable {
     //TODO: create instance of pizza + new item for every good
-    YOUR_PIZZA("Your pizza", true, new ArrayList<>(Collections.singletonList(Ingredients.SAUCE))),
-    MARGARITA("Margarita", true, new ArrayList<>(Arrays.asList(Ingredients.TOMATO, Ingredients.CHEESE))),
-    PEPERONI("Peperoni", false, new ArrayList<>(Arrays.asList(Ingredients.TOMATO, Ingredients.CHEESE,
-            Ingredients.SAUSAGE))),
-    SEAFOOD("Seafood", true, new ArrayList<>(Arrays.asList(Ingredients.PINEAPPLE, Ingredients.CHEESE,
-            Ingredients.SALMON))),
-    HAWAIIAN("Hawaiian", false, new ArrayList<>(Arrays.asList(Ingredients.PINEAPPLE, Ingredients.CHEESE,
-            Ingredients.TOMATO, Ingredients.CHICKEN, Ingredients.MUSHROOMS)));
+    YOUR_PIZZA("Your pizza", true, Arrays.asList(Ingredients.SAUCE)),
+    MARGARITA("Margarita", true, Arrays.asList(Ingredients.TOMATO, Ingredients.CHEESE)),
+    PEPERONI("Peperoni", false, Arrays.asList(Ingredients.TOMATO, Ingredients.CHEESE,
+            Ingredients.SAUSAGE)),
+    SEAFOOD("Seafood", true, Arrays.asList(Ingredients.PINEAPPLE, Ingredients.CHEESE,
+            Ingredients.SALMON)),
+    HAWAIIAN("Hawaiian", false, Arrays.asList(Ingredients.PINEAPPLE, Ingredients.CHEESE,
+            Ingredients.TOMATO, Ingredients.CHICKEN, Ingredients.MUSHROOMS));
 
     private String name;
     private boolean isVegetarian;
-    private ArrayList<Ingredients> pizzaElements;
+    private List<Ingredients> pizzaElements;
     private PizzaSize size;
 
     public GoodsTypes getType() {
@@ -36,12 +35,16 @@ public enum Pizza implements Good, Eatable {
     }
 
     Pizza(String name,
-          boolean isVegetarian, ArrayList<Ingredients> pizzaElements) {
+          boolean isVegetarian, List<Ingredients> pizzaElements) {
         this.name = name;
         this.isVegetarian = isVegetarian;
         this.pizzaElements = pizzaElements;
         this.size = PizzaSize.NORMAL;
     }
+
+    public static final double normalSizeMultiplier = 1;
+    public static final double bigSizeMultiplier = 1.3;
+    public static final double maxiSizeMultiplier = 2;
 
     @Override
     public String getName() {
@@ -50,17 +53,17 @@ public enum Pizza implements Good, Eatable {
 
     @Override
     public int getPrice() {
-        return getSum(1,1);
+        return getSum(normalSizeMultiplier,normalSizeMultiplier);
     }
 
     public int getBigPrice() {
-        return getSum(1.3, 1);
+        return getSum(bigSizeMultiplier, normalSizeMultiplier);
     }
 
     DiscountPrices discountPrices = new DiscountPrices();
 
     public int getMaxiPrice() {
-        return getSum(2,2)* discountPrices.getReductionToSomeGoods(SpecialWeeklyDiscounts.THURSDAY_MAXI_PIZZA_DISCOUNT) / 100;
+        return getSum(maxiSizeMultiplier,maxiSizeMultiplier)* discountPrices.getReductionToSomeGoods(SpecialWeeklyDiscounts.THURSDAY_MAXI_PIZZA_DISCOUNT) / 100;
     }
 
     @Override
@@ -78,9 +81,9 @@ public enum Pizza implements Good, Eatable {
         this.size = size;
     }
 
-    private int getSum(double a, double b){
-        return (int)(a*Ingredients.BASE.getPrice()
-                + b*pizzaElements
+    private int getSum(double pizzaBaseMultiplier, double ingredientsMultiplier){
+        return (int)(pizzaBaseMultiplier*Ingredients.BASE.getPrice()
+                + ingredientsMultiplier*pizzaElements
                 .stream()
                 .mapToInt(Ingredients::getPrice)
                 .sum());

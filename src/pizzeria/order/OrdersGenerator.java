@@ -6,13 +6,14 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class OrdersGenerator {
 
-    public static ArrayList<Order> createArchivedList(int count) {
-        ArrayList<Order> archivedOrders = new ArrayList();
+    public static List<Order> createArchivedList(int count) {
+        List<Order> archivedOrders = new ArrayList();
         for (int i = 0; i < count; i++) {
             archivedOrders.add(OrdersGenerator.generate());
         }
@@ -37,10 +38,9 @@ public class OrdersGenerator {
         long end = LocalDate.now().toEpochDay();
         long randomEpochDay = ThreadLocalRandom.current().longs(start, end).findAny().getAsLong();
         Random random = new Random();
-        LocalDateTime dateTime = LocalDateTime.of(LocalDate.ofEpochDay(randomEpochDay),
+        return LocalDateTime.of(LocalDate.ofEpochDay(randomEpochDay),
                 LocalTime.of(random.nextInt(24), random.nextInt(60),
                         random.nextInt(60)));
-        return dateTime;
     }
 
     private static int getRandomNumberOfRange(int min, int max) {
