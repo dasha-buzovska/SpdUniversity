@@ -1,0 +1,7 @@
+[
+  {"name": "Your pizza", "isVegetarian": true, "ingredients": ["Sauce"]},
+  {"name": "Margarita", "isVegetarian": true, "ingredients": ["Tomato", "Cheese"]},
+  {"name": "Peperoni", "isVegetarian":  false, "ingredients": ["Tomato", "Cheese","Sausage"]},
+  {"name": "Seafood", "isVegetarian": true, "ingredients": ["Pineapple", "Cheese", "Salmon"]},
+  {"name": "Hawaiian", "isVegetarian": false, "ingredients": ["Pineapple", "Cheese", "Tomato", "Chicken", "Mushrooms"]}
+]

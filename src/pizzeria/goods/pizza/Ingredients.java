@@ -1,15 +1,39 @@
 package pizzeria.goods.pizza;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import pizzeria.fileManager.Store;
 import pizzeria.goods.GoodsTypes;
 import pizzeria.goods.food.Eatable;
 import pizzeria.goods.food.Good;
 
-import java.util.Optional;
 
-public enum Ingredients implements Good, Eatable {
-    BASE("Base", 20, true), CHEESE("Cheese", 5, true), SAUSAGE("Sausage", 8, false), PINEAPPLE("Pineapple", 7, true),
-    CORN("Corn", 6, true), TOMATO("Tomato", 5, true), SALMON("Salmon", 12, true),
-    CHICKEN("Chicken", 10, false), ONION("Onion", 4, true), SAUCE("Sauce", 2, true), MUSHROOMS("Mushrooms", 6, true);
+public class Ingredients implements Good, Eatable {
+    static JsonArray innerArray = Store.readGoodType("storage/ingredients.json");
+
+    public static Ingredients get(int id) {
+        return values()[id];
+    }
+
+    public static Ingredients[] values() {
+        Ingredients[] ingredients = new Ingredients[innerArray.size()];
+        for (int i = 0; i < ingredients.length; i++) {
+            JsonObject data = innerArray.get(i).getAsJsonObject();
+            ingredients[i] = new Ingredients(data.get("name").getAsString(),
+                    data.get("price").getAsInt(), data.get("isVegetarian").getAsBoolean());
+        }
+        return ingredients;
+    }
+
+    public static Ingredients valueOf(String type) {
+        for (Ingredients ingredients: values()){
+            if (ingredients.getName().equals(type)) {
+                return ingredients;
+            }
+        }
+        return null;
+    }
+
     private String name;
     private int price;
     private boolean isVegetarian;
@@ -36,11 +60,5 @@ public enum Ingredients implements Good, Eatable {
         return isVegetarian;
     }
 
-    public static Optional<Ingredients> getByIndex(int index) {
-        if (values().length < index) {
-            return Optional.empty();
-        }
-        return Optional.of(values()[index]);
-    }
 }
 

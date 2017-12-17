@@ -1,0 +1,13 @@
+[
+  {"name": "Base", "price": 20, "isVegetarian": true},
+  {"name": "Cheese", "price": 5, "isVegetarian": true},
+  {"name": "Sausage", "price": 8, "isVegetarian": false},
+  {"name": "Pineapple", "price": 7, "isVegetarian": true},
+  {"name": "Corn", "price": 6, "isVegetarian": true},
+  {"name": "Tomato", "price": 5, "isVegetarian": true},
+  {"name": "Salmon", "price": 12, "isVegetarian": true},
+  {"name": "Chicken", "price": 10, "isVegetarian": false},
+  {"name": "Onion", "price": 4, "isVegetarian": true},
+  {"name": "Sauce", "price": 2, "isVegetarian": true},
+  {"name": "Mushrooms", "price": 6, "isVegetarian": true}
+]

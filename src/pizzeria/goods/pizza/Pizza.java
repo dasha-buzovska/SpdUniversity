@@ -1,25 +1,44 @@
 package pizzeria.goods.pizza;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import pizzeria.dateTimeTools.discounts.DiscountPrices;
 import pizzeria.dateTimeTools.discounts.SpecialWeeklyDiscounts;
+import pizzeria.fileManager.Store;
 import pizzeria.goods.GoodsTypes;
 import pizzeria.goods.food.Eatable;
 import pizzeria.goods.food.Good;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public enum Pizza implements Good, Eatable {
-    //TODO: create instance of pizza + new item for every good
-    YOUR_PIZZA("Your pizza", true, Arrays.asList(Ingredients.SAUCE)),
-    MARGARITA("Margarita", true, Arrays.asList(Ingredients.TOMATO, Ingredients.CHEESE)),
-    PEPERONI("Peperoni", false, Arrays.asList(Ingredients.TOMATO, Ingredients.CHEESE,
-            Ingredients.SAUSAGE)),
-    SEAFOOD("Seafood", true, Arrays.asList(Ingredients.PINEAPPLE, Ingredients.CHEESE,
-            Ingredients.SALMON)),
-    HAWAIIAN("Hawaiian", false, Arrays.asList(Ingredients.PINEAPPLE, Ingredients.CHEESE,
-            Ingredients.TOMATO, Ingredients.CHICKEN, Ingredients.MUSHROOMS));
+public class Pizza implements Good, Eatable {
+
+    static JsonArray innerArray = Store.readGoodType("storage/pizza.json");
+
+    public static Pizza get(int id) {
+        return values()[id];
+    }
+
+    public static Pizza[] values() {
+        Pizza[] pizzas = new Pizza[innerArray.size()];
+        for (int i = 0; i < pizzas.length; i++) {
+            JsonObject data = innerArray.get(i).getAsJsonObject();
+            pizzas[i] = new Pizza(data.get("name").getAsString(),
+                    data.get("isVegetarian").getAsBoolean(), parseJsonArray(data.get("ingredients").getAsJsonArray()));
+        }
+        return pizzas;
+    }
+
+    public static Pizza valueOf(String type) {
+        for (Pizza pizzas: values()){
+            if (pizzas.getName().equals(type)) {
+                return pizzas;
+            }
+        }
+        return null;
+    }
 
     private String name;
     private boolean isVegetarian;
@@ -30,8 +49,16 @@ public enum Pizza implements Good, Eatable {
         return GoodsTypes.PIZZA;
     }
 
-    public void addIngredients(Ingredients item) {
-        pizzaElements.add(item);
+    private static List<Ingredients> parseJsonArray(JsonArray jsonArray){
+        List<Ingredients> list = new ArrayList<>();
+        for (int i = 0; i < jsonArray.size(); i++) {
+            list.add(Ingredients.valueOf(jsonArray.get(i).getAsString()));
+        }
+        return list;
+    }
+
+    public void addIngredient(Ingredients ingredient) {
+        pizzaElements.add(ingredient);
     }
 
     Pizza(String name,
@@ -71,10 +98,10 @@ public enum Pizza implements Good, Eatable {
         return isVegetarian;
     }
 
-    public void printElements() {
-        System.out.println(pizzaElements.stream()
+    public String printElements() {
+        return pizzaElements.stream()
                 .map(Ingredients::getName)
-                .collect(Collectors.joining(", ", "(", ")")));
+                .collect(Collectors.joining(", ", "(", ")"));
     }
 
     public void setSize(PizzaSize size) {
@@ -82,7 +109,7 @@ public enum Pizza implements Good, Eatable {
     }
 
     private int getSum(double pizzaBaseMultiplier, double ingredientsMultiplier){
-        return (int)(pizzaBaseMultiplier*Ingredients.BASE.getPrice()
+        return (int)(pizzaBaseMultiplier*Ingredients.valueOf("Base").getPrice()
                 + ingredientsMultiplier*pizzaElements
                 .stream()
                 .mapToInt(Ingredients::getPrice)
