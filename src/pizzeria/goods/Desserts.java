@@ -51,4 +51,8 @@ public class Desserts extends GoodItem implements Eatable {
         return price * discountPrices.getReductionToWholeType(values(), SpecialWeeklyDiscounts.MONDAY_DESSERTS_DISCOUNT)/100;
     }
 
+    public GoodsTypes getType() {
+        return GoodsTypes.DESSERT;
+    }
+
 }

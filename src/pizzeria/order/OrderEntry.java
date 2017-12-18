@@ -2,6 +2,7 @@ package pizzeria.order;
 
 import pizzeria.goods.Desserts;
 import pizzeria.goods.Drinks;
+import pizzeria.goods.GoodsTypes;
 import pizzeria.goods.Salads;
 import pizzeria.goods.food.Good;
 import pizzeria.goods.pizza.Ingredients;
@@ -10,7 +11,7 @@ import pizzeria.utils.Helper;
 
 public class OrderEntry {
 
-    private Good type;
+    protected Good type;
 
     OrderEntry(Good type) {
         this.type = type;
@@ -29,14 +30,15 @@ public class OrderEntry {
         if (this.type != null){
             return;
         }
-        try {
-            this.type = Pizza.valueOf(type);
+        this.type = Pizza.valueOf(type);
+        if (this.type != null){
             return;
-        } catch (IllegalArgumentException e) {}
+        }
+        this.type = Ingredients.valueOf(type);
+        if (this.type != null){
+            return;
+        }
 
-        try {
-            this.type = Ingredients.valueOf(type);
-        } catch (IllegalArgumentException e) {}
     }
 
     public boolean isIngredient() {
@@ -61,5 +63,9 @@ public class OrderEntry {
 
     public String getName() {
         return type.getName();
+    }
+
+    public GoodsTypes getType() {
+        return type.getType();
     }
 }

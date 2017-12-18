@@ -68,7 +68,7 @@ class MenuTools {
             System.out.println("Do you want some additions? \n Type here (yes/no): ");
             String wantAdditional = scanner.nextLine();
             if (wantAdditional.equals("yes") || wantAdditional.equals("y")) {
-                chooseIngredients(sizeIndex);
+                chooseIngredients();
             }
         } catch (NumberFormatException e) {
             System.out.println("Type appropriate sign, please!");
@@ -111,7 +111,7 @@ class MenuTools {
         }
     }
 
-    private void chooseIngredients(String sizeIndex) {
+    private void chooseIngredients() {
         try {
             String ingredientIndex;
             while (true) {
@@ -122,9 +122,6 @@ class MenuTools {
                     return;
                 }
                 ordersList.orderList.add(Ingredients.values()[Integer.parseInt(ingredientIndex)]);
-                if (sizeIndex.equals("m")) {
-                    ordersList.orderList.add(Ingredients.values()[Integer.parseInt(ingredientIndex)]);
-                }
             }
         } catch (NumberFormatException e) {
             System.out.println("Bad index was typed, try again!");

@@ -6,16 +6,17 @@ import pizzeria.goods.pizza.PizzaSize;
 public class OrderManager {
 
     public boolean addPizza(int id, String size, OrdersList ordersList) {
+        PizzaSize pizzaSize;
         if (size.equals("n")) {
-            Pizza.values()[id].setSize(PizzaSize.NORMAL);
+            pizzaSize = PizzaSize.NORMAL;
         } else if (size.equals("b")) {
-            Pizza.values()[id].setSize(PizzaSize.BIG);
+            pizzaSize = PizzaSize.BIG;
         } else if (size.equals("m")) {
-            Pizza.values()[id].setSize(PizzaSize.MAXI);
+            pizzaSize = PizzaSize.MAXI;
         } else {
             return false;
         }
-        ordersList.orderList.add(Pizza.values()[id]);
+        ordersList.orderList.add(Pizza.values()[id], pizzaSize);
         return true;
     }
 }

@@ -4,6 +4,8 @@ import pizzeria.dateTimeTools.discounts.HolidaySales;
 import pizzeria.goods.food.Drinkable;
 import pizzeria.goods.food.Eatable;
 import pizzeria.goods.food.Good;
+import pizzeria.goods.pizza.Pizza;
+import pizzeria.goods.pizza.PizzaSize;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -31,33 +33,23 @@ public class Order {
     }
 
     public void add(Good good) {
-        goodsList.add(new OrderEntry(good));
+        add(new OrderEntry(good));
+    }
+
+    public void add(Pizza pizza, PizzaSize size) {
+        add(new PizzaItem(pizza, size));
     }
 
     public void add(OrderEntry orderEntry) {
-        goodsList.add(orderEntry);
+        if(orderEntry.isIngredient()) {
+            ((PizzaItem) goodsList.get(goodsList.size()-1)).addIngredientsToPizza(orderEntry);
+        } else {
+            goodsList.add(orderEntry);
+        }
     }
 
     public boolean isEmpty() {
         return goodsList.isEmpty();
-    }
-
-    //TODO: Remove this method Ingredients should be added at the moment of ordering pizza. You don't have enough
-    // information at this moment to split ingredients properly here.
-    public ArrayList<Good> packAdditionsToPizza() {
-        ArrayList<Good> goodsWithoutIngredients = new ArrayList<>();
-//        for (int i = 0; i < goodsList.size(); i++) {
-//            if (goodsList.get(i).isPizza()) {
-//                Pizza pizza = (Pizza) goodsList.get(i).type;
-//                int index = goodsList.indexOf(pizza) + 1;
-//                while (index < goodsList.size() && goodsList.get(index).isIngredient()) {
-//                    pizza.addIngredients((Ingredients) goodsList.get(index).type);
-//                    goodsList.remove(index);
-//                }
-//            }
-//            goodsWithoutIngredients.add(goodsList.get(i).type);
-//        }
-        return goodsWithoutIngredients;
     }
 
     public int calculate() {

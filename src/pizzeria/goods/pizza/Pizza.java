@@ -42,7 +42,6 @@ public class Pizza extends GoodItem implements Eatable {
 
     private boolean isVegetarian;
     private List<Ingredients> pizzaElements;
-    private PizzaSize size;
 
     private static List<Ingredients> parseJsonArray(JsonArray jsonArray){
         List<Ingredients> list = new ArrayList<>();
@@ -52,21 +51,16 @@ public class Pizza extends GoodItem implements Eatable {
         return list;
     }
 
-    public void addIngredient(Ingredients ingredient) {
-        pizzaElements.add(ingredient);
-    }
-
-    Pizza(String name,
+    private Pizza(String name,
           boolean isVegetarian, List<Ingredients> pizzaElements) {
         super(GoodsTypes.PIZZA, name, 0);
         this.isVegetarian = isVegetarian;
         this.pizzaElements = pizzaElements;
-        this.size = PizzaSize.NORMAL;
     }
 
-    public static final double normalSizeMultiplier = 1;
-    public static final double bigSizeMultiplier = 1.3;
-    public static final double maxiSizeMultiplier = 2;
+    private static final double normalSizeMultiplier = 1;
+    private static final double bigSizeMultiplier = 1.3;
+    private static final double maxiSizeMultiplier = 2;
 
     @Override
     public String getName() {
@@ -82,7 +76,7 @@ public class Pizza extends GoodItem implements Eatable {
         return getSum(bigSizeMultiplier, normalSizeMultiplier);
     }
 
-    DiscountPrices discountPrices = new DiscountPrices();
+    private transient DiscountPrices discountPrices = new DiscountPrices();
 
     public int getMaxiPrice() {
         return getSum(maxiSizeMultiplier,maxiSizeMultiplier)* discountPrices.getReductionToSomeGoods(SpecialWeeklyDiscounts.THURSDAY_MAXI_PIZZA_DISCOUNT) / 100;
@@ -97,10 +91,6 @@ public class Pizza extends GoodItem implements Eatable {
         return pizzaElements.stream()
                 .map(Ingredients::getName)
                 .collect(Collectors.joining(", ", "(", ")"));
-    }
-
-    public void setSize(PizzaSize size) {
-        this.size = size;
     }
 
     private int getSum(double pizzaBaseMultiplier, double ingredientsMultiplier){

@@ -51,4 +51,8 @@ public class Salads extends GoodItem implements Eatable {
         return isVegetarian;
     }
 
+    public GoodsTypes getType(){
+        return GoodsTypes.SALAD;
+    }
+
 }

@@ -58,4 +58,8 @@ public class Drinks extends GoodItem implements Drinkable {
         return isAlcoholic;
     }
 
+    public GoodsTypes getType() {
+        return GoodsTypes.DRINK;
+    }
+
 }
