@@ -6,19 +6,13 @@ import pizzeria.dateTimeTools.discounts.DiscountPrices;
 import pizzeria.dateTimeTools.discounts.SpecialWeeklyDiscounts;
 import pizzeria.fileManager.Store;
 import pizzeria.goods.food.Eatable;
-import pizzeria.goods.food.Good;
 
-import java.util.Optional;
+public class Salads extends GoodItem implements Eatable {
 
-public class Salads implements Good, Eatable {
-
-    private String name;
-    private int price;
     private boolean isVegetarian;
 
     Salads(String name, int price, boolean isVegetarian) {
-        this.name = name;
-        this.price = price;
+        super(GoodsTypes.SALAD, name, price);
         this.isVegetarian = isVegetarian;
     }
 
@@ -48,28 +42,13 @@ public class Salads implements Good, Eatable {
         return null;
     }
 
-
-    public String getName() {
-        return name;
-    }
-
-    transient DiscountPrices discountPrices = new DiscountPrices();
+    private transient DiscountPrices discountPrices = new DiscountPrices();
     public int getPrice() {
-        return price * discountPrices.getReductionToWholeType(getType(), SpecialWeeklyDiscounts.WEDNESDAY_SALADS_DISCOUNT)/100;
+        return price * discountPrices.getReductionToWholeType(values(), SpecialWeeklyDiscounts.WEDNESDAY_SALADS_DISCOUNT)/100;
     }
 
     public boolean isVegetarian() {
         return isVegetarian;
     }
 
-    public GoodsTypes getType() {
-        return GoodsTypes.SALAD;
-    }
-
-    public static Optional<Salads> getByIndex(int index) {
-        if (values().length < index) {
-            return Optional.empty();
-        }
-        return Optional.of(values()[index]);
-    }
 }

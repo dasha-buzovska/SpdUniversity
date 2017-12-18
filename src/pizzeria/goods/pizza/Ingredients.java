@@ -3,12 +3,13 @@ package pizzeria.goods.pizza;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import pizzeria.fileManager.Store;
+import pizzeria.goods.GoodItem;
 import pizzeria.goods.GoodsTypes;
 import pizzeria.goods.food.Eatable;
 import pizzeria.goods.food.Good;
 
 
-public class Ingredients implements Good, Eatable {
+public class Ingredients extends GoodItem implements Good, Eatable {
     static JsonArray innerArray = Store.readGoodType("storage/ingredients.json");
 
     public static Ingredients get(int id) {
@@ -34,26 +35,11 @@ public class Ingredients implements Good, Eatable {
         return null;
     }
 
-    private String name;
-    private int price;
     private boolean isVegetarian;
 
-    public GoodsTypes getType() {
-        return GoodsTypes.INGREDIENT;
-    }
-
-    Ingredients(String name, int price, boolean isVegetarian) {
-        this.name = name;
-        this.price = price;
+    private Ingredients(String name, int price, boolean isVegetarian) {
+        super(GoodsTypes.INGREDIENT, name, price);
         this.isVegetarian = isVegetarian;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getPrice() {
-        return price;
     }
 
     public boolean isVegetarian() {

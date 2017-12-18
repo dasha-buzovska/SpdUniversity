@@ -7,17 +7,12 @@ import pizzeria.dateTimeTools.discounts.SpecialWeeklyDiscounts;
 import pizzeria.fileManager.Store;
 import pizzeria.goods.food.Drinkable;
 
-import java.util.Optional;
+public class Drinks extends GoodItem implements Drinkable {
 
-public class Drinks implements Drinkable {
-
-    private String name;
-    private int price;
     private boolean isAlcoholic;
 
-    Drinks(String name, int price, boolean isAlcoholic){
-        this.name = name;
-        this.price = price;
+    private Drinks(String name, int price, boolean isAlcoholic){
+        super(GoodsTypes.DRINK, name, price);
         this.isAlcoholic = isAlcoholic;
     }
 
@@ -47,10 +42,6 @@ public class Drinks implements Drinkable {
         return null;
     }
 
-    public String getName() {
-        return name;
-    }
-
     transient DiscountPrices discountPrices = new DiscountPrices();
 
     public int getPrice() {
@@ -67,14 +58,4 @@ public class Drinks implements Drinkable {
         return isAlcoholic;
     }
 
-    public GoodsTypes getType() {
-        return GoodsTypes.DRINK;
-    }
-
-    public static Optional<Drinks> getByIndex(int index) {
-        if (values().length < index) {
-            return Optional.empty();
-        }
-        return Optional.of(values()[index]);
-    }
 }

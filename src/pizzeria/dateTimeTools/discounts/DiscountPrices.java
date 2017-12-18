@@ -1,6 +1,6 @@
 package pizzeria.dateTimeTools.discounts;
 
-import pizzeria.goods.GoodsTypes;
+import pizzeria.goods.food.Good;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoField;
@@ -8,9 +8,9 @@ import java.util.Arrays;
 
 public class DiscountPrices {
 
-    public int getReductionToWholeType(GoodsTypes type, SpecialWeeklyDiscounts dayDiscount) {
+    public int getReductionToWholeType(Good[] array, SpecialWeeklyDiscounts dayDiscount) {
         int fullPrice = 100;
-        if (Arrays.equals(type.getGoodsList(), dayDiscount.getAllGoods()) && isAppropriateDayOfWeek(dayDiscount)) {
+        if (Arrays.equals(array, dayDiscount.getAllGoods()) && isAppropriateDayOfWeek(dayDiscount)) {
             return fullPrice - dayDiscount.getReduction();
         }
         return fullPrice;

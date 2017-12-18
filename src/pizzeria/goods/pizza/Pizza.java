@@ -5,15 +5,15 @@ import com.google.gson.JsonObject;
 import pizzeria.dateTimeTools.discounts.DiscountPrices;
 import pizzeria.dateTimeTools.discounts.SpecialWeeklyDiscounts;
 import pizzeria.fileManager.Store;
+import pizzeria.goods.GoodItem;
 import pizzeria.goods.GoodsTypes;
 import pizzeria.goods.food.Eatable;
-import pizzeria.goods.food.Good;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Pizza implements Good, Eatable {
+public class Pizza extends GoodItem implements Eatable {
 
     static JsonArray innerArray = Store.readGoodType("storage/pizza.json");
 
@@ -40,14 +40,9 @@ public class Pizza implements Good, Eatable {
         return null;
     }
 
-    private String name;
     private boolean isVegetarian;
     private List<Ingredients> pizzaElements;
     private PizzaSize size;
-
-    public GoodsTypes getType() {
-        return GoodsTypes.PIZZA;
-    }
 
     private static List<Ingredients> parseJsonArray(JsonArray jsonArray){
         List<Ingredients> list = new ArrayList<>();
@@ -63,7 +58,7 @@ public class Pizza implements Good, Eatable {
 
     Pizza(String name,
           boolean isVegetarian, List<Ingredients> pizzaElements) {
-        this.name = name;
+        super(GoodsTypes.PIZZA, name, 0);
         this.isVegetarian = isVegetarian;
         this.pizzaElements = pizzaElements;
         this.size = PizzaSize.NORMAL;

@@ -6,13 +6,21 @@ import pizzeria.dateTimeTools.discounts.DiscountPrices;
 import pizzeria.dateTimeTools.discounts.SpecialWeeklyDiscounts;
 import pizzeria.fileManager.Store;
 import pizzeria.goods.food.Eatable;
-import pizzeria.goods.food.Good;
 
-import java.util.Optional;
+public class Desserts extends GoodItem implements Eatable {
 
-public class Desserts implements Good, Eatable {
-
+    private boolean isVegetarian;
     static JsonArray innerArray = Store.readGoodType("storage/desserts.json");
+
+    public boolean isVegetarian() {
+        return isVegetarian;
+    }
+
+    private Desserts(String name, int price) {
+        super(GoodsTypes.DESSERT, name, price);
+        this.isVegetarian = true;
+    }
+
 
     public static Desserts get(int id) {
         return values()[id];
@@ -37,37 +45,10 @@ public class Desserts implements Good, Eatable {
         return null;
     }
 
-    private String name;
-    private int price;
-
-    public String getName() {
-        return name;
-    }
-
-    public boolean isVegetarian() {
-        return true;
-    }
-
-    public GoodsTypes getType() {
-        return GoodsTypes.DESSERT;
-    }
-
-    Desserts(String name, int price) {
-        this.name = name;
-        this.price = price;
-    }
-
-    public static Optional<Desserts> getByIndex(int index) {
-        if (values().length < index) {
-            return Optional.empty();
-        }
-        return Optional.of(values()[index]);
-    }
-
-    transient DiscountPrices discountPrices = new DiscountPrices();
+    private transient DiscountPrices discountPrices = new DiscountPrices();
 
     public int getPrice() {
-        return price * discountPrices.getReductionToWholeType(getType(), SpecialWeeklyDiscounts.MONDAY_DESSERTS_DISCOUNT)/100;
+        return price * discountPrices.getReductionToWholeType(values(), SpecialWeeklyDiscounts.MONDAY_DESSERTS_DISCOUNT)/100;
     }
 
 }
