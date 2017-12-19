@@ -28,16 +28,16 @@ public class FileEntry {
         return title;
     }
 
-    public String[] getTags() {
-        return tags;
-    }
-
     public String getUrl() {
         return url;
     }
 
     public String getStatus() {
         return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String toString(){
@@ -47,4 +47,5 @@ public class FileEntry {
                 "url: " + url + "\n" +
                 "status: " + status + "\n";
     }
+
 }

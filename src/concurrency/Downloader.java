@@ -1,6 +1,7 @@
 package concurrency;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
@@ -13,8 +14,10 @@ public class Downloader {
         try(ReadableByteChannel rbc = Channels.newChannel(website.openStream());
                 FileOutputStream fos = new FileOutputStream(destination)) {
             fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+        } catch (FileNotFoundException e) {
+            throw e;
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Strange exception.");
         }
     }
 }

@@ -7,9 +7,7 @@ import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +61,12 @@ public class FileManager {
         }
     }
 
-    public static void createNewTXTFile(){
-
+    public static void createNewTXTFile(FileEntry entry) throws IOException {
+        try {
+            File file = new File(FileManager.DIRECTORY + entry.getId() + ".txt");
+            Downloader.download(entry.getUrl(), file);
+        } catch (FileNotFoundException e) {
+            throw e;
+        }
     }
 }
