@@ -9,8 +9,9 @@ import java.util.concurrent.Executors;
 //Написать файлЕнтри
 //Написать ридер и райтер для файлов
 //написать довнлоадер
-
 //написать к нему проверки
+
+//rewrite storage with new status
 //наисать средпул
 //оформить контролер
 //запустить
@@ -18,8 +19,13 @@ import java.util.concurrent.Executors;
 public class Controller {
     public static void main(String[] args) throws IOException {
         List<FileEntry> list = FileManager.parseFileEntry();
-        File file = new File(FileManager.DIRECTORY + list.get(0).getId() + ".txt");
-        Downloader.download(list.get(0).getUrl(), file);
+        for (int i = 0; i < list.size(); i++) {
+            if (!DownloaderManager.endsWithWrongExtension(list.get(i).getUrl())
+                    && !DownloaderManager.contains18PlusContent(list.get(i).getUrl())) {
+                File file = new File(FileManager.DIRECTORY + list.get(i).getId() + ".txt");
+                Downloader.download(list.get(i).getUrl(), file);
+            }
+        }
         //питаємо у користувача число н, менше кількості ссилок
         //check the number and rewrite if bad
         //ExecutorService executor = Executors.newFixedThreadPool(5);
