@@ -17,6 +17,5 @@ public class ThreadPool {
         while (!executor.isTerminated()) {
         }
         FileManager.rewrite(EntryWorker.getChangedStatusList());
-        System.out.println("Finished all threads");
     }
 }

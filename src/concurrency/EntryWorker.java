@@ -16,7 +16,6 @@ public class EntryWorker implements Runnable {
 
     EntryWorker(FileEntry entry) {
         this.entry = entry;
-        System.out.println("new entry worker!");
     }
     @Override
     public void run() {
@@ -42,6 +41,7 @@ public class EntryWorker implements Runnable {
                     && !DownloaderManager.contains18PlusContent(entry.getUrl())
                     && entry.getStatus().equals(FileEntry.NOT_ATTEMPTED)) {
                 FileManager.createNewTXTFile(entry);
+                System.out.println(entry.getUrl());
                 addEntry(FileEntry.SUCCESS);
             } else {
                 addEntry(FileEntry.NOT_ELIGIBLE);
