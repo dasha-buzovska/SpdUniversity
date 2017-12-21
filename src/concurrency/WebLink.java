@@ -1,6 +1,6 @@
 package concurrency;
 
-public class FileEntry {
+public class WebLink implements Comparable {
     private int id;
     private String title;
     private String[] tags;
@@ -12,12 +12,18 @@ public class FileEntry {
     public static final String FAILED = "FAILED";
     public static final String NOT_ELIGIBLE = "NOT_ELIGIBLE";
 
-    public FileEntry(int id, String title, String[] tags, String url, String status) {
+    public WebLink(int id, String title, String[] tags, String url, String status) {
         this.id = id;
         this.title = title;
         this.tags = tags;
         this.url = url;
         this.status = status;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        WebLink entry = (WebLink) o;
+        return Integer.compare(id, entry.id);
     }
 
     public int getId() {
@@ -32,11 +38,11 @@ public class FileEntry {
         return url;
     }
 
-    public String getStatus() {
+    String getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    void setStatus(String status) {
         this.status = status;
     }
 
@@ -47,5 +53,4 @@ public class FileEntry {
                 "url: " + url + "\n" +
                 "status: " + status + "\n";
     }
-
 }

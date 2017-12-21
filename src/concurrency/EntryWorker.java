@@ -2,15 +2,12 @@ package concurrency;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.PriorityQueue;
-import java.util.Queue;
 
 public class EntryWorker implements Runnable {
 
-    private FileEntry entry;
-    private Queue<FileEntry> webLinkQueue = new PriorityQueue<>();
+    private WebLink entry;
 
-    EntryWorker(FileEntry entry) {
+    EntryWorker(WebLink entry) {
         this.entry = entry;
     }
     @Override
@@ -26,17 +23,15 @@ public class EntryWorker implements Runnable {
         try {
             if (!DownloaderManager.endsWithWrongExtension(entry.getUrl())
                     && !DownloaderManager.contains18PlusContent(entry.getUrl())
-                    && entry.getStatus().equals(FileEntry.NOT_ATTEMPTED)) {
+                    && entry.getStatus().equals(WebLink.NOT_ATTEMPTED)) {
+                System.out.println("Downloading: "+ entry.getUrl());
                 FileManager.createNewTXTFile(entry);
-                webLinkQueue.add(entry);
-                System.out.println(entry.getUrl());
-                ElasticSearchIndexator.setIndex(webLinkQueue);
-                addEntry(FileEntry.SUCCESS);
+                addEntry(WebLink.SUCCESS);
             } else {
-                addEntry(FileEntry.NOT_ELIGIBLE);
+                addEntry(WebLink.NOT_ELIGIBLE);
             }
         } catch (FileNotFoundException e) {
-            addEntry(FileEntry.FAILED);
+            addEntry(WebLink.FAILED);
         }
     }
 

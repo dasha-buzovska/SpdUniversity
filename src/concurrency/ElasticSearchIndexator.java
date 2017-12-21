@@ -1,12 +1,16 @@
 package concurrency;
 
-import java.util.Queue;
+class ElasticSearchIndexator implements Runnable {
 
-class ElasticSearchIndexator {
 
-    static void setIndex(Queue<FileEntry> queue){
-        System.out.println(queue.element().getId() + ".txt");
-        System.out.println(queue.element().getId());
+    @Override
+    public void run() {
+        setIndex();
+    }
+
+    static void setIndex(){
+//        System.out.println(EntryWorker.getWebLinkQueue().element() + ".txt");
+//        System.out.println(EntryWorker.getWebLinkQueue().element());
     }
 
 }

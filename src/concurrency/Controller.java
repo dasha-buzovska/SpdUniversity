@@ -1,18 +1,13 @@
 package concurrency;
 
-import java.io.IOException;
-import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+
 public class Controller {
-    public static void main(String[] args) throws IOException {
-        List<FileEntry> list = FileManager.parseFileEntry();
-        try {
-            int index = Integer.parseInt(args[0]), time = Integer.parseInt(args[1]);
-            if (index > list.size()) {
-                throw new NumberFormatException();
-            }
-            ThreadPool.callThreadPool(index, time);
-        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            e.printStackTrace();
-        }
+    public static void main(String[] args) throws Exception {
+        ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
+        Parameters parameters = new Parameters(args);
+        Runnable worker = new ScheduledDownloader(parameters.getPoolSize());
+        ses.scheduleAtFixedRate(worker, 0, parameters.getTimeInterval(), parameters.getTimeUnit());
     }
 }

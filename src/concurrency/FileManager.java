@@ -11,9 +11,13 @@ import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 public class FileManager {
+
     public static final String DIRECTORY = "concurrencyFiles/";
+    public static final String DOWNLOAD_DIRECTORY = "downloads/";
     public static final String START_FILE = DIRECTORY + "storage.json";
     public static final String CHANGED_FILE = DIRECTORY + "newStorage.json";
 
@@ -28,12 +32,12 @@ public class FileManager {
         }
     }
 
-    static List<FileEntry> parseFileEntry() {
+    static List<WebLink> parseFileEntry() {
         JsonArray array = read(START_FILE);
-        List<FileEntry> entries = new ArrayList<>();
+        List<WebLink> entries = new ArrayList<>();
         for (int i = 0; i < array.size(); i++) {
             JsonObject data = array.get(i).getAsJsonObject();
-            entries.add(new FileEntry(data.get("id").getAsInt(),
+            entries.add(new WebLink(data.get("id").getAsInt(),
                     data.get("title").getAsString(),
                     parseStringArray(data.get("tags").getAsJsonArray()),
                     data.get("url").getAsString(),
@@ -50,9 +54,9 @@ public class FileManager {
         return array;
     }
 
-    public static void rewrite(List<FileEntry> list) {
+    public static void rewrite(List<WebLink> list) {
         Gson gson = new Gson();
-        Type type = new TypeToken<List<FileEntry>>() {}.getType();
+        Type type = new TypeToken<List<WebLink>>() {}.getType();
         try (FileWriter file = new FileWriter(CHANGED_FILE)) {
             file.write(gson.toJson(list, type));
             file.flush();
@@ -61,10 +65,12 @@ public class FileManager {
         }
     }
 
-    public static void createNewTXTFile(FileEntry entry) throws IOException {
+    public static void createNewTXTFile(WebLink entry) throws IOException {
         try {
-            File file = new File(FileManager.DIRECTORY + entry.getId() + ".txt");
+            String path = DOWNLOAD_DIRECTORY + entry.getId() + ".txt";
+            File file = new File(path);
             Downloader.download(entry.getUrl(), file);
+            System.out.println("Saved to: " + path);
         } catch (FileNotFoundException e) {
             throw e;
         }
