@@ -1,7 +1,12 @@
 package concurrency;
 
-public class ElasticSearchIndexator {
-    public static void setIndex(String title, String[] tags, String text){
+import java.util.Queue;
 
+class ElasticSearchIndexator {
+
+    static void setIndex(Queue<FileEntry> queue){
+        System.out.println(queue.element().getId() + ".txt");
+        System.out.println(queue.element().getId());
     }
+
 }
