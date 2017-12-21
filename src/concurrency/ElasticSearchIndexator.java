@@ -2,15 +2,14 @@ package concurrency;
 
 class ElasticSearchIndexator implements Runnable {
 
+    private WebLink webLink;
+
+    ElasticSearchIndexator (WebLink webLink) {
+        this.webLink = webLink;
+    }
 
     @Override
     public void run() {
-        setIndex();
+        System.out.println("Indexing: " + webLink.getId());
     }
-
-    static void setIndex(){
-//        System.out.println(EntryWorker.getWebLinkQueue().element() + ".txt");
-//        System.out.println(EntryWorker.getWebLinkQueue().element());
-    }
-
 }

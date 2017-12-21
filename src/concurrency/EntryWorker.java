@@ -6,9 +6,11 @@ import java.io.IOException;
 public class EntryWorker implements Runnable {
 
     private WebLink entry;
+    WebLinksCollector collector;
 
-    EntryWorker(WebLink entry) {
+    EntryWorker(WebLink entry, WebLinksCollector collector) {
         this.entry = entry;
+        this.collector = collector;
     }
     @Override
     public void run() {
@@ -26,6 +28,7 @@ public class EntryWorker implements Runnable {
                     && entry.getStatus().equals(WebLink.NOT_ATTEMPTED)) {
                 System.out.println("Downloading: "+ entry.getUrl());
                 FileManager.createNewTXTFile(entry);
+                collector.collect(entry);
                 addEntry(WebLink.SUCCESS);
             } else {
                 addEntry(WebLink.NOT_ELIGIBLE);

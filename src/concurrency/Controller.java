@@ -4,10 +4,16 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
 public class Controller {
+
     public static void main(String[] args) throws Exception {
-        ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
+        ScheduledExecutorService ses = Executors.newScheduledThreadPool(2);
         Parameters parameters = new Parameters(args);
-        Runnable worker = new ScheduledDownloader(parameters.getPoolSize());
-        ses.scheduleAtFixedRate(worker, 0, parameters.getTimeInterval(), parameters.getTimeUnit());
+        WebLinksCollector collector = new WebLinksCollector();
+
+        Runnable downloader = new ScheduledDownloader(parameters.getPoolSize(), collector);
+        Runnable indexer = new ScheduledIndexer(parameters.getPoolSize(), collector);
+
+        ses.scheduleAtFixedRate(downloader, 0, parameters.getTimeInterval(), parameters.getTimeUnit());
+        ses.scheduleAtFixedRate(indexer, 0, parameters.getTimeInterval(), parameters.getTimeUnit());
     }
 }
