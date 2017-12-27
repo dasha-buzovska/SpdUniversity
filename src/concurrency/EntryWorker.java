@@ -3,6 +3,8 @@ package concurrency;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import static concurrency.ScheduledDownloader.triesForFailedNumber;
+
 public class EntryWorker implements Runnable {
 
     private WebLink entry;
@@ -23,18 +25,24 @@ public class EntryWorker implements Runnable {
 
     private synchronized void downloadEntry() throws IOException {
         try {
-            if (!DownloaderManager.endsWithWrongExtension(entry.getUrl())
-                    && !DownloaderManager.contains18PlusContent(entry.getUrl())
-                    && entry.getStatus().equals(WebLink.NOT_ATTEMPTED)) {
-                System.out.println("Downloading: "+ entry.getUrl());
-                FileManager.createNewTXTFile(entry);
-                collector.collect(entry);
-                addEntry(WebLink.SUCCESS);
-            } else {
-                addEntry(WebLink.NOT_ELIGIBLE);
+            if (entry.getStatus().equals(WebLink.NOT_ATTEMPTED)) {
+                if (!DownloaderManager.endsWithWrongExtension(entry.getUrl())
+                        && !DownloaderManager.contains18PlusContent(entry.getUrl())) {
+                    System.out.println("Downloading: " + entry.getUrl());
+                    System.out.println("Status " + entry.getStatus());
+                    FileManager.createNewTXTFile(entry);
+                    collector.collect(entry);
+                    addEntry(WebLink.SUCCESS);
+                } else {
+                    addEntry(WebLink.NOT_ELIGIBLE);
+                }
             }
         } catch (FileNotFoundException e) {
-            addEntry(WebLink.FAILED);
+            if (ScheduledDownloader.counter < triesForFailedNumber) {
+                ScheduledDownloader.counter++;
+            } else {
+                addEntry(WebLink.FAILED);
+            }
         }
     }
 

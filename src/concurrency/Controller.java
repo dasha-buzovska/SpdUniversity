@@ -10,7 +10,7 @@ public class Controller {
         Parameters parameters = new Parameters(args);
         WebLinksCollector collector = new WebLinksCollector();
 
-        Runnable downloader = new ScheduledDownloader(parameters.getPoolSize(), collector);
+        Runnable downloader = new ScheduledDownloader(parameters.getPoolSize(), collector, parameters.getTriesForFailedNumber());
         Runnable indexer = new ScheduledIndexer(parameters.getPoolSize(), collector);
 
         ses.scheduleAtFixedRate(downloader, 0, parameters.getTimeInterval(), parameters.getTimeUnit());

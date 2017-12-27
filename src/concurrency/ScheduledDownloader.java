@@ -8,10 +8,13 @@ public class ScheduledDownloader implements Runnable {
 
     private int poolSize;
     private WebLinksCollector collector;
+    static int triesForFailedNumber;
+    static int counter = 0;
 
-    ScheduledDownloader (int poolSize, WebLinksCollector collector) {
+    ScheduledDownloader (int poolSize, WebLinksCollector collector, int triesNumber) {
         this.poolSize = poolSize;
         this.collector = collector;
+        triesForFailedNumber = triesNumber;
     }
 
     @Override

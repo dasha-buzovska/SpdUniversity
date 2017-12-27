@@ -18,6 +18,7 @@ public class FileManager {
     public static final String DOWNLOAD_DIRECTORY = "downloads/";
     public static final String START_FILE = DIRECTORY + "storage.json";
     public static final String CHANGED_FILE = DIRECTORY + "newStorage.json";
+    public static final String COPY_FILE = DIRECTORY + "copyStorage.json";
 
     static JsonArray read(String filename) {
         JsonParser parser = new JsonParser();
@@ -31,7 +32,7 @@ public class FileManager {
     }
 
     static List<WebLink> parseFileEntry() {
-        JsonArray array = read(START_FILE);
+        JsonArray array = read(COPY_FILE);
         List<WebLink> entries = new ArrayList<>();
         for (int i = 0; i < array.size(); i++) {
             JsonObject data = array.get(i).getAsJsonObject();
@@ -55,7 +56,7 @@ public class FileManager {
     public static void rewrite(List<WebLink> list) {
         Gson gson = new Gson();
         Type type = new TypeToken<List<WebLink>>() {}.getType();
-        try (FileWriter file = new FileWriter(CHANGED_FILE)) {
+        try (FileWriter file = new FileWriter(COPY_FILE)) {
             file.write(gson.toJson(list, type));
             file.flush();
         } catch (IOException e) {
