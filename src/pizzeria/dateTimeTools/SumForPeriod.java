@@ -1,16 +1,16 @@
 package pizzeria.dateTimeTools;
 
 import pizzeria.order.Order;
-import pizzeria.order.OrdersList;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 public class SumForPeriod {
-    private OrdersList ordersList;
+    private List<Order> archivedList;
 
-    public SumForPeriod(OrdersList ordersList) {
-        this.ordersList = ordersList;
+    public SumForPeriod(List<Order> archivedList) {
+        this.archivedList = archivedList;
     }
 
     public int findSumByConcretePeriod(String period) {
@@ -36,7 +36,7 @@ public class SumForPeriod {
     }
 
     private int calculateSumAfterDate(LocalDateTime date) {
-        return ordersList.getArchive()
+        return archivedList
                 .stream()
                 .filter(order -> order.getDate().isAfter(date))
                 .mapToInt(Order::calculate)

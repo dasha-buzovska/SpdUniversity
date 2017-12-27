@@ -13,13 +13,13 @@ import pizzeria.printer.MenuOptions;
 import java.util.Arrays;
 import java.util.Scanner;
 
-class MenuTools {
+public class MenuTools {
 
     private Scanner scanner;
     private OrdersList ordersList = new OrdersList();
     private BillPrinter bill = new BillPrinter();
     private OrderManager orderManager = new OrderManager();
-    private SumForPeriod sumForPeriod = new SumForPeriod(ordersList);
+    public SumForPeriod sumForPeriod = new SumForPeriod(ordersList.getArchive());
 
     public void setScanner(Scanner scanner) {
         this.scanner = scanner;
