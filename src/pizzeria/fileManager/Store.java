@@ -22,6 +22,12 @@ public class Store {
     public static final String INCOME_DIRECTORY = "income/";
     public static final String YEAR_DIRECTORY = "2017/";
     public static final String ARCHIVE_FILE = DIRECTORY + "archivedOrders.json";
+    public static final String standardName = "01.txt";
+    public static final String localDir = DIRECTORY + INCOME_DIRECTORY + YEAR_DIRECTORY;
+    public static final String yearPath = localDir + "totals.txt";
+    public static final String monthPath = localDir + "month/" + standardName;
+    public static final String weekPath = localDir + "week/" + standardName;
+    public static final String dayPath = localDir + "day/" + LocalDate.now() + ".txt";
 
     public static List<Order> readArchive() {
         Gson gson = new GsonBuilder()
@@ -55,7 +61,7 @@ public class Store {
         Type type = new TypeToken<List<Order>>() {}.getType();
 
         try (FileWriter file = new FileWriter(ARCHIVE_FILE)) {
-
+            System.out.println("we rewrite to archive file");
             file.write(gson.toJson(list, type));
             file.flush();
 
@@ -65,13 +71,6 @@ public class Store {
     }
 
     public static void writeSumsForPeriods(SumForPeriod sumForPeriod) {
-        String standardName = "01.txt";
-        String localDir = DIRECTORY + INCOME_DIRECTORY + YEAR_DIRECTORY;
-        String yearPath = localDir + "totals.txt";
-        String monthPath = localDir + "month/" + standardName;
-        String weekPath = localDir + "week/" + standardName;
-        String dayPath = localDir + "day/" + LocalDate.now() + ".txt";
-
         writeFile(yearPath, "" + sumForPeriod.findSumByConcretePeriod("year"));
         writeFile(monthPath, "" + sumForPeriod.findSumByConcretePeriod("month"));
         writeFile(weekPath, "" + sumForPeriod.findSumByConcretePeriod("week"));
@@ -85,5 +84,34 @@ public class Store {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static String readSum(String period, SumForPeriod sumForPeriod) {
+        String fileName;
+        if (period.equals("year")) {
+            fileName = yearPath;
+        } else if (period.equals("month")) {
+            fileName = monthPath;
+        } else if (period.equals("week")) {
+            fileName = weekPath;
+        } else {
+            fileName = dayPath;
+        }
+
+        String sCurrentLine = "";
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            sCurrentLine = br.readLine();
+            if (isZero(sCurrentLine)) {
+                System.out.println("ZERO PER DAy");
+                sCurrentLine = "" + sumForPeriod.findSumByConcretePeriod(period);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return sCurrentLine;
+    }
+
+    private static boolean isZero(String a){
+        return a.equals("0");
     }
 }

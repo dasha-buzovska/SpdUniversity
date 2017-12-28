@@ -1,6 +1,7 @@
 package pizzeria.menu;
 
 import pizzeria.dateTimeTools.SumForPeriod;
+import pizzeria.fileManager.Store;
 import pizzeria.goods.GoodsTypes;
 import pizzeria.goods.pizza.Ingredients;
 import pizzeria.goods.pizza.Pizza;
@@ -40,7 +41,7 @@ public class MenuTools {
     void choosePeriod(){
         System.out.println("Choose period you want to \nknow sum (year, month, week, day):");
         String periodIndex = readUserOption();
-        System.out.println("\n" + sumForPeriod.findSumByConcretePeriod(periodIndex) + "\n");
+        System.out.println("\n" + Store.readSum(periodIndex, sumForPeriod) + "\n");
     }
 
     void chooseGood(MenuOptions option) {
@@ -61,7 +62,6 @@ public class MenuTools {
             System.out.println("Choose size (n, b, m): ");
             String sizeIndex = readUserOption();
             boolean success = orderManager.addPizza(Integer.parseInt(inputIndex), sizeIndex, ordersList);
-            //TODO: create custom exception instead of if
             if (!success) {
                 return;
             }
