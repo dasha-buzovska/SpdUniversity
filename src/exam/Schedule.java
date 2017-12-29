@@ -23,6 +23,16 @@ public class Schedule {
         this.format = format;
     }
 
+    public static Schedule scheduleByFilmId(List<Schedule> list, int id) {
+        Schedule schedule = null;
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getIdFilm() == id) {
+                schedule = list.get(i);
+            }
+        }
+        return schedule;
+    }
+
     public int getId() {
         return id;
     }

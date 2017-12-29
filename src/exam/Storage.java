@@ -33,11 +33,43 @@ public class Storage {
         }
     }
 
+    public void findCurrentFilm(LocalDate date) {
+        LocalTime time = LocalTime.now();
+        LocalTime startTime = LocalTime.of(time.getHour()+1, 0);
+        while (startTime.isBefore(LocalTime.of(0,0))) {
+            findCurrentFilm(date, startTime);
+            startTime = startTime.minusHours(1);
+        }
+    }
+
+    public void findCurrentFilm() {
+        findCurrentFilm(LocalDate.now());
+    }
+
     private int findEmptyPlace(String size, int places) {
         if (size.equals("big")) {
             return 20 - places;
         } else {
             return 10 - places;
         }
+    }
+
+    public void displayInfo(String title) {
+        Film chosenFilm = null;
+        for (Film film: films) {
+            if (film.getTitle().equals(title)) {
+                chosenFilm = film;
+                System.out.println(film.toString());
+            }
+            for(Schedule schedule: schedules) {
+                if (schedule.getIdFilm() == chosenFilm.getIdFilm()) {
+                    Booking booking = Booking.bookingByFilmId(bookings, chosenFilm.getIdFilm());
+                    System.out.println(film.getTitle() + "\n" + schedule.getTime() +
+                            "\nHall: " + schedule.getTheater()
+                            + " Empty places: " + findEmptyPlace(schedule.getTheater(), booking.getPlaces()));
+                }
+            }
+        }
+
     }
 }

@@ -73,4 +73,15 @@ public class Film {
         this.rate = rate;
         this.description = description;
     }
+
+    public String toString() {
+        return "title: " + title + "\n" +
+                "country: " + country + "\n" +
+                "year: " + year + "\n" +
+                "genres: " + genres + "\n" +
+                "actors: " + actors + "\n" +
+                "budget: " + budget + "\n" +
+                "rate: " + rate + "\n" +
+                "description: " + description;
+    }
 }

@@ -15,6 +15,9 @@ public class CinemaHall {
 //        2 | 3000 | big | 150 | 2017-12-25 | [12:00, 18:00, 21:00] | |
         Storage storage = new Storage();
         storage.findCurrentFilm(LocalDate.parse("2017-12-25"), LocalTime.of(18, 0));
+        storage.findCurrentFilm(LocalDate.parse("2017-12-25"));
+
+        storage.displayInfo("Predator");
 //        List<Booking> list = parser.parseBookings(FileManager.readFile("resources/bookings.txt"));
 //        System.out.println(list.get(0).getDate());
 
