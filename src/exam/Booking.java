@@ -80,4 +80,9 @@ public class Booking {
     public String getMobile() {
         return mobile;
     }
+
+    public String writeToFile() {
+        return id + " | " + date + " | " + time + " | " + idFilm + " | "
+                + places + " | " + booking + " | " + firstName + " | " + lastName + " | " + email + " | " + mobile + " |";
+    }
 }

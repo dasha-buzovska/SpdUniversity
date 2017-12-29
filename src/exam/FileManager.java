@@ -1,8 +1,6 @@
 package exam;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +20,14 @@ public class FileManager {
     }
 
     public static void write(List<Booking> list) {
-
+        String a = "";
+        for (int i = 0; i < list.size(); i++) {
+            a+=list.get(i).writeToFile();
+        }
+        try(BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(new File("resources/bookings.txt")))) {
+            bufferedWriter.write(a);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

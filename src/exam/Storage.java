@@ -83,5 +83,6 @@ public class Storage {
                         LocalDateTime.now(), firsName, lastName, email, mobile));
             }
         }
+        bookings.addAll(currentBooking);
     }
 }
