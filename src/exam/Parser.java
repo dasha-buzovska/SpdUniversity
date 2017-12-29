@@ -18,8 +18,8 @@ public class Parser {
             String title = array[1].trim();
             String country = array[2].trim();
             int year = Integer.parseInt(array[3].trim());
-            String[] genres = array[4].substring(1, array[4].length() - 1).split(", ");
-            String[] actors = array[5].substring(1, array[5].length() - 1).split(", ");;
+            String genres = array[4].trim();
+            String actors = array[5].trim();
             String budget = array[6].trim();
             int duration = Integer.parseInt(array[7].trim());
             int rate = Integer.parseInt(array[8].trim());

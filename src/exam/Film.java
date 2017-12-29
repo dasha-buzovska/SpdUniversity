@@ -7,8 +7,8 @@ public class Film {
     private String title;
     private String country;
     private int year;
-    private String[] genres;
-    private String[] actors;
+    private String genres;
+    private String actors;
     private String budget;
     private int duration;
     private int rate;
@@ -36,11 +36,11 @@ public class Film {
         return year;
     }
 
-    public String[] getGenres() {
+    public String getGenres() {
         return genres;
     }
 
-    public String[] getActors() {
+    public String getActors() {
         return actors;
     }
 
@@ -60,7 +60,7 @@ public class Film {
         return description;
     }
 
-    public Film(int idFilm, String title, String country, int year, String[] genres, String[] actors, String budget,
+    public Film(int idFilm, String title, String country, int year, String genres, String actors, String budget,
                 int duration, int rate, String description) {
         this.idFilm = idFilm;
         this.title = title;

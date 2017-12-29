@@ -20,4 +20,8 @@ public class FileManager {
             return list;
         }
     }
+
+    public static void write(List<Booking> list) {
+
+    }
 }

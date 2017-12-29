@@ -1,7 +1,9 @@
 package exam;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -11,13 +13,9 @@ public class Storage {
     List<Schedule> schedules = parser.parseSchedule(FileManager.readFile("resources/film-schedule.txt"));
     List<Booking> bookings = parser.parseBookings(FileManager.readFile("resources/bookings.txt"));
 
+
     public void findCurrentFilm(LocalDate date, LocalTime time) {
-//        Stream<Schedule> today = schedules.stream().filter(schedule -> schedule.getDate().equals(date));
-//        //По заданной дате (если не задана, то берется текущая) и времени (если время не задано, то берем весь день)
-//        // вывести список фильмов с временем начала/конца и залом, количество свободных мест
-//        today
-//                .filter(time1 -> time.equals(time1))
-//                .forEach(schedule -> System.out.println(schedule.getTime() + " " + schedule.getTheater()));
+
         for (Schedule schedule: schedules) {
             if (schedule.getDate().equals(date)) {
                 for (LocalTime time1: schedule.getTime()) {
@@ -70,6 +68,20 @@ public class Storage {
                 }
             }
         }
+    }
 
+    public void bookPlace(LocalDate date, LocalTime time, String hall, int place,
+                          String title, String firsName, String lastName, String email, String mobile) {
+        List<Booking> currentBooking = new ArrayList<>();
+        int counter = bookings.size();
+        for (Booking booking: bookings) {
+            if (booking.getDate().equals(date) && booking.getTime().equals(time) && booking.getPlaces() == place) {
+                System.out.println("this place is empty");
+            } else {
+                counter++;
+                currentBooking.add(new Booking(counter, date, time, 3000, place,
+                        LocalDateTime.now(), firsName, lastName, email, mobile));
+            }
+        }
     }
 }
