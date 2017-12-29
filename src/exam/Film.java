@@ -3,10 +3,11 @@ package exam;
 public class Film {
     private int idFilm;
     private String title;
+    private String country;
     private int year;
     private String[] genres;
     private String[] actors;
-    private long budget;
+    private String budget;
     private int duration;
     private int rate;
     private String description;
@@ -31,7 +32,7 @@ public class Film {
         return actors;
     }
 
-    public long getBudget() {
+    public String getBudget() {
         return budget;
     }
 
@@ -47,10 +48,11 @@ public class Film {
         return description;
     }
 
-    public Film(int idFilm, String title, int year, String[] genres, String[] actors, long budget,
+    public Film(int idFilm, String title, String country, int year, String[] genres, String[] actors, String budget,
                 int duration, int rate, String description) {
         this.idFilm = idFilm;
         this.title = title;
+        this.country = country;
         this.year = year;
         this.genres = genres;
         this.actors = actors;

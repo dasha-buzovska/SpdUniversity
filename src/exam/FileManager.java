@@ -15,7 +15,6 @@ public class FileManager {
                 list.add(line);
             }
             return list;
-            // line is not visible here.
         } catch (IOException e) {
             e.printStackTrace();
             return list;
