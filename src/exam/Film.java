@@ -1,5 +1,7 @@
 package exam;
 
+import java.util.List;
+
 public class Film {
     private int idFilm;
     private String title;
@@ -11,6 +13,16 @@ public class Film {
     private int duration;
     private int rate;
     private String description;
+
+    public static Film filmById(List<Film> list, int id) {
+        Film film = null;
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getIdFilm() == id) {
+                film = list.get(i);
+            }
+        }
+        return film;
+    }
 
     public int getIdFilm() {
         return idFilm;

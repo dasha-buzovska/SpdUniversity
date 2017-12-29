@@ -2,6 +2,7 @@ package exam;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 public class Schedule {
     private int id;
@@ -9,10 +10,10 @@ public class Schedule {
     private String theater;
     private int price;
     private LocalDate date;
-    private LocalTime[] time;
+    private List<LocalTime> time;
     private boolean format;
 
-    public Schedule(int id, int idFilm, String theater, int price, LocalDate date, LocalTime[] time, boolean format) {
+    public Schedule(int id, int idFilm, String theater, int price, LocalDate date, List<LocalTime> time, boolean format) {
         this.id = id;
         this.idFilm = idFilm;
         this.theater = theater;
@@ -42,7 +43,7 @@ public class Schedule {
         return date;
     }
 
-    public LocalTime[] getTime() {
+    public List<LocalTime> getTime() {
         return time;
     }
 
