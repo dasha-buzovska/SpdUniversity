@@ -1,6 +1,7 @@
 package exam;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -46,5 +47,23 @@ public class Parser {
         }
         return schedules;
     }
-
+//id | Дата | Время | id_film | № места | Дата/время брони | First name | Second Name | email | mobile
+    public List<Booking> parseBookings(List<String> list) {
+        List<Booking> bookings = new ArrayList<>();
+        for (String line : list) {
+            String[] array = line.split("\\|");
+            int id = Integer.parseInt(array[0].trim());
+            LocalDate date = LocalDate.parse(array[1].trim());
+            LocalTime time = LocalTime.parse(array[2].trim());
+            int idFilm = Integer.parseInt(array[3].trim());
+            int places = Integer.parseInt(array[4].trim());
+            LocalDateTime booking = LocalDateTime.parse(array[5].trim());
+            String firstName = array[6].trim();
+            String lastName = array[7].trim();
+            String email = array[8].trim();
+            String mobile = array[9].trim();
+            bookings.add(new Booking(id, date, time, idFilm, places, booking, firstName, lastName, email, mobile));
+        }
+        return bookings;
+    }
 }
