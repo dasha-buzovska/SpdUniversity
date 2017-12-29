@@ -1,4 +1,4 @@
-package exam.resources;
+package exam;
 
 public class Film {
     private int idFilm;

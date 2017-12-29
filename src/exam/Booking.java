@@ -1,4 +1,4 @@
-package exam.resources;
+package exam;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
